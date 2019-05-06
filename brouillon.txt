@@ -1,0 +1,4 @@
+rouge foncé : #cb1919
+rouge pastel : #ff5757
+
+gris clair : #d9d9d9

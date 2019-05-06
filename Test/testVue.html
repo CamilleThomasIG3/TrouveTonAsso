@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+
+  <head>
+    <title>Test Vue</title>
+    <meta charset="utf-8">
+    <!-- VueJS -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  </head>
+
+  <body>
+
+    <div id="app">
+      <!-- VueJS -->
+      <p>{{message}}</p>
+
+      <!-- Condition si -->
+      <span v-if="seen">Now you see me</span> <!-- Si seen=true => ca s'affiche -->
+      <!-- <span v-else-if="seen"> -->
+      <span v-else>You cant see me</span>
+      <!-- Ou si on veut pas l'enlever complet :-->
+      <span v-show="seen">Now you see me</span>
+
+      <!-- Condition for -->
+      <ol>
+        <li v-for="todo in todos">
+          {{ todo.text }}
+        </li>
+      </ol>
+
+      <!-- Event simple on click -->
+      <button v-on:click="cart += 1">Add in Cart</button>
+      <p>Cart({{cart}})</p>
+
+      <!-- Event difficult on click -->
+      <button v-on:click="reverse">Reverse your message</button>
+
+      <!-- Survole souris : il faudrait un for sur variant -->
+      <p @mouseover="update(variant.variantImage)">Variante{{variant}}</p>
+
+      <!-- Saisit le mot -->
+      <input v-model="message">
+
+      <!-- Ne change jamais -->
+      <span v-once>Ceci ne changera jamais : {{ msg }}</span>
+
+      <!-- Mettre du code HTML -->
+      <p>Using mustaches: {{ rawHtml }}</p>
+      <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+
+      <!--Les moustaches ne peuvent pas être utilisées à l’intérieur des attributs HTML
+      <div v-bind:id="dynamicId"></div>-->
+
+    </div>
+
+  </br>
+</br>
+
+    <div id="app2">
+
+      <ol>
+        <todo-item v-for="item in groceryList" v-bind:todo="item" v-bind:key="item.id">
+        </todo-item>
+      </ol>
+
+    <img v-bind:src="image">
+
+    </div>
+
+  </br>
+</br>
+
+  <div id="app3">
+
+    <span v-bind:title="message">
+      Passe la souris
+    </span>
+
+  </div>
+
+    <script src="testVue.js"></script>
+  </body>
+
+</html>
+
+<!-- En plus -->
+<button @click="addToCart">
+<div @mouseover="Update">
+<form @submit="addToCart">
+<input @keyup.enter="send">

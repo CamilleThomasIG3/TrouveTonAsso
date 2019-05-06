@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+  <head>
+    <title>Trouve Ton Asso</title>
+    <link rel="stylesheet" href="styles/style.css">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  </head>
+
+  <body>
+
+    <!-- Header -->
+    <nav class="navbar navbar-expand-sm navbar-fixed-top" id="header">
+      <!-- Logo -->
+      <div class=" col-md-1" id="divLogo" >
+          <img class="img-responsive" src="images/logo_trouve_ton_asso.png" alt="logo Trouve Ton Asso" id="logo">
+      </div>
+
+      <!-- Pages -->
+      <div class="container-fluid col-md-7" id="divMenu">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="#" id="pageActive">Accueil</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Projets</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">A Propos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Profil</a>
+          </li>
+        </ul>
+      </div>
+
+      <div class="container-fluid col-md-2" >
+        <a href="#" class="btn btn-info btn-lg" id="connexion">
+          <span class="glyphicon glyphicon-log-in">Connexion</span>
+        </a>
+      </div>
+
+      <div class="container-fluid col-md-2">
+        <a href="#" class="btn btn-info btn-lg" id="inscription">
+          <span class="glyphicon glyphicon-log-in">Inscription</span>
+        </a>
+      </div>
+    </nav>
+
+
+    <!-- Caroussel -->
+    <div id="demo" class="carousel slide" data-ride="carousel">
+      <ul class="carousel-indicators">
+        <li data-target="#demo" data-slide-to="0" class="active"></li>
+        <li data-target="#demo" data-slide-to="1"></li>
+        <li data-target="#demo" data-slide-to="2"></li>
+        <li data-target="#demo" data-slide-to="3"></li>
+      </ul>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="/images/livre.jpg" alt="Livres" width="1100" height="500">
+          <div class="carousel-caption">
+            <h3>Education</h3>
+            <p>Rejoignez-nous !</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="/images/pomme.jpg" alt="Pomme" width="1100" height="500">
+          <div class="carousel-caption">
+            <h3>Environnement</h3>
+            <p>Nous avons besoin de vous!</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="/images/genres.jpg" alt="Genres" width="1100" height="500">
+          <div class="carousel-caption">
+            <h3>Education</h3>
+            <p>Aidez-nous !</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="/images/poterie.jpg" alt="Poterie" width="1100" height="500">
+          <div class="carousel-caption">
+            <h3>Art et Culure</h3>
+            <p>Venez découvrir...</p>
+          </div>
+        </div>
+      </div>
+      <a class="carousel-control-prev" href="#demo" data-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+      </a>
+      <a class="carousel-control-next" href="#demo" data-slide="next">
+        <span class="carousel-control-next-icon"></span>
+      </a>
+    </div>
+
+
+    <!-- Footer -->
+    <div class="container-fluid" id="footer">
+      <p>Site internet réalisé avec HTML5, CSS, VueJS, NodeJS et Bootstrap.</p>
+    </div>
+
+  </body>
+
+</html>
