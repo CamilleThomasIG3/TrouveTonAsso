@@ -5,14 +5,11 @@
     <title>Trouve Ton Asso</title>
 
     <meta charset="utf-8">
-    <!-- <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0"/> -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
@@ -79,56 +76,66 @@
 
 
     <!-- Caroussel -->
-    <!-- <div id="demo" class="carousel slide" data-ride="carousel">
-      <ul class="carousel-indicators">
-        <li data-target="#demo" data-slide-to="0" class="active"></li>
-        <li data-target="#demo" data-slide-to="1"></li>
-        <li data-target="#demo" data-slide-to="2"></li>
-        <li data-target="#demo" data-slide-to="3"></li>
-      </ul>
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+      </ol>
+
+      <!-- Wrapper for slides -->
       <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="/images/livre.jpg" alt="Livres" width="1100" height="500">
+        <div class="item active">
+          <img  class="img-responsive"  src="images/livre.jpg" alt="Livres">
           <div class="carousel-caption">
             <h3>Education</h3>
             <p>Rejoignez-nous !</p>
           </div>
         </div>
-        <div class="carousel-item">
-          <img src="/images/pomme.jpg" alt="Pomme" width="1100" height="500">
+
+        <div class="item">
+          <img  class="img-responsive"  src="images/pomme.jpg" alt="Pomme">
           <div class="carousel-caption">
             <h3>Environnement</h3>
             <p>Nous avons besoin de vous!</p>
           </div>
         </div>
-        <div class="carousel-item">
-          <img src="/images/genres.jpg" alt="Genres" width="1100" height="500">
+
+        <div class="item">
+          <img   class="img-responsive" src="images/genres.jpg" alt="Genres">
           <div class="carousel-caption">
             <h3>Education</h3>
             <p>Aidez-nous !</p>
           </div>
         </div>
-        <div class="carousel-item">
-          <img src="/images/poterie.jpg" alt="Poterie" width="1100" height="500">
+
+        <div class="item">
+          <img  class="img-responsive"  src="images/poterie.jpg" alt="Poterie">
           <div class="carousel-caption">
             <h3>Art et Culure</h3>
             <p>Venez découvrir...</p>
           </div>
         </div>
       </div>
-      <a class="carousel-control-prev" href="#demo" data-slide="prev">
-        <span class="carousel-control-prev-icon"></span>
-      </a>
-      <a class="carousel-control-next" href="#demo" data-slide="next">
-        <span class="carousel-control-next-icon"></span>
-      </a>
-    </div> -->
 
+      <!-- Left and right controls -->
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+        <span class="sr-only">Précédent</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+        <span class="sr-only">Suivant</span>
+      </a>
+    </div>
 
     <!-- Footer -->
-    <div class="container-fluid col-md-12" id="footer">
+    <div class="container-fluid" id="footer">
       <p>Site internet réalisé avec HTML5, CSS, VueJS, NodeJS et Bootstrap.</p>
     </div>
+
 
   </body>
 
