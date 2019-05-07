@@ -1,0 +1,19 @@
+{
+  "name": "trouvetonasso",
+  "version": "1.0.0",
+  "description": "Projet Web 2019",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CamilleThomasIG3/TrouveTonAsso.git"
+  },
+  "author": "Camille Thomas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CamilleThomasIG3/TrouveTonAsso/issues"
+  },
+  "homepage": "https://github.com/CamilleThomasIG3/TrouveTonAsso#readme"
+}
