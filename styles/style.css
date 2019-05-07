@@ -53,58 +53,65 @@ table {
 /*My CSS*/
 #header{
   background-color: #d9d9d9;
-  padding: 0em;
 }
 
-#divLogo{
-  align-content: center;
-  height:4.5em;
+#retractBar{
+	background-color:  #cb1919;
+	margin :1.5em;
 }
+
+.icon-bar{
+	background-color:  white;
+}
+
 
 #logo{
-  width: 4.5em;
+  width: 6em;
 }
 
-li{
-  margin : 1em;
+#pages{
+	margin : 1em;
 }
 
-.nav-link{
-  color: black;
-  border-radius: 5px;
+#pages li{
+	margin-left: 2em;
 }
 
-.nav-link:hover{
-  color: #ff5757;
+@media screen and (max-width: 480px) {
+  #pages li, #connexionInscription li{
+  	margin: 2em;
+  }
 }
 
-#pageActive{
-  background-color: #ff5757;
+#connexionInscription{
+		margin : 1em;
 }
 
-.active:hover{
+#connexionInscription li{
+		margin-right: 1em;
+}
+
+#pagesAutre{
   color: white;
+  border-radius: 5px;
+	border-color: #cb1919;
+	padding: 0.8em;
+	background-color: #cb1919;
 }
 
-#divMenu{
-  right: 0.5em;
-}
-
-#connexion, #inscription{
-  border-color:  #cb1919;
-  background-color: #cb1919;
-  position: absolute;
-}
-
-#connexion:hover, #inscription:hover{
+#pagesAutre:hover{
   color: black;
 }
 
-#connexion{
-  right: 0.5em;
+#connexion, #inscription, #pageActive{
+	color : black;
+  border-color:  #cb1919;
+  background-color: #ff5757;
+  position: relative;
 }
-#inscription{
-  left: 0.5em;
+
+#connexion:hover, #inscription:hover, #pageActive:hover{
+  color: white;
 }
 
 #footer{
