@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/CamilleThomasIG3/TrouveTonAsso/",
   "scripts": {
-    "start": "node index.js"
+    "start": "html index.html"
   },
   "dependencies": {
     "express": "^4.16.4",
