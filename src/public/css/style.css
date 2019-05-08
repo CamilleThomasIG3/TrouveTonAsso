@@ -76,7 +76,7 @@ table {
 	margin-left: 2em;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 770px) {
   #pages li, #connexionInscription li{
   	margin: 2em;
   }
@@ -115,7 +115,6 @@ table {
 
 #footer{
   background-color: #d9d9d9;
-  position: absolute;
   bottom: 0;
 	width: 100%;
 }
@@ -139,17 +138,18 @@ table {
 /*Formulaire ajout asso*/
 #titre_ajout_asso{
 	text-align: center;
+	color:  #cb1919;
 }
 
 #div_ajout_asso{
 	text-align: center;
 	margin-top: 3em;
+	width: 100%;
 }
 
-@media screen and (min-width: 480px) {
+@media screen and (min-width: 1000px) {
 	#div_ajout_asso{
 		margin-left: 33%;
-		width:100%;
 	}
 }
 
