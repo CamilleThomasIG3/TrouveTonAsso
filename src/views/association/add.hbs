@@ -1,0 +1,54 @@
+<div class="container p-4">
+  <h2 id="titre_ajout_asso">Ajoutez votre association</h2>
+  <div class="row"  id="div_ajout_asso">
+    <div class="col-md-4"  id="form_ajout_asso">
+      <div class="card">
+        <div class="card-body">
+          <form action="/association/add" method="post">
+            <div class="form-group">
+              <input type="number" class="form-control" name="numSIREN_asso" placeholder="Numéro SIREN" required>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="nom_asso" placeholder="Nom" required>
+            </div>
+            <div class="form-group">
+              <textarea name="description_asso" rows="2" cols="80" class="form-control"  placeholder="Description" required></textarea>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="adresse_asso" placeholder="Adresse">
+            </div>
+            <div class="form-group">
+              <input type="number" class="form-control" name="arrondissement_asso" placeholder="Arrondissement">
+            </div>
+            <div class="form-group">
+              <input type="number" class="form-control" name="CP_asso" placeholder="Code Postal" required>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="ville_asso" placeholder="Ville" required>
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" name="email_asso" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+              <input type="tel" class="form-control" name="tel_asso" placeholder="Numéro de téléphone">
+            </div>
+            <div class="form-group">
+              <input type="url" class="form-control" name="facebook_asso" placeholder="Lien Facebook">
+            </div>
+            <div class="form-group">
+              <input type="url" class="form-control" name="site_asso" placeholder="Lien site internet">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="logo_asso" placeholder="Logo" required>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-success btn-block">
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
