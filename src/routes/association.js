@@ -1,14 +1,16 @@
 const express = require('express')
 const router = express.Router()
+
 const pool = require('../database')
+const { isLoggedIn } = require('../lib/auth')
 
 //Display view "ajout association"
-router.get('/ajout', (req, res)=> {
+router.get('/ajout', isLoggedIn, (req, res)=> {
   res.render('association/ajout')
 })
 
 //Recuperation datas from form "ajout association"
-router.post('/ajout', async (req, res)=> {
+router.post('/ajout', isLoggedIn, async (req, res)=> {
   const { numSIREN_asso, nom_asso, description_asso, adresse_asso, arrondissement_asso,
      CP_asso, ville_asso, email_asso, tel_asso, facebook_asso, site_asso, logo_asso } = req.body
   const newAssociation = {
@@ -37,7 +39,7 @@ router.get('/', async (req, res) =>{
 })
 
 //Delete association
-router.get('/supprimer/:numSIREN_asso', async (req, res) =>{
+router.get('/supprimer/:numSIREN_asso', isLoggedIn, async (req, res) =>{
   const { numSIREN_asso } = req.params
   await pool.query('DELETE FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
   req.flash('success', 'Association supprimée avec succès')
@@ -45,14 +47,14 @@ router.get('/supprimer/:numSIREN_asso', async (req, res) =>{
 })
 
 //Edit association
-router.get('/modifier/:numSIREN_asso', async (req, res) =>{
+router.get('/modifier/:numSIREN_asso', isLoggedIn, async (req, res) =>{
   const { numSIREN_asso } = req.params
   const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
   res.render('association/modifier', {association: association[0]})
 })
 
 //Recuperation datas from form "modifier association"
-router.post('/modifier/:numSIREN_asso', async (req, res)=> {
+router.post('/modifier/:numSIREN_asso', isLoggedIn, async (req, res)=> {
   const { numSIREN_asso } = req.params
   const { nom_asso, description_asso, adresse_asso, arrondissement_asso,
      CP_asso, ville_asso, email_asso, tel_asso, facebook_asso, site_asso, logo_asso } = req.body

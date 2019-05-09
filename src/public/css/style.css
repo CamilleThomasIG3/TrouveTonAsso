@@ -92,6 +92,14 @@ table {
   }
 }
 
+#connexionInscription{
+		background-color: grey;
+		padding: 0.8em;
+		padding-right: 0.1em;
+		border-radius: 8px;
+		margin-top: 0.5em;
+}
+
 #connexionInscription li{
 		margin-right: 1em;
 }
@@ -108,7 +116,7 @@ table {
   color: black;
 }
 
-#connexion, #inscription, #pageActive{
+#connexion, #inscription, #deconnexion, #pageActive{
 	color : black;
   border-color:  #cb1919;
   background-color: #ff5757;
@@ -116,10 +124,12 @@ table {
 	padding: 0.8em;
 }
 
-#connexion:hover, #inscription:hover, #pageActive:hover{
+#connexion:hover, #inscription:hover, #pageActive:hover, #deconnexion:hover{
   color: white;
 }
 
+
+/* Footer */
 #footer{
   background-color: #d9d9d9;
   bottom: 0;

@@ -10,14 +10,16 @@
       </button>
 
       <!-- Logo -->
-      <img class="img-responsive" src="/images/logos/logo_trouve_ton_asso.png" alt="logo Trouve Ton Asso" id="logo">
+      <a href="/">
+        <img class="img-responsive" src="/images/logos/logo_trouve_ton_asso.png" alt="logo Trouve Ton Asso" id="logo">
+      </a>
     </div>
 
     <!-- Pages -->
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="navbar-nav" id="pages">
         <li class="nav-item">
-          <a href="/association" class="btn btn-info" id="pageActive">
+          <a href="/" class="btn btn-info" id="pageActive">
             <span>Accueil</span>
           </a>
         </li>
@@ -31,24 +33,41 @@
             <span>A Propos</span>
           </a>
         </li>
+
+        {{#if personne}}
         <li class="nav-item">
-          <a href="#" class="btn btn-info" id="pagesAutre">
+          <a href="/profil" class="btn btn-info" id="pagesAutre">
             <span>Profil</span>
           </a>
         </li>
+        {{/if}}
+
       </ul>
 
+
       <ul class="nav navbar-nav navbar-right"  id="connexionInscription">
+
+        {{#unless personne}}
         <li>
-          <a href="#" class="btn btn-info" id="connexion">
+          <a href="/connexion" class="btn btn-info" id="connexion">
             <span>Connexion</span>
           </a>
         </li>
         <li>
-          <a href="#" class="btn btn-info" id="inscription">
+          <a href="/inscription" class="btn btn-info" id="inscription">
             <span>Inscription</span>
           </a>
         </li>
+        {{/unless}}
+
+        {{#if personne}}
+        <li>
+          <a href="/deconnexion" class="btn btn-info" id="deconnexion">
+            <span>Déconnexion</span>
+          </a>
+        </li>
+        {{/if}}
+
       </ul>
 
     </div>
