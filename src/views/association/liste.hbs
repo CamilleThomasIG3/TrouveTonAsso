@@ -1,0 +1,35 @@
+<div class="container p-4">
+  <h2 class="titres">Liste des association</h2>
+  <div class="row">
+
+    {{#each association}}
+        <div class="col-md-3">
+          <div class="card text-center">
+            <div class="card-body">
+
+                <h4 class="card-title text-uppercase">
+                  {{nom_asso}}
+                </h4>
+
+                <p class="m-2">{{description_asso}}</p>
+
+                <a href="association/supprimer/{{numSIREN_asso}}" class="btn btn-danger">Supprimer</a>
+                <a href="association/modifier/{{numSIREN_asso}}" class="btn btn-secondary">Modifier</a>
+
+            </div>
+          </div>
+        </div>
+
+    {{else}}
+
+    <div class="col-md-4 mx-auto">
+      <div class="card card-body text-center">
+        <p>Il n'y a pas d'association</p>
+        <a href="/association/ajout" class="btn btn-success">Créer</a>
+      </div>
+    </div>
+
+    {{/each}}
+
+  </div>
+</div>

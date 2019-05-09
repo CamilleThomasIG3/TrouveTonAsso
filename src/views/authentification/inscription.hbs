@@ -1,0 +1,48 @@
+<div class="container p-4">
+  <div class="row">
+    <div class="col-md-4 mx-auto">
+      <div class="card text-center">
+        <div class="card-header">
+          <h3 class="titres">Inscription</h3>
+        </div>
+        <div class="card-body">
+          <form action="/inscription" method="post">
+            <div class="form-group">
+              <input type="text" name="prenom_personne" placeholder="Prénom" class="form-control" autofocus required>
+            </div>
+            <div class="form-group">
+              <input type="text" name="nom_personne" placeholder="Nom" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <input type="date" name="date_naissance_personne" placeholder="Date de naissance" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <input type="text" name="adresse_personne" placeholder="Adresse" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <input type="text" name="arrondissement_personne" placeholder="Arrondissement" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="number" name="CP_personne" placeholder="Code Postal" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <input type="text" name="ville_personne" placeholder="Ville" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <input type="email" name="email_personne" placeholder="Email" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <input type="password" name="mdp_personne" placeholder="Mot de passe" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="text" name="photo_personne" placeholder="Photo" class="form-control">
+            </div>
+            <div class="form-group">
+              <button class="btn btn-success btn-block">S'inscrire</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,54 @@
+<div class="container p-4">
+  <h2 class="titres">Modifiez votre association</h2>
+  <div class="row"  id="div_ajout_asso">
+    <div class="col-md-4"  id="form_ajout_asso">
+      <div class="card">
+        <div class="card-body">
+          <form action="/association/modifier/{{association.numSIREN_asso}}" method="post">
+            <div class="form-group">
+              <input type="number" value="{{association.numSIREN_asso}}" class="form-control" name="numSIREN_asso" placeholder="Numéro SIREN" required>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="nom_asso" placeholder="Nom" value="{{association.nom_asso}}" required>
+            </div>
+            <div class="form-group">
+              <textarea name="description_asso" rows="2" cols="80" class="form-control"  placeholder="Description" required>{{association.description_asso}}</textarea>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="adresse_asso" placeholder="Adresse" value="{{association.adresse_asso}}">
+            </div>
+            <div class="form-group">
+              <input type="number" class="form-control" name="arrondissement_asso" placeholder="Arrondissement" value="{{association.arrondissement_asso}}">
+            </div>
+            <div class="form-group">
+              <input type="number" class="form-control" name="CP_asso" placeholder="Code Postal" value="{{association.CP_asso}}" required>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="ville_asso" placeholder="Ville" value="{{association.ville_asso}}" required>
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" name="email_asso" placeholder="Email" value="{{association.email_asso}}" required>
+            </div>
+            <div class="form-group">
+              <input type="tel" class="form-control" name="tel_asso" placeholder="Numéro de téléphone" value="{{association.tel_asso}}">
+            </div>
+            <div class="form-group">
+              <input type="url" class="form-control" name="facebook_asso" placeholder="Lien Facebook" value="{{association.facebook_asso}}">
+            </div>
+            <div class="form-group">
+              <input type="url" class="form-control" name="site_asso" placeholder="Lien site internet" value="{{association.site_asso}}">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="logo_asso" placeholder="Logo" value="{{association.logo_asso}}" required>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-success btn-block">
+                Modifier
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

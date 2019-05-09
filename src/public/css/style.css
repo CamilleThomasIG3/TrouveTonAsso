@@ -50,6 +50,15 @@ table {
 }
 
 /*My CSS*/
+
+/*In commun*/
+.titres{
+	text-align: center;
+	color:  #cb1919;
+}
+
+
+/*Home*/
 #header{
   background-color: #d9d9d9;
 }
@@ -68,8 +77,9 @@ table {
   width: 6em;
 }
 
-#pages{
+#pages, #connexionInscription{
 	margin : 1em;
+	margin-top: 1.2em;
 }
 
 #pages li{
@@ -80,10 +90,6 @@ table {
   #pages li, #connexionInscription li{
   	margin: 2em;
   }
-}
-
-#connexionInscription{
-		margin : 1em;
 }
 
 #connexionInscription li{
@@ -107,6 +113,7 @@ table {
   border-color:  #cb1919;
   background-color: #ff5757;
   position: relative;
+	padding: 0.8em;
 }
 
 #connexion:hover, #inscription:hover, #pageActive:hover{
@@ -116,7 +123,8 @@ table {
 #footer{
   background-color: #d9d9d9;
   bottom: 0;
-	width: 100%;
+	width: 100;
+	margin-top: 1em;
 }
 
 #footer p{
@@ -135,11 +143,7 @@ table {
   background-color: black;
 }
 
-/*Formulaire ajout asso*/
-#titre_ajout_asso{
-	text-align: center;
-	color:  #cb1919;
-}
+/*Form add asso*/
 
 #div_ajout_asso{
 	text-align: center;
@@ -155,4 +159,11 @@ table {
 
 #form_ajout_asso{
 	display: inline-block;
+}
+
+
+/*View list asso*/
+.btn-secondary{
+	background-color: grey;
+	color: white;
 }
