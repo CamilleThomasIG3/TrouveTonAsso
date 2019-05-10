@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "bootstrap": "^3.4.0",
+    "bootstrap": "^3.4.1",
     "bootstrap-vue": "^2.0.0-rc.19",
     "connect-flash": "^0.1.1",
     "express": "^4.16.4",
