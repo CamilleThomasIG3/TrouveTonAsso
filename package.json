@@ -16,12 +16,9 @@
     "url": "https://github.com/CamilleThomasIG3/TrouveTonAsso/issues"
   },
   "homepage": "https://github.com/CamilleThomasIG3/TrouveTonAsso/",
-  "engines": {
-    "node": "11.14.0"
-  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "bootstrap": "^3.4.1",
+    "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.19",
     "connect-flash": "^0.1.1",
     "express": "^4.16.4",
