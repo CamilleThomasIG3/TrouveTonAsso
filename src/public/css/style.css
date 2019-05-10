@@ -57,6 +57,9 @@ table {
 	color:  #cb1919;
 }
 
+.container{
+	background-color: #d9d9d9;
+}
 
 /*Home*/
 #header{
@@ -73,7 +76,7 @@ table {
 }
 
 
-#logo{
+#logo_nav{
   width: 6em;
 }
 
@@ -176,4 +179,43 @@ table {
 .btn-secondary{
 	background-color: grey;
 	color: white;
+}
+
+.logo{
+	width: 120px;
+}
+
+/* .truncate {
+  white-space: nowrap;
+  width: 8000px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+} */
+
+.voir_plus{
+	width: 15em;
+}
+
+
+/* Profile */
+#profil_table td{
+	background-color: #d9d9d9;
+}
+
+#profil_table td, #profil_table th{
+		border-color: #cb1919;
+}
+
+#profil_table th{
+	background-color: #ff5757;
+}
+
+
+/* view A Propos */
+#div_a_propos{
+	width: 70%;
+}
+
+.gras{
+	font-weight: bold;
 }

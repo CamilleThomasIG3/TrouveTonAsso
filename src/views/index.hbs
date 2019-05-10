@@ -1,8 +1,46 @@
 <main class="index">
-  <header>
-    {{> navigation}}
-  </header>
-  <body>
+
     {{> caroussel}}
-  </body>
+
+    <div class="container p-4">
+      <div class="col-md-2">
+
+      </div>
+
+      <div class="col-md-10">
+        <h2 class="titres">Liste des association</h2>
+
+          {{#each association}}
+
+            <div class="media">
+              <div class="media-left media-middle">
+                <a href="#">
+                  <img class="media-object logo" src="{{logo_asso}}" alt="Logo {{nom_asso}}">
+                </a>
+              </div>
+              <div class="media-body">
+                <h4 class="media-heading">{{nom_asso}}</h4>
+                <p class="truncate">{{description_asso}}</p>
+                <div class="form-group voir_plus">
+                  <button class="btn btn-success btn-block">
+                    Voir plus
+                  </button>
+                </div>
+              </div>
+            </div>
+
+          {{else}}
+
+            <div class="col-md-4 mx-auto">
+              <div class="card card-body text-center">
+                <p>Il n'y a pas d'association</p>
+                <a href="/association/ajout" class="btn btn-success">Créer</a>
+              </div>
+            </div>
+
+          {{/each}}
+
+        </div>
+    </div>
+  </div>
 </main>

@@ -53,7 +53,6 @@ app.use((req, res, next) =>{
 app.use(require('./routes'))
 app.use(require('./routes/authentification'))
 app.use('/association', require('./routes/association'))
-app.use('/association', require('./routes/association'))
 
 
 //public

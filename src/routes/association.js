@@ -29,21 +29,21 @@ router.post('/ajout', isLoggedIn, async (req, res)=> {
   }
   await pool.query('INSERT INTO association set ?', [newAssociation])
   req.flash('success', 'Association sauvegardée avec succès')
-  res.redirect('/association')
+  res.redirect('../..')
 })
 
-//Display view "liste association"
-router.get('/', async (req, res) =>{
-  const association = await pool.query('SELECT * FROM association')
-  res.render('association/liste', {association})
-})
+// //Display view "liste association"
+// router.get('/', async (req, res) =>{
+//   const association = await pool.query('SELECT * FROM association')
+//   res.render('index', {association})
+// })
 
 //Delete association
 router.get('/supprimer/:numSIREN_asso', isLoggedIn, async (req, res) =>{
   const { numSIREN_asso } = req.params
   await pool.query('DELETE FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
   req.flash('success', 'Association supprimée avec succès')
-  res.redirect('/association')
+  res.redirect('../..')
 })
 
 //Edit association
@@ -73,7 +73,7 @@ router.post('/modifier/:numSIREN_asso', isLoggedIn, async (req, res)=> {
   }
   await pool.query('UPDATE association set ? WHERE numSIREN_asso = ?', [newAssociation, numSIREN_asso])
   req.flash('success', 'Association modifiée avec succès')
-  res.redirect('/association')
+  res.redirect('../..')
 })
 
 module.exports = router

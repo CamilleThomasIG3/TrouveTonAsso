@@ -1,10 +1,37 @@
-<div class="container p-4">
+<div class="container text-center">
   <div class="row">
-    <div class="col-md-4 mx-auto">
-      <div class="card text-center">
-        <div class="card-body">
-          <h3 class="titres">{{personne.prenom_personne}} {{personne.nom_personne}}</h3>
-          <h4>{{personne.email_personne}}</h4>
+    <div class="col-sm-6 col-md-4">
+      <div class="thumbnail">
+        <img src="{{personne.photo_personne}}" alt="Photo de profil" class="logo">
+        <div class="caption">
+        		<table class="table table-bordered" id="profil_table">
+        	  		<tr>
+        			    <th class="text-center">Prénom</th>
+        			    <td>{{personne.prenom_personne}}</td>
+        	  		</tr>
+        	  		<tr>
+        			    <th class="text-center">Nom</th>
+        			    <td>{{personne.nom_personne}}</td>
+        	  		</tr>
+                <tr>
+                  <th class="text-center">Email</th>
+                  <td>{{personne.email_personne}}</td>
+                </tr>
+        	  		<tr>
+        			    <th class="text-center">Date de naissance</th>
+        			    <td>{{personne.date_naissance_personne}}</td>
+        	  		</tr>
+        	  		<tr>
+        			    <th class="text-center">Adresse</th>
+        			    <td>
+        			    	<div>{{personne.adresse_personne}}</div>
+                    <div>Arrondissement {{personne.arrondissement_personne}}</div>
+        			    	<div>{{personne.CP_personne}} {{personne.ville_personne}}</div>
+        			    </td>
+        	  		</tr>
+        	  	</table>
+
+          <p><a href="#" class="btn btn-secondary" role="button">Modifier</a></p>
         </div>
       </div>
     </div>
