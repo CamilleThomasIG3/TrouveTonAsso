@@ -14,7 +14,7 @@ passport.use('local.signin', new LocalStrategy ({
     const personne = rows[0]
     const validPassword = await helpers.matchPassword(mdp_personne, personne.mdp_personne)
     if(validPassword){
-      done(null, personne, req.flash('success', 'Bienvenue ' + personne.prenom_personne))
+      done(null, personne, req.flash('success'))
     }else{
       done(null, false, req.flash('message', 'Mot de passe incorrecte'))
     }
