@@ -34,7 +34,7 @@ router.post('/ajout', isLoggedIn, async (req, res)=> {
 
 
 //Delete association
-router.get('/supprimer/:numSIREN_asso', isLoggedIn, async (req, res) =>{
+router.delete('/supprimer/:numSIREN_asso', isLoggedIn, async (req, res) =>{
   const { numSIREN_asso } = req.params
   await pool.query('DELETE FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
   req.flash('success', 'Association supprimée avec succès')

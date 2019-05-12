@@ -1,44 +1,95 @@
 <main class="index">
 
-    {{> caroussel}}
+  {{> caroussel}}
 
-    <div class="container p-4">
+  <div class="container-fluid p-4">
+
+    <div class="row">
+      <form class="navbar-form" id="recherche">
+        <input type="text" name="recherche" placeholder="Rechercher..." class="form-control input-sm">
+        <button type="submit" class="btn btn-primary btn-sm">
+          <span class="glyphicon glyphicon-search"></span>
+        </button>
+      </form>
+    </div>
+
+    <div class="row">
+
       <div class="col-md-2">
+        <form class="navbar-form">
+
+          <div class="criteres">
+            <p class="sous-titre">Types d'association :</p>
+
+            {{#each type_association}}
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="check{{id_type_asso}}">
+              <label class="form-check-label" for="check{{id_type_asso}}">{{libelle_type_asso}}</label>
+            </div>
+            {{/each}}
+          </div>
+
+          <div class="criteres">
+            <p class="sous-titre">Arrondissements :<p>
+
+            {{#each arrondissement}}
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="check{{arrondissement_asso}}">
+              <label class="form-check-label" for="check{{arrondissement_asso}}">{{arrondissement_asso}}</label>
+            </div>
+            {{/each}}
+          </div>
+
+          <div class="criteres">
+            <p class="sous-titre">Pays d'action :<p>
+
+            {{#each pays}}
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="check{{id_pays}}">
+              <label class="form-check-label" for="check{{id_pays}}">{{nom_pays}}</label>
+            </div>
+            {{/each}}
+          </div>
+
+
+          <button type="submit" class="btn btn-primary" id="check3">
+            <span class="glyphicon glyphicon-search"> Rechercher</span>
+          </button>
+
+        </form>
+      </div>
+
+      <div class="container col-md-10" id="liste_asso">
+
+        {{#each association}}
+        <div class="media asso">
+          <div class="media-left media-middle">
+            <a href="#">
+              <img class="media-object logo" src="{{logo_asso}}" alt="Logo {{nom_asso}}" id="logo_assos">
+            </a>
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">{{nom_asso}}</h4>
+            <p class="truncate">{{description_asso}}</p>
+            <div class="form-group voir_plus">
+              <a href="fiche/{{numSIREN_asso}}" class="btn btn-success btn-block">Voir plus</a>
+            </div>
+          </div>
+        </div>
+
+        {{else}}
+        <div class="col-md-4 mx-auto">
+          <div class="card card-body text-center">
+            <p>Il n'y a pas d'association</p>
+            <a href="/association/ajout" class="btn btn-success">Créer</a>
+          </div>
+        </div>
+        {{/each}}
 
       </div>
 
-      <div class="col-md-10" id="liste_asso">
-        <h2 class="titres">Liste des associations</h2>
-
-          {{#each association}}
-
-            <div class="media">
-              <div class="media-left media-middle">
-                <a href="#">
-                  <img class="media-object logo" src="{{logo_asso}}" alt="Logo {{nom_asso}}">
-                </a>
-              </div>
-              <div class="media-body">
-                <h4 class="media-heading">{{nom_asso}}</h4>
-                <p class="truncate">{{description_asso}}</p>
-                <div class="form-group voir_plus">
-                  <a href="fiche/{{numSIREN_asso}}" class="btn btn-success btn-block">Voir plus</a>
-                </div>
-              </div>
-            </div>
-
-          {{else}}
-
-            <div class="col-md-4 mx-auto">
-              <div class="card card-body text-center">
-                <p>Il n'y a pas d'association</p>
-                <a href="/association/ajout" class="btn btn-success">Créer</a>
-              </div>
-            </div>
-
-          {{/each}}
-
-        </div>
     </div>
   </div>
+  </div>
+
 </main>

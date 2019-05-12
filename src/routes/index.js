@@ -5,7 +5,10 @@ const pool = require('../database')
 
 router.get('/', async (req, res) =>{
   const association = await pool.query('SELECT * FROM association')
-  res.render('index', {association})
+  const type_association = await pool.query('SELECT * FROM type_association')
+  const arrondissement = await pool.query('SELECT DISTINCT arrondissement_asso FROM association')
+  const pays = await pool.query('SELECT * FROM pays')
+  res.render('index', {association, type_association, arrondissement, pays})
 })
 
 router.get('/a_propos', (req,res)=>{
@@ -18,6 +21,14 @@ router.get('/fiche/:numSIREN_asso', async (req, res) =>{
   const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
   console.log(association)
   res.render('association/fiche', {association: association[0]})
+})
+
+//Display associationsith criteria choosen
+router.get('/recherche/:mot', async (req, res) =>{
+  const mot = req.params
+  const mot2 = await pool.query('SELECT * FROM association WHERE nom_asso=?', [mot])
+  console.log(mot2)
+  res.render('fait')
 })
 
 module.exports = router

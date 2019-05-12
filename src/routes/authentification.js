@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const pool = require('../database')
+const helpers = require('../lib/helpers')
 
 const passport = require('passport')
 const { isLoggedIn, isNotLoggedIn } = require('../lib/auth')
@@ -47,20 +48,20 @@ router.get('/modifier/:id_personne', isLoggedIn, async (req, res) =>{
 //Recuperation datas from form "modifier personne"
 router.post('/modifier/:id_personne', isLoggedIn, async (req, res)=> {
   const { id_personne } = req.params
-  const { prenom_personne, nom_personne, date_naissance_personne, adresse_personne, arrondissement_personne,
+  const { prenom_personne, nom_personne, date_naissance_personne, adresse_personne,
      CP_personne, ville_personne, email_personne, mdp_personne, photo_personne } = req.body
   const newPersonne = {
     prenom_personne,
     nom_personne,
     date_naissance_personne,
     adresse_personne,
-    arrondissement_personne,
     CP_personne,
     ville_personne,
     email_personne,
     mdp_personne,
     photo_personne
   }
+  newPersonne.mdp_personne = await helpers.encryptPassword(mdp_personne)
   await pool.query('UPDATE personne set ? WHERE id_personne = ?', [newPersonne, id_personne])
   req.flash('success', 'Profil modifié avec succès')
   res.redirect('/profil')

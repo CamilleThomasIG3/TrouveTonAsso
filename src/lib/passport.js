@@ -28,7 +28,7 @@ passport.use('local.signup', new LocalStrategy ({
   passwordField: 'mdp_personne',
   passReqToCallback: true
 }, async (req, email_personne, mdp_personne, done) =>{
-  const { prenom_personne, nom_personne, date_naissance_personne, adresse_personne, arrondissement_personne, CP_personne, ville_personne, photo_personne } = req.body
+  const { prenom_personne, nom_personne, date_naissance_personne, adresse_personne, CP_personne, ville_personne, photo_personne } = req.body
   const newPersonne = {
     email_personne,
     mdp_personne,
@@ -36,7 +36,6 @@ passport.use('local.signup', new LocalStrategy ({
     nom_personne,
     date_naissance_personne,
     adresse_personne,
-    arrondissement_personne,
     CP_personne,
     ville_personne,
     photo_personne
