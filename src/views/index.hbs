@@ -7,7 +7,7 @@
 
       </div>
 
-      <div class="col-md-10">
+      <div class="col-md-10" id="liste_asso">
         <h2 class="titres">Liste des associations</h2>
 
           {{#each association}}
@@ -22,9 +22,7 @@
                 <h4 class="media-heading">{{nom_asso}}</h4>
                 <p class="truncate">{{description_asso}}</p>
                 <div class="form-group voir_plus">
-                  <button class="btn btn-success btn-block">
-                    Voir plus
-                  </button>
+                  <a href="fiche/{{numSIREN_asso}}" class="btn btn-success btn-block">Voir plus</a>
                 </div>
               </div>
             </div>

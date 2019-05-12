@@ -32,11 +32,6 @@ router.post('/ajout', isLoggedIn, async (req, res)=> {
   res.redirect('../..')
 })
 
-// //Display view "liste association"
-// router.get('/', async (req, res) =>{
-//   const association = await pool.query('SELECT * FROM association')
-//   res.render('index', {association})
-// })
 
 //Delete association
 router.get('/supprimer/:numSIREN_asso', isLoggedIn, async (req, res) =>{
@@ -45,6 +40,7 @@ router.get('/supprimer/:numSIREN_asso', isLoggedIn, async (req, res) =>{
   req.flash('success', 'Association supprimée avec succès')
   res.redirect('../..')
 })
+
 
 //Edit association
 router.get('/modifier/:numSIREN_asso', isLoggedIn, async (req, res) =>{

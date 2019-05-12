@@ -1,0 +1,49 @@
+<div class="container text-center line1">
+  <div class="row">
+    <div class="col-md-6" id="cadre_fiche_asso">
+      <div class="thumbnail" id="prof">
+
+        <div class="card fiche_asso">
+          <img class="card-img-top logo" src="{{association.logo_asso}}" alt="Logo de {{association.nom_asso}}">
+
+          <div class="card-body fiche_asso">
+            <h2 class="card-title" id="titre_card_asso">{{association.nom_asso}}</h2>
+            <h4 class="card-text">{{association.description_asso}}<h4>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+              <span class="glyphicon glyphicon-envelope">
+                <a href="mailto:{{association.mail_asso}}">{{association.email_asso}}</a>
+              </span>
+            </li>
+            {{#if association.tel_asso}}
+            <li class="list-group-item">
+              <span class="glyphicon glyphicon-earphone">
+                <a href="tel:{{association.tel_asso}}">{{association.tel_asso}}</a>
+              </span>
+
+            </li>
+            {{/if}}
+            <li class="list-group-item">{{association.adresse_asso}}</li>
+            {{#if association.arrondissement_asso}}
+            <li class="list-group-item">{{association.arrondissement_asso}}</li>
+            {{/if}}
+            <li class="list-group-item">{{association.CP_asso}}</li>
+            <li class="list-group-item">{{association.ville_asso}}</li>
+          </ul>
+
+          <div class="card-body fiche_asso">
+            {{#if association.facebook_asso}}
+            <a href="{{association.facebook_asso}}" class="card-link btn btn-primary" target="_blank">Facebook</a>
+            {{/if}}
+            {{#if association.site_asso}}
+            <a href="{{association.site_asso}}" class="card-link btn btn-primary" target="_blank">Site internet</a>
+            {{/if}}
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>

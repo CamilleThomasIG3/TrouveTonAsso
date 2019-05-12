@@ -52,6 +52,10 @@ table {
 /*My CSS*/
 
 /*In commun*/
+.logo{
+	width: 120px;
+}
+
 .titres{
 	text-align: center;
 	color:  #cb1919;
@@ -212,14 +216,13 @@ table {
 	color: white;
 }
 
-.logo{
-	width: 120px;
-}
-
 .voir_plus{
 	width: 15em;
 }
 
+#liste_asso{
+	margin-bottom: 5em;
+}
 
 /* Profile */
 #prof{
@@ -269,4 +272,21 @@ table {
 /* message */
 #message{
 	margin-left: 50%;
+}
+
+
+/* association card */
+.fiche_asso{
+	margin: 2em;
+}
+
+#titre_card_asso{
+	color:  #cb1919;
+	margin-bottom: 1em;
+}
+
+@media screen and (min-width: 1000px) {
+	#cadre_fiche_asso{
+		margin-left: 20em;
+	}
 }

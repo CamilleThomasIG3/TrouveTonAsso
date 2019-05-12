@@ -1,0 +1,48 @@
+<div class="container p-4 line1">
+  <div class="row">
+    <div class="col-md-4 mx-auto form_css">
+      <div class="card text-center">
+        <div class="card-header">
+          <h3 class="titres">Modifiez votre profil</h3>
+        </div>
+        <div class="card-body">
+          <form action="/modifier/{{personne.id_personne}}" method="post">
+            <div class="form-group">
+              <input type="text" value="{{personne.prenom_personne}}" name="prenom_personne" placeholder="Prénom" class="form-control" autofocus required>
+            </div>
+            <div class="form-group">
+              <input type="text" value="{{personne.nom_personne}}" name="nom_personne" placeholder="Nom" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <input type="date" value="{{personne.date_naissance_personne}}" name="date_naissance_personne" placeholder="Date de naissance" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <input type="text" value="{{personne.adresse_personne}}" name="adresse_personne" placeholder="Adresse" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <input type="text" value="{{personne.arrondissement_personne}}" name="arrondissement_personne" placeholder="Arrondissement" class="form-control">
+            </div>
+            <div class="form-group">
+              <input type="number" value="{{personne.CP_personne}}" name="CP_personne" placeholder="Code Postal" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <input type="text" value="{{personne.ville_personne}}" name="ville_personne" placeholder="Ville" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <input type="email" value="{{personne.email_personne}}" name="email_personne" placeholder="Email" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <input type="password" name="mdp_personne" placeholder="Mot de passe" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <input type="text" value="{{personne.photo_personne}}" name="photo_personne" placeholder="Photo" class="form-control">
+            </div>
+            <div class="form-group">
+              <button class="btn btn-success btn-block">Sauvegarder</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
