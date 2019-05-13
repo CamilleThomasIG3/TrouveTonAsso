@@ -3,12 +3,12 @@ const morgan = require('morgan')
 const exphbs = require('express-handlebars')
 const path = require('path')
 const flash = require('connect-flash')
-// const session = require('express-session')
 const MySQLStore = require('express-mysql-session')
 const passport = require('passport')
 const cookieSession = require('cookie-session')
 
 const { database } = require('./keys')
+
 
 //initialisation
 const app = express()
@@ -30,10 +30,9 @@ app.set('view engine', '.hbs')
 
 //middleware
 app.use(flash())
-require('./lib/passport')
 app.use(cookieSession({
   secret: 'trouvetonassomysqlnodesession',
-  maxAge: 1*60*1000, //h m s ms
+  maxAge: 1*60*60*1000, //h m s ms
   resave: false,
   saveUninitialized: false,
   store: new MySQLStore(database)
@@ -43,6 +42,7 @@ app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 app.use(passport.initialize())
 app.use(passport.session())
+
 
 //global variable
 app.use((req, res, next) =>{
@@ -65,13 +65,3 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.listen(app.get('port'), () =>{
   console.log('Server on port ', app.get('port'))
 })
-
-
-// // cookies
-// require('./lib/passport')(passport)
-// app.use(cookieSession({
-//     maxAge: 6*60*60*1000,
-//     keys: [keys.cookieSession.cookieKey]
-// }));
-// app.use(passport.initialize());
-// app.use(passport.session());

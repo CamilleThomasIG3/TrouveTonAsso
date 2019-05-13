@@ -16,16 +16,18 @@ router.post('/inscription', isNotLoggedIn, passport.authenticate('local.signup',
   failureFlash: true
 }))
 
+
+// Connexion user
 router.get('/connexion', isNotLoggedIn, (req, res) => {
   res.render('authentification/connexion')
 })
 
-router.post('/connexion', isNotLoggedIn, (req, res, next)=>{
+router.post('/connexion', isNotLoggedIn, async (req, res, next)=>{
   passport.authenticate('local.signin', {
-    successRedirect: '/profil',
-    failureRedirect: '/connexion',
-    failureFlash: true
-  })(req, res, next)
+      successRedirect: '/profil',
+      failureRedirect: '/connexion',
+      failureFlash: true
+    })(req, res, next)
 })
 
 router.get('/profil', isLoggedIn, (req, res) =>{
@@ -65,6 +67,20 @@ router.post('/modifier/:id_personne', isLoggedIn, async (req, res)=> {
   await pool.query('UPDATE personne set ? WHERE id_personne = ?', [newPersonne, id_personne])
   req.flash('success', 'Profil modifié avec succès')
   res.redirect('/profil')
+})
+
+
+//connexion association
+router.get('/connexion_association', isNotLoggedIn, (req, res) => {
+  res.render('authentification/connexion_asso')
+})
+
+router.post('/connexion_association', isNotLoggedIn, async (req, res, next)=>{
+  passport.authenticate('local.signinAsso', {
+      successRedirect: '../association/fiche',
+      failureRedirect: '/connexion_association',
+      failureFlash: true
+    })(req, res, next)
 })
 
 module.exports = router

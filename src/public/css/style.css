@@ -125,8 +125,8 @@ table {
 }
 
 @media screen and (max-width: 770px) {
-	#connexion, #inscription{
-		width: 6em;
+	#connexion, #inscription, #deconnexion{
+		width: 8em;
 	}
 	#connexionInscription{
 		width: 8em;
@@ -242,11 +242,30 @@ table {
 
 #recherche{
 	float: right;
+	margin-right: 1.5em;
+	margin-top: 1.5em;
 }
 
 .criteres{
 	margin-bottom: 2em;
 }
+
+@media screen and (min-width: 1150px) {
+	#affichage_criteres_dropdown{
+		display: none;
+	}
+}
+
+@media screen and (max-width: 1150px) {
+	#affichage_criteres_div{
+		display: none;
+	}
+	#affichage_criteres_dropdown button{
+		margin-left: 1.5em;
+		margin-top: 1.5em;
+	}
+}
+
 
 
 /* Profile */

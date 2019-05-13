@@ -45,13 +45,13 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right"  id="connexionInscription">
+        {{#unless personne}}
         <li>
-          <a href="#" class="btn btn-info" id="admin">
+          <a href="/connexion_association" class="btn btn-info" id="admin">
             <span>Admin</span>
           </a>
         </li>
 
-        {{#unless personne}}
         <li>
           <a href="/connexion" class="btn btn-info" id="connexion">
             <span>Connexion</span>

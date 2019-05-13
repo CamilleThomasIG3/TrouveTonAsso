@@ -4,6 +4,7 @@ const LocalStrategy = require('passport-local').Strategy
 const pool = require('../database')
 const helpers = require('../lib/helpers')
 
+//signin user
 passport.use('local.signin', new LocalStrategy ({
   usernameField: 'email_personne',
   passwordField: 'mdp_personne',
@@ -23,6 +24,27 @@ passport.use('local.signin', new LocalStrategy ({
   }
 }))
 
+//signin asso
+passport.use('local.signinAsso', new LocalStrategy ({
+  usernameField: 'email_asso',
+  passwordField: 'mdp_asso',
+  passReqToCallback: true
+}, async (req, email_asso, mdp_asso, done)=>{
+  const rows = await pool.query('SELECT * FROM association WHERE email_asso = ?', [email_asso])
+  if(rows.length > 0){
+    const association = rows[0]
+    const validPassword = await helpers.matchPassword(mdp_asso, association.mdp_asso)
+    if(validPassword){
+      done(null, association, req.flash('success'))
+    }else{
+      done(null, false, req.flash('message', 'Mot de passe incorrecte'))
+    }
+  }else{
+    return done(null, false, req.flash('message', "Cet email d'association n'existe pas"))
+  }
+}))
+
+//signup user
 passport.use('local.signup', new LocalStrategy ({
   usernameField: 'email_personne',
   passwordField: 'mdp_personne',
@@ -53,5 +75,14 @@ passport.serializeUser((personne, done)=>{
 
 passport.deserializeUser(async (id_personne, done) => {
   const rows = await pool.query('SELECT * FROM personne WHERE id_personne = ?', [id_personne])
+  done(null, rows[0])
+})
+
+passport.serializeUser((association, done)=>{
+  done(null, association.numSIREN_asso)
+})
+
+passport.deserializeUser(async (numSIREN_asso, done) => {
+  const rows = await pool.query('SELECT * FROM association WHERE numSIREN_asso = ?', [numSIREN_asso])
   done(null, rows[0])
 })

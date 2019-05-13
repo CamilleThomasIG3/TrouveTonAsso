@@ -19,13 +19,13 @@ router.get('/a_propos', (req,res)=>{
 router.get('/fiche/:numSIREN_asso', async (req, res) =>{
   const { numSIREN_asso } = req.params
   const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
-  console.log(association)
   res.render('association/fiche', {association: association[0]})
 })
 
-//Display associationsith criteria choosen
-router.get('/recherche/:mot', async (req, res) =>{
+//Display associations with criteria chosen
+router.get('/recherche/?recherche=:mot', async (req, res) =>{
   const mot = req.params
+  console.log(mot)
   const mot2 = await pool.query('SELECT * FROM association WHERE nom_asso=?', [mot])
   console.log(mot2)
   res.render('fait')

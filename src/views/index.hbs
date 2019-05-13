@@ -5,17 +5,62 @@
   <div class="container-fluid p-4">
 
     <div class="row">
-      <form class="navbar-form" id="recherche">
-        <input type="text" name="recherche" placeholder="Rechercher..." class="form-control input-sm">
+      <form action="/recherche/{{mot}}" class="navbar-form" method="get" id="recherche">
+        <input type="text" name="recherche" placeholder="Rechercher..." value="{{mot}}" class="form-control input-sm">
         <button type="submit" class="btn btn-primary btn-sm">
           <span class="glyphicon glyphicon-search"></span>
         </button>
       </form>
-    </div>
 
-    <div class="row">
+      <div class="dropdown" id="affichage_criteres_dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Critères
+          <span class="caret"></span></button>
+          <form class="navbar-form">
+            <ul class="dropdown-menu">
 
-      <div class="col-md-2">
+              {{#if type_association}}
+                <li class="dropdown-header"><p class="sous-titre">Types d'association :</p></li>
+                {{#each type_association}}
+                <li>
+                  <div class="form-check">
+                    <input type="checkbox" class="form-check-input" id="check{{id_type_asso}}">
+                    <label class="form-check-label" for="check{{id_type_asso}}">{{libelle_type_asso}}</label>
+                  </div>
+                </li>
+                {{/each}}
+              {{/if}}
+
+              <li class="divider"></li>
+              {{#if arrondissement}}
+                <li class="dropdown-header"><p class="sous-titre">Arrondissements :</p></li>
+                {{#each arrondissement}}
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="check{{arrondissement_asso}}">
+                  <label class="form-check-label" for="check{{arrondissement_asso}}">{{arrondissement_asso}}</label>
+                </div>
+                {{/each}}
+              {{/if}}
+
+              <li class="divider"></li>
+              {{#if pays}}
+                <li class="dropdown-header"><p class="sous-titre">Pays d'action :</p></li>
+                {{#each pays}}
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" id="check{{id_pays}}">
+                  <label class="form-check-label" for="check{{id_pays}}">{{nom_pays}}</label>
+                </div>
+                {{/each}}
+              {{/if}}
+
+              <button type="submit" class="btn btn-primary" id="check3">
+                <span class="glyphicon glyphicon-search"> Rechercher</span>
+              </button>
+            </ul>
+          </form>
+        </div>
+      </div>
+
+      <div class="col-md-2" id="affichage_criteres_div">
         <form class="navbar-form">
 
           <div class="criteres">
@@ -38,25 +83,26 @@
               <label class="form-check-label" for="check{{arrondissement_asso}}">{{arrondissement_asso}}</label>
             </div>
             {{/each}}
-          </div>
+        </div>
 
           <div class="criteres">
             <p class="sous-titre">Pays d'action :<p>
 
-            {{#each pays}}
-            <div class="form-check">
-              <input type="checkbox" class="form-check-input" id="check{{id_pays}}">
-              <label class="form-check-label" for="check{{id_pays}}">{{nom_pays}}</label>
-            </div>
-            {{/each}}
+              {{#each pays}}
+              <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="check{{id_pays}}">
+                <label class="form-check-label" for="check{{id_pays}}">{{nom_pays}}</label>
+              </div>
+              {{/each}}
           </div>
 
 
-          <button type="submit" class="btn btn-primary" id="check3">
-            <span class="glyphicon glyphicon-search"> Rechercher</span>
-          </button>
+            <button type="submit" class="btn btn-primary" id="check3">
+              <span class="glyphicon glyphicon-search"> Rechercher</span>
+            </button>
 
         </form>
+
       </div>
 
       <div class="container col-md-10" id="liste_asso">
@@ -89,7 +135,4 @@
       </div>
 
     </div>
-  </div>
-  </div>
-
 </main>
