@@ -334,3 +334,16 @@ table {
 		margin-left: 20em;
 	}
 }
+
+
+/* ADMIN */
+
+/* Home */
+#nomAsso{
+	font-weight: 600;
+}
+
+#accueilAsso{
+	margin-top: 15em;
+	margin-bottom: 11em;
+}

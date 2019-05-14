@@ -9,6 +9,8 @@ const cookieSession = require('cookie-session')
 
 const { database } = require('./keys')
 
+//global variable
+global.variable_globale = 0
 
 //initialisation
 const app = express()
@@ -17,6 +19,26 @@ require('./lib/passport')
 //setting
 app.set('port', process.env.PORT || 4000)
 app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'handlebars');
+var hbs = require('handlebars');
+
+//return true if it is an admin
+hbs.registerHelper("Admin", function(options)
+{
+  if(global.variable_globale === 1){
+    return options.fn(this)
+  }
+  return options.inverse(this)
+});
+
+//return false if it is an admin
+hbs.registerHelper("notAdmin", function(options)
+{
+  if(global.variable_globale === 0){
+    return options.fn(this)
+  }
+  return options.inverse(this)
+});
 
 app.engine('.hbs', exphbs({
   defaultLayout: 'main',
@@ -51,8 +73,6 @@ app.use((req, res, next) =>{
   app.locals.personne = req.user
   next()
 })
-
-global.variable_globale = 0;
 
 
 //route

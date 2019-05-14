@@ -17,7 +17,7 @@ module.exports = {
   },
 
   isAdmin(req, res, next) {
-    if(global.variable_globale = 1){
+    if(global.variable_globale === 1){
       return next()
     }
     return res.redirect('/connexion_association')

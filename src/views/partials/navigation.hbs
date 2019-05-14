@@ -1,3 +1,4 @@
+
 <!-- Header -->
 <nav class="navbar navbar-expand-sm navbar-fixed-top" id="header">
   <div class="container-fluid">
@@ -15,37 +16,37 @@
       </a>
     </div>
 
+
     <!-- Pages -->
     <div class="collapse navbar-collapse" id="myNavbar">
-      <ul class="navbar-nav" id="pages">
-        <li class="nav-item">
-          <a href="/" class="btn btn-info" id="pagesAutre">
-            <span>Accueil</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="btn btn-info" id="pagesAutre">
-            <span>Projets</span>
-          </a>
-        </li>
 
-        {{#if (global.variable_globale = 0)}}
-        <li class="nav-item">
-          <a href="/a_propos" class="btn btn-info" id="pagesAutre">
-            <span>A Propos</span>
-          </a>
-        </li>
-        {{/if}}
+        <ul class="navbar-nav" id="pages">
+          <li class="nav-item">
+            <a href="/" class="btn btn-info" id="pagesAutre">
+              <span>Accueil</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="btn btn-info" id="pagesAutre">
+              <span>Projets</span>
+            </a>
+          </li>
 
-        {{#if personne}}
-        <li class="nav-item">
-          <a href="/profil" class="btn btn-info" id="pagesAutre">
-            <span>Profil</span>
-          </a>
-        </li>
-        {{/if}}
+          <li class="nav-item">
+            <a href="/a_propos" class="btn btn-info" id="pagesAutre">
+              <span>A Propos</span>
+            </a>
+          </li>
 
-      </ul>
+          {{#if personne}}
+          <li class="nav-item">
+            <a href="/profil" class="btn btn-info" id="pagesAutre">
+              <span>Profil</span>
+            </a>
+          </li>
+          {{/if}}
+
+        </ul>
 
       <ul class="nav navbar-nav navbar-right"  id="connexionInscription">
         {{#unless personne}}
@@ -66,6 +67,7 @@
           </a>
         </li>
         {{/unless}}
+
 
         {{#if personne}}
         <li>

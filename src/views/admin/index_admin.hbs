@@ -1,5 +1,68 @@
 <main class="index">
 
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-sm navbar-fixed-top" id="header">
+    <div class="container-fluid">
 
-  <p>Salut<p>
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar" id="retractBar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+
+        <!-- Logo -->
+        <a href="/administrateur/{{association.numSIREN_asso}}">
+          <img class="img-responsive" src="/images/logos/logo_trouve_ton_asso.png" alt="logo Trouve Ton Asso" id="logo_nav">
+        </a>
+      </div>
+
+
+      <!-- Pages -->
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="navbar-nav" id="pages">
+          <li class="nav-item">
+            <a href="/administrateur/{{association.numSIREN_asso}}" class="btn btn-info" id="pagesAutre">
+              <span>Accueil</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="btn btn-info" id="pagesAutre">
+              <span>{{association.nom_asso}}</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="btn btn-info" id="pagesAutre">
+              <span>Membres</span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="btn btn-info" id="pagesAutre">
+              <span>Projets</span>
+            </a>
+          </li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right"  id="connexionInscription">
+          <li>
+            <a href="/deconnexion" class="btn btn-info" id="deconnexion">
+              <span>Déconnexion</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container" id="accueilAsso">
+    <h1 class="titres">Bienvenue sur votre espace administrateur</h1>
+    <h3 class="titres">
+    <h3 class="titres">
+      <div>Ici vous pouvez gérer votre association</div>
+      <div id="nomAsso">{{association.nom_asso}}</div>
+    </h3>
+  </div>
+
 </main>

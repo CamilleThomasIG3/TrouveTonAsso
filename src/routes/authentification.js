@@ -77,8 +77,14 @@ router.get('/connexion_association', isNotLoggedIn, (req, res) => {
 })
 
 router.post('/connexion_association', isNotLoggedIn, async (req, res, next)=>{
+  const email_asso = req.body.email_asso
+  const association = await pool.query('SELECT * FROM association WHERE email_asso=?', [email_asso])
+  var numSIREN_asso = 0;
+  if(association[0] != undefined){
+    numSIREN_asso = association[0].numSIREN_asso
+  }
   passport.authenticate('local.signinAsso', {
-      successRedirect: '/administrateur/',
+      successRedirect: '/administrateur/' + numSIREN_asso,
       failureRedirect: '/connexion_association',
       failureFlash: true
     })(req, res, next)

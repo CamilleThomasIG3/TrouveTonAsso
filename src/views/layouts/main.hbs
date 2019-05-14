@@ -21,8 +21,10 @@
 
   <body>
 
+    {{#notAdmin}}
     <!-- Navbar -->
     {{> navigation }}
+    {{/notAdmin}}
 
     <!-- Body -->
     {{> message}}
