@@ -21,5 +21,12 @@ module.exports = {
       return next()
     }
     return res.redirect('/connexion_association')
+  },
+
+  isNotAdmin(req, res, next) {
+    if(global.variable_globale === 0){
+      return next()
+    }
+    return res.redirect('/connexion')
   }
 }

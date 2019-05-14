@@ -44,49 +44,4 @@ router.delete('/supprimer/:numSIREN_asso', isLoggedIn, async (req, res) =>{
   res.redirect('../..')
 })
 
-
-//Edit association
-router.get('/modifier/:numSIREN_asso', isLoggedIn, async (req, res) =>{
-  const { numSIREN_asso } = req.params
-  const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
-  res.render('association/modifier', {association: association[0]})
-})
-
-//Recuperation datas from form "modifier association"
-router.post('/modifier/:numSIREN_asso', isLoggedIn, async (req, res)=> {
-  const { numSIREN_asso } = req.params
-  const { nom_asso, description_asso, adresse_asso, arrondissement_asso,
-     CP_asso, ville_asso, email_asso, tel_asso, facebook_asso, site_asso, logo_asso } = req.body
-  const newAssociation = {
-    nom_asso,
-    description_asso,
-    adresse_asso,
-    arrondissement_asso,
-    CP_asso,
-    ville_asso,
-    email_asso,
-    tel_asso,
-    facebook_asso,
-    site_asso,
-    logo_asso
-  }
-  await pool.query('UPDATE association set ? WHERE numSIREN_asso = ?', [newAssociation, numSIREN_asso])
-  req.flash('success', 'Association modifiée avec succès')
-  res.redirect('../..')
-})
-
-//Display one association card
-router.get('/fiche/:numSIREN_asso', async (req, res) =>{
-  const { numSIREN_asso } = req.params
-  const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
-  res.render('association/fiche', {association: association[0]})
-})
-
-//Display one association card admin
-router.get('association/fiche_administrateur/:numSIREN_asso', async (req, res) =>{
-  const { numSIREN_asso } = req.params
-  const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
-  res.render('association/fiche_admin', {association: association[0]})
-})
-
 module.exports = router

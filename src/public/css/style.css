@@ -77,7 +77,6 @@ table {
 
 
 
-
 /*Navbar*/
 #header{
   background-color: #d9d9d9;
@@ -346,4 +345,13 @@ table {
 #accueilAsso{
 	margin-top: 15em;
 	margin-bottom: 11em;
+}
+
+#entete{
+	font-weight: 600;
+}
+
+#logo-admin{
+	margin-bottom: 5em;
+	margin-left: 45%;
 }

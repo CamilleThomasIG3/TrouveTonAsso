@@ -4,7 +4,7 @@ const pool = require('../database')
 const helpers = require('../lib/helpers')
 
 const passport = require('passport')
-const { isLoggedIn, isNotLoggedIn } = require('../lib/auth')
+const { isLoggedIn, isNotLoggedIn, isNotAdmin} = require('../lib/auth')
 
 router.get('/inscription', isNotLoggedIn, (req,res)=>{
   res.render('authentification/inscription')
@@ -30,7 +30,7 @@ router.post('/connexion', isNotLoggedIn, async (req, res, next)=>{
     })(req, res, next)
 })
 
-router.get('/profil', isLoggedIn, (req, res) =>{
+router.get('/profil', isLoggedIn, isNotAdmin, (req, res) =>{
   res.render('authentification/profil')
 })
 
@@ -42,14 +42,14 @@ router.get('/deconnexion', (req, res) =>{
 
 
 //Edit personne
-router.get('/modifier/:id_personne', isLoggedIn, async (req, res) =>{
+router.get('/modifier/:id_personne', isLoggedIn, isNotAdmin, async (req, res) =>{
   const { id_personne } = req.params
   const personne = await pool.query('SELECT * FROM personne WHERE id_personne=?', [id_personne])
   res.render('authentification/modifier', {personne: personne[0]})
 })
 
 //Recuperation datas from form "modifier personne"
-router.post('/modifier/:id_personne', isLoggedIn, async (req, res)=> {
+router.post('/modifier/:id_personne', isLoggedIn, isNotAdmin, async (req, res)=> {
   const { id_personne } = req.params
   const { prenom_personne, nom_personne, date_naissance_personne, adresse_personne,
      CP_personne, ville_personne, email_personne, mdp_personne, photo_personne } = req.body
