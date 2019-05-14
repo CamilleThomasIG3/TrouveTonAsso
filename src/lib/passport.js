@@ -24,6 +24,7 @@ passport.use('local.signin', new LocalStrategy ({
   }
 }))
 
+
 //signin asso
 passport.use('local.signinAsso', new LocalStrategy ({
   usernameField: 'email_asso',
@@ -35,11 +36,14 @@ passport.use('local.signinAsso', new LocalStrategy ({
     const association = rows[0]
     const validPassword = await helpers.matchPassword(mdp_asso, association.mdp_asso)
     if(validPassword){
+      global.variable_globale = 1;
       done(null, association, req.flash('success'))
     }else{
+      global.variable_globale = 0;
       done(null, false, req.flash('message', 'Mot de passe incorrecte'))
     }
   }else{
+    global.variable_globale = 0;
     return done(null, false, req.flash('message', "Cet email d'association n'existe pas"))
   }
 }))

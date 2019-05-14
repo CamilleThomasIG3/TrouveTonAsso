@@ -52,10 +52,14 @@ app.use((req, res, next) =>{
   next()
 })
 
+global.variable_globale = 0;
+
+
 //route
 app.use(require('./routes'))
 app.use(require('./routes/authentification'))
 app.use('/association', require('./routes/association'))
+app.use('/administrateur', require('./routes/admin'))
 
 
 //public

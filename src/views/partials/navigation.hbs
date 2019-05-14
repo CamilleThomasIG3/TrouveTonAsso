@@ -28,11 +28,14 @@
             <span>Projets</span>
           </a>
         </li>
+
+        {{#if (global.variable_globale = 0)}}
         <li class="nav-item">
           <a href="/a_propos" class="btn btn-info" id="pagesAutre">
             <span>A Propos</span>
           </a>
         </li>
+        {{/if}}
 
         {{#if personne}}
         <li class="nav-item">

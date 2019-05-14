@@ -75,4 +75,18 @@ router.post('/modifier/:numSIREN_asso', isLoggedIn, async (req, res)=> {
   res.redirect('../..')
 })
 
+//Display one association card
+router.get('/fiche/:numSIREN_asso', async (req, res) =>{
+  const { numSIREN_asso } = req.params
+  const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
+  res.render('association/fiche', {association: association[0]})
+})
+
+//Display one association card admin
+router.get('association/fiche_administrateur/:numSIREN_asso', async (req, res) =>{
+  const { numSIREN_asso } = req.params
+  const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
+  res.render('association/fiche_admin', {association: association[0]})
+})
+
 module.exports = router

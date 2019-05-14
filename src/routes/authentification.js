@@ -35,8 +35,9 @@ router.get('/profil', isLoggedIn, (req, res) =>{
 })
 
 router.get('/deconnexion', (req, res) =>{
+  global.variable_globale = 0;
   req.logOut()
-  res.redirect('/connexion')
+  res.redirect('/')
 })
 
 
@@ -77,7 +78,7 @@ router.get('/connexion_association', isNotLoggedIn, (req, res) => {
 
 router.post('/connexion_association', isNotLoggedIn, async (req, res, next)=>{
   passport.authenticate('local.signinAsso', {
-      successRedirect: '../association/fiche',
+      successRedirect: '/administrateur/',
       failureRedirect: '/connexion_association',
       failureFlash: true
     })(req, res, next)

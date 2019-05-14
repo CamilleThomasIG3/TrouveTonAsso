@@ -15,12 +15,6 @@ router.get('/a_propos', (req,res)=>{
   res.render('a_propos')
 })
 
-//Display one association card
-router.get('/fiche/:numSIREN_asso', async (req, res) =>{
-  const { numSIREN_asso } = req.params
-  const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
-  res.render('association/fiche', {association: association[0]})
-})
 
 //Display associations with criteria chosen
 router.get('/recherche/?recherche=:mot', async (req, res) =>{
