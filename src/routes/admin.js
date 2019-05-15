@@ -73,9 +73,11 @@ router.get('/membres/:numSIREN_asso', isAdmin, async (req, res)=> {
 router.get('/modifier_membre/:numSIREN_asso/:id_personne', isAdmin, async (req, res)=> {
   const { numSIREN_asso, id_personne } = req.params
   const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
-  const membre = await pool.query('SELECT * FROM etre_membre WHERE numSIREN_asso=? AND id_personne=?', [numSIREN_asso], [id_personne])
-  console.log(association[0])
-  res.render('association/modifier_membre', {association: association[0], membre: membre[0]})
+  // const membre = await pool.query('SELECT * FROM etre_membre WHERE numSIREN_asso=? AND id_personne=?', [numSIREN_asso], [id_personne])
+  // console.log(association[0])
+  // res.render('association/modifier_membre', {association: association[0], membre: membre[0]})
+  console.log('ici')
+
 })
 
 module.exports = router
