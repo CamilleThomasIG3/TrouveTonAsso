@@ -16,7 +16,27 @@ router.get('/:numSIREN_asso', isAdmin, async (req, res)=> {
 router.get('/fiche/:numSIREN_asso', isAdmin, async (req, res)=> {
   const { numSIREN_asso } = req.params
   const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
-  res.render('association/fiche', {association: association[0]})
+
+  //Recuperation action countries
+  const agir_pays = await pool.query('SELECT * FROM agir_pays WHERE numSIREN_asso=?', [numSIREN_asso])
+  var i, id
+  var pays_action = new Array()
+
+  for (i = 0; i < agir_pays.length; i++) {
+    id = await pool.query('SELECT * FROM pays WHERE id_pays=?', [agir_pays[i].id_pays])
+    pays_action[i] = id[0]
+  }
+
+  //Recuperation asso types
+  const type_asso = await pool.query('SELECT * FROM asso_de_type WHERE numSIREN_asso=?', [numSIREN_asso])
+  var type_association = new Array()
+
+  for (i = 0; i < type_asso.length; i++) {
+    id = await pool.query('SELECT * FROM type_association WHERE id_type_asso=?', [type_asso[i].id_type_asso])
+    type_association[i] = id[0]
+  }
+
+  res.render('association/fiche', {association: association[0], pays: pays_action,type: type_association})
 })
 
 //Display view "modifier" association
@@ -73,11 +93,64 @@ router.get('/membres/:numSIREN_asso', isAdmin, async (req, res)=> {
 router.get('/modifier_membre/:numSIREN_asso/:id_personne', isAdmin, async (req, res)=> {
   const { numSIREN_asso, id_personne } = req.params
   const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
-  // const membre = await pool.query('SELECT * FROM etre_membre WHERE numSIREN_asso=? AND id_personne=?', [numSIREN_asso], [id_personne])
-  // console.log(association[0])
-  // res.render('association/modifier_membre', {association: association[0], membre: membre[0]})
-  console.log('ici')
-
+  const membre = await pool.query('SELECT * FROM etre_membre WHERE numSIREN_asso=? AND id_personne=?', [numSIREN_asso, id_personne])
+  const personne = await pool.query('SELECT * FROM personne WHERE id_personne=?', [id_personne])
+  const poste_membre = await pool.query('SELECT * FROM poste WHERE id_poste=?', [membre[0].id_poste])
+  personne[0].poste = poste_membre[0].libelle_poste
+  const poste = await pool.query('SELECT * FROM poste WHERE id_poste != ?', [membre[0].id_poste])
+  res.render('association/modifier_membre', {association: association[0], personne: personne[0], poste: poste})
 })
+
+//Recuperation "modifier_membre"
+router.post('/modifier_membre/:numSIREN_asso/:id_personne', isAdmin, async (req, res)=> {
+  const { numSIREN_asso, id_personne } = req.params
+  const { libelle_poste } = req.body
+  const poste_membre = await pool.query('SELECT * FROM poste WHERE libelle_poste=?', [libelle_poste])
+  const id_poste = poste_membre[0].id_poste
+  console.log(id_personne)
+  console.log(numSIREN_asso)
+  console.log(id_poste)
+
+  await pool.query('UPDATE etre_membre set id_poste=? WHERE numSIREN_asso = ? AND id_personne=?', [id_poste, numSIREN_asso, id_personne])
+  req.flash('success', 'Membre modifié avec succès')
+  res.redirect('/administrateur/membres/'+numSIREN_asso)
+})
+
+//Display view "ajouter_membre"
+router.get('/ajouter_membre/:numSIREN_asso', isAdmin, async (req, res)=> {
+  const { numSIREN_asso } = req.params
+  const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
+  const poste = await pool.query('SELECT * FROM poste')
+  res.render('association/ajouter_membre', {association: association[0], poste: poste})
+})
+
+//Recuperation "ajouter_membre"
+router.post('/ajouter_membre/:numSIREN_asso', isAdmin, async (req, res)=> {
+  const { numSIREN_asso } = req.params
+  const { email_personne, libelle_poste } = req.body
+  console.log(libelle_poste)
+
+  const personne = await pool.query('SELECT * FROM personne WHERE email_personne=?', [email_personne])
+  if (personne[0] === undefined){//person doesnt exist
+    req.flash('message', "Cet email n'existe pas")
+    res.redirect('/administrateur/ajouter_membre/'+numSIREN_asso)
+  }
+  else{//person exists in asso already
+    const id_personne = personne[0].id_personne
+    const est_membre = await pool.query('SELECT * FROM etre_membre WHERE id_personne=? AND numSIREN_asso=?', [id_personne, numSIREN_asso])
+    if (est_membre[0] !== undefined){//person in asso already
+      req.flash('message', "Ce membre fait déjà partie de votre association")
+      res.redirect('/administrateur/membres/'+numSIREN_asso)
+    }
+    else{ //person exists and not in asso yet
+      const poste_membre = await pool.query('SELECT * FROM poste WHERE libelle_poste=?', [libelle_poste])
+      const id_poste = poste_membre[0].id_poste
+      await pool.query('INSERT INTO etre_membre VALUES (?, ?, ?);', [id_personne, numSIREN_asso, id_poste])
+      req.flash('success', 'Membre ajouté avec succès')
+      res.redirect('/administrateur/membres/'+numSIREN_asso)
+    }
+  }
+})
+
 
 module.exports = router

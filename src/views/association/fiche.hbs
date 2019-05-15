@@ -16,6 +16,18 @@
             <li class="list-group-item"><span id="entete">Numéro SIREN : </span>{{ association.numSIREN_asso}}</li>
             {{/Admin}}
 
+            <li class="list-group-item"><span id="entete">Type d'association : </span>
+              {{#each type}}
+                {{this.libelle_type_asso}}
+              {{/each}}
+            </li>
+
+            <li class="list-group-item"><span id="entete">Pays d'action : </span>
+              {{#each pays}}
+                {{this.nom_pays}}
+              {{/each}}
+            </li>
+
             <li class="list-group-item">
               <span class="glyphicon glyphicon-envelope">
                 <a href="mailto:{{association.mail_asso}}">{{association.email_asso}}</a>
@@ -32,6 +44,7 @@
             <li class="list-group-item"><span id="entete">Adresse : </span>{{association.adresse_asso}}</li>
             <li class="list-group-item">{{association.CP_asso}}</li>
             <li class="list-group-item">{{association.ville_asso}}</li>
+
           </ul>
 
           <div class="card-body fiche_asso">
@@ -43,6 +56,7 @@
               <a href="{{association.site_asso}}" class="card-link btn btn-primary" target="_blank">Site internet</a>
               {{/if}}
             {{/notAdmin}}
+
             {{#Admin}}
               <ul>
                 <li class="list-group-item"><span id="entete">Lien Facebook : </span>

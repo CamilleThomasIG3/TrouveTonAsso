@@ -8,6 +8,7 @@
     <div class="media-body">
       <h4 class="media-heading">{{this.prenom_personne}} {{this.nom_personne}}</h4>
       <p class="truncate">{{this.libelle_poste}}</p>
+      <p class="truncate">{{this.email_personne}}</p>
       <p><a href="../modifier_membre/{{this.numSIREN_asso}}/{{this.id_personne}}" class="btn btn-secondary" role="button">Modifier</a></p>
     </div>
   </div>
@@ -21,6 +22,6 @@
   </div>
   {{/each}}
 
-  <a href="#" class="btn btn-success">Ajouter un membre</a>
+  <a href="/administrateur/ajouter_membre/{{association.numSIREN_asso}}" class="btn btn-success">Ajouter un membre</a>
 
 </div>

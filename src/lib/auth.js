@@ -28,5 +28,19 @@ module.exports = {
       return next()
     }
     return res.redirect('/connexion')
-  }
+  },
+
+  isSuperAdmin(req, res, next) {
+    if(global.variable_globale === 2){
+      return next()
+    }
+    return res.redirect('/administrateur/connexion')
+  },
+
+  isNotSuperAdmin(req, res, next) {
+    if(global.variable_globale === 0){
+      return next()
+    }
+    return res.redirect('/connexion')
+  },
 }

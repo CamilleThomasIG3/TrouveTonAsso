@@ -1,0 +1,35 @@
+<div class="container p-4 line1" >
+  <div class="row" id="container_connexion">
+    <div class="col-md-4 mx-auto form_css">
+      <div class="card text-center">
+
+        <div class="card-header">
+          <h3 class="titres">Connexion Super Administrateur</h3>
+        </div>
+
+        <div class="alert alert-danger" role="alert">
+          Vous devez être Super administrateur pour accéder à ce compte
+        </div>
+
+        <div class="card-body">
+
+          <img src="/images/logos/logo_trouve_ton_asso.png" alt="logo_trouve_ton_asso" class="card-img-top mx-auto m-2 rounded-circle w-50 logo" id="logo_connexion">
+
+          <form action="/super_administrateur/connexion" method="post">
+            <div class="form-group">
+              <input type="email" name="email_super_admin" placeholder="Email" class="form-control" autofocus required>
+            </div>
+            <div class="form-group">
+              <input type="password" name="mdp_super_admin" placeholder="Mot de passe" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <button class="btn btn-success btn-block">Connexion</button>
+            </div>
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

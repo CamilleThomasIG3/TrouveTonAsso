@@ -6,7 +6,7 @@
         <div class="card-body">
           <form action="/administrateur/modifier/{{association.numSIREN_asso}}" method="post">
             <div class="form-group">
-              <input type="number" value="{{association.numSIREN_asso}}" class="form-control" name="numSIREN_asso" disabled="disabled">
+              <input type="text" value="Numéro SIREN : {{association.numSIREN_asso}}" class="form-control" name="numSIREN_asso" disabled="disabled">
             </div>
             <div class="form-group">
               <input type="text" class="form-control" name="nom_asso" placeholder="Nom" value="{{association.nom_asso}}" required>

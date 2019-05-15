@@ -11,17 +11,17 @@ passport.use('local.signin', new LocalStrategy ({
   passReqToCallback: true
 }, async (req, email_personne, mdp_personne, done)=>{
   const rows = await pool.query('SELECT * FROM personne WHERE email_personne = ?', [email_personne])
-  if(rows.length > 0){
+  if(rows.length > 0){//person exists
     const personne = rows[0]
     const validPassword = await helpers.matchPassword(mdp_personne, personne.mdp_personne)
-    if(validPassword){
+    if(validPassword){//password valid
       global.variable_globale = 0
       done(null, personne, req.flash('success'))
-    }else{
+    }else{//password not valid
       global.variable_globale = 0
       done(null, false, req.flash('message', 'Mot de passe incorrecte'))
     }
-  }else{
+  }else{//person doesnt exist
     global.variable_globale = 0
     return done(null, false, req.flash('message', "Cet email n'existe pas"))
   }
@@ -35,21 +35,57 @@ passport.use('local.signinAsso', new LocalStrategy ({
   passReqToCallback: true
 }, async (req, email_asso, mdp_asso, done)=>{
   const rows = await pool.query('SELECT * FROM association WHERE email_asso = ?', [email_asso])
-  if(rows.length > 0){
+  if(rows.length > 0){//person exists
     const association = rows[0]
     const validPassword = await helpers.matchPassword(mdp_asso, association.mdp_asso)
-    if(validPassword){
+    if(validPassword){//password valid
       global.variable_globale = 1
       done(null, association, req.flash('success'))
-    }else{
+    }else{//password not valid
       global.variable_globale = 0
       done(null, false, req.flash('message', 'Mot de passe incorrecte'))
     }
-  }else{
-    global.variable_globale = 0
-    return done(null, false, req.flash('message', "Cet email d'association n'existe pas"))
+  }else{//person doesnt lambda
+    const super_administrateur = await pool.query('SELECT * FROM super_admin WHERE email_super_admin = ?', [email_asso])
+    const super_admin = super_administrateur[0]
+    console.log(super_admin)
+    if(super_admin !== undefined){
+      const validPassword = await helpers.matchPassword(mdp_asso, super_admin.mdp_super_admin)
+      global.variable_globale = 2
+      done(null, super_admin, req.flash('success'))
+    }
+    else{//person doesnt exist
+      global.variable_globale = 0
+      return done(null, false, req.flash('message', "Cet email d'association n'existe pas"))
+    }
   }
 }))
+
+
+//signin super admin
+passport.use('local.signinSupAdmin', new LocalStrategy ({
+  usernameField: 'email_super_admin',
+  passwordField: 'mdp_super_admin',
+  passReqToCallback: true
+}, async (req, email_super_admin, mdp_super_admin, done)=>{
+  const rows = await pool.query('SELECT * FROM super_admin WHERE email_super_admin = ?', [email_super_admin])
+  if(rows.length > 0){//super admin email exists
+    const super_admin = rows[0]
+    const validPassword = await helpers.matchPassword(mdp_super_admin, super_admin.mdp_super_admin)
+    if(validPassword){//password valid
+      global.variable_globale = 2
+      done(null, super_admin, req.flash('success'))
+    }else{//password not valid
+      global.variable_globale = 0
+      done(null, false, req.flash('message', 'Mot de passe incorrecte'))
+    }
+  }
+  else{//super admin email doesnt exist
+    global.variable_globale = 0
+    return done(null, false, req.flash('message', "Cet email n'est pas reconnue en tant que Super Administrateur"))
+  }
+}))
+
 
 //signup user
 passport.use('local.signup', new LocalStrategy ({
@@ -76,6 +112,7 @@ passport.use('local.signup', new LocalStrategy ({
 }))
 
 
+//person
 passport.serializeUser((personne, done)=>{
   done(null, personne.id_personne)
 })
@@ -85,11 +122,22 @@ passport.deserializeUser(async (id_personne, done) => {
   done(null, rows[0])
 })
 
+//association
 passport.serializeUser((association, done)=>{
   done(null, association.numSIREN_asso)
 })
 
 passport.deserializeUser(async (numSIREN_asso, done) => {
   const rows = await pool.query('SELECT * FROM association WHERE numSIREN_asso = ?', [numSIREN_asso])
+  done(null, rows[0])
+})
+
+//super_admin
+passport.serializeUser((super_admin, done)=>{
+  done(null, super_admin.id_super_admin)
+})
+
+passport.deserializeUser(async (id_super_admin, done) => {
+  const rows = await pool.query('SELECT * FROM super_admin WHERE id_super_admin = ?', [id_super_admin])
   done(null, rows[0])
 })

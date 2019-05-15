@@ -355,3 +355,20 @@ table {
 	margin-bottom: 5em;
 	margin-left: 45%;
 }
+
+/* membre */
+#menu_deroulant{
+	margin-bottom: 2em;
+}
+
+
+/* Super admin */
+#spanSA{
+	display: inline-block;
+}
+
+#spanSA2{
+	float:right;
+	margin-top:1em;
+	margin-right:1em;
+}
