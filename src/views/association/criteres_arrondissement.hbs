@@ -125,7 +125,11 @@
 
       <div class="container col-md-10" id="liste_asso">
 
-        {{#each association}}
+        <div class="">
+          <h1 class="titres">Résultat de la recherche sur les arrondissement</h1>
+        </div>
+
+        {{#each association_recherche}}
         <div class="media asso">
           <div class="media-left media-middle">
               <img class="media-object logo" src="{{logo_asso}}" alt="Logo {{nom_asso}}" id="logo_assos">
@@ -142,7 +146,7 @@
         {{else}}
         <div class="col-md-4 mx-auto">
           <div class="card card-body text-center">
-            <p>Il n'y a pas d'association</p>
+            <p>Aucune association ne correspond à ces critères</p>
           </div>
         </div>
         {{/each}}

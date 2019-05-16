@@ -44,8 +44,22 @@ router.get('/modifier/:numSIREN_asso', isAdmin, async (req, res)=> {
 //Recuperation datas from form "modifier association"
 router.post('/modifier/:numSIREN_asso', isAdmin, async (req, res)=> {
   const { numSIREN_asso } = req.params
-  const { nom_asso, description_asso, adresse_asso, arrondissement_asso,
+  var { nom_asso, description_asso, adresse_asso, arrondissement_asso,
      CP_asso, ville_asso, email_asso, tel_asso, facebook_asso, site_asso, logo_asso, mdp_asso } = req.body
+
+   if ( arrondissement_asso === ""){
+     arrondissement_asso = null
+   }
+   if (facebook_asso === ""){
+     facebook_asso = null
+   }
+   if (site_asso === ""){
+     site_asso = null
+   }
+   if (tel_asso === ""){
+     tel_asso = null
+   }
+
   const newAssociation = {
     nom_asso,
     description_asso,
@@ -120,7 +134,7 @@ router.get('/ajouter_membre/:numSIREN_asso', isAdmin, async (req, res)=> {
 router.post('/ajouter_membre/:numSIREN_asso', isAdmin, async (req, res)=> {
   const { numSIREN_asso } = req.params
   const { email_personne, libelle_poste } = req.body
-  
+
 
   const personne = await pool.query('SELECT * FROM personne WHERE email_personne=?', [email_personne])
   if (personne[0] === undefined){//person doesnt exist

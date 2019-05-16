@@ -39,7 +39,7 @@
                   <form action="/criteres_arrondissement" class="navbar-form" method="post">
                     {{#each arrondissement}}
                     <div class="form-check criteres_check">
-                      <input type="checkbox" name="{{arrondissement_asso}}" class="form-check-input" id="check{{arrondissement_asso}}">
+                      <input type="checkbox" name="arrondissement{{arrondissement_asso}}" class="form-check-input" id="check{{arrondissement_asso}}">
                       <label class="form-check-label" for="check{{arrondissement_asso}}">{{arrondissement_asso}}</label>
                     </div>
                     {{/each}}
@@ -56,7 +56,7 @@
                     <form action="/criteres_pays" class="navbar-form" method="post">
                     {{#each pays}}
                     <div class="form-check criteres_check">
-                      <input type="checkbox" name="{{id_pays}}" class="form-check-input" id="check{{id_pays}}">
+                      <input type="checkbox" name="pays{{id_pays}}" class="form-check-input" id="check{{id_pays}}">
                       <label class="form-check-label" for="check{{id_pays}}">{{nom_pays}}</label>
                     </div>
                     {{/each}}
@@ -94,7 +94,7 @@
               <form action="/criteres_arrondissement" class="navbar-form" method="post">
                 {{#each arrondissement}}
                 <div class="form-check">
-                  <input type="checkbox" name="{{arrondissement_asso}}" class="form-check-input" id="check{{arrondissement_asso}}">
+                  <input type="checkbox" name="arrondissement{{arrondissement_asso}}" class="form-check-input" id="check{{arrondissement_asso}}">
                   <label class="form-check-label" for="check{{arrondissement_asso}}">{{arrondissement_asso}}</label>
                 </div>
                 {{/each}}
@@ -111,7 +111,7 @@
               <form action="/criteres_pays" class="navbar-form" method="post">
               {{#each pays}}
               <div class="form-check">
-                <input type="checkbox" name="{{id_pays}}" class="form-check-input" id="check{{id_pays}}">
+                <input type="checkbox" name="pays{{id_pays}}" class="form-check-input" id="check{{id_pays}}">
                 <label class="form-check-label" for="check{{id_pays}}">{{nom_pays}}</label>
               </div>
               {{/each}}
@@ -125,7 +125,11 @@
 
       <div class="container col-md-10" id="liste_asso">
 
-        {{#each association}}
+        <div class="">
+          <h1 class="titres">Résultat de la recherche : {{recherche}}</h1>
+        </div>
+
+        {{#each association_recherche}}
         <div class="media asso">
           <div class="media-left media-middle">
               <img class="media-object logo" src="{{logo_asso}}" alt="Logo {{nom_asso}}" id="logo_assos">
@@ -142,7 +146,7 @@
         {{else}}
         <div class="col-md-4 mx-auto">
           <div class="card card-body text-center">
-            <p>Il n'y a pas d'association</p>
+            <p>Aucune association ne correspond à cette recherche</p>
           </div>
         </div>
         {{/each}}

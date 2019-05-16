@@ -1,29 +1,36 @@
-<div class="container col-md-10 line1" id="liste_asso">
+<div class="container-fluid p-4">
+  <div class="container line1" id="liste_asso liste_membre">
 
-  {{#each personne}}
-  <div class="media asso">
-    <div class="media-left media-middle">
-      <img class="media-object logo" src="{{this.photo_personne}}" alt="Photo de profil de {{personne.prenom_personne}}" id="logo_assos">
-    </div>
-    <div class="media-body">
-      <h4 class="media-heading">{{this.prenom_personne}} {{this.nom_personne}}</h4>
-      <p class="truncate">{{this.libelle_poste}}</p>
-      <p class="truncate">{{this.email_personne}}</p>
-      <span><a href="../modifier_membre/{{this.numSIREN_asso}}/{{this.id_personne}}" class="btn btn-secondary" role="button">Modifier</a></span>
-      <span><a href="../supprimer_membre/{{this.numSIREN_asso}}/{{this.id_personne}}" class="btn btn-danger" role="button">Supprimer</a></span>
-      
+    <h1 class="titres">Liste des membres</h1>
+
+    <div id="cadre_membres">
+
+
+      {{#each personne}}
+      <div class="media asso">
+        <div class="media-left media-middle">
+          <img class="media-object logo" src="{{this.photo_personne}}" alt="Photo de profil de {{personne.prenom_personne}}" id="logo_assos">
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading">{{this.prenom_personne}} {{this.nom_personne}}</h4>
+          <p class="truncate">{{this.libelle_poste}}</p>
+          <p class="truncate">{{this.email_personne}}</p>
+          <span><a href="../modifier_membre/{{this.numSIREN_asso}}/{{this.id_personne}}" class="btn btn-secondary" role="button">Modifier</a></span>
+          <span><a href="../supprimer_membre/{{this.numSIREN_asso}}/{{this.id_personne}}" class="btn btn-danger" role="button">Supprimer</a></span>
+        </div>
+      </div>
+
+
+      {{else}}
+      <div class="col-md-4 mx-auto">
+        <div class="card card-body text-center">
+          <p>Il n'y a pas de membres</p>
+        </div>
+      </div>
+      {{/each}}
+
+      <a href="/administrateur/ajouter_membre/{{association.numSIREN_asso}}" class="btn btn-success" id="button_membres">Ajouter un membre</a>
+
     </div>
   </div>
-
-
-  {{else}}
-  <div class="col-md-4 mx-auto">
-    <div class="card card-body text-center">
-      <p>Il n'y a pas de membres</p>
-    </div>
-  </div>
-  {{/each}}
-
-  <a href="/administrateur/ajouter_membre/{{association.numSIREN_asso}}" class="btn btn-success">Ajouter un membre</a>
-
 </div>

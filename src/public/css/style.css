@@ -258,6 +258,10 @@ table {
 	margin-bottom: 2em;
 }
 
+.criteres_check{
+	margin-left: 2em;
+}
+
 @media screen and (min-width: 1150px) {
 	#affichage_criteres_dropdown{
 		display: none;
@@ -370,6 +374,24 @@ table {
 	margin-bottom: 2em;
 }
 
+#liste_membre{
+	padding-top:2em;
+}
+
+#button_membres{
+	margin:2em;
+	margin-left: 5em;
+}
+
+#cadre_membres{
+	margin-left: 30em;
+}
+
+@media screen and (max-width: 1000px) {
+	#cadre_membres{
+		margin-left: 2em;
+	}
+}
 
 /* Super admin */
 #spanSA{
