@@ -52,6 +52,10 @@ table {
 /*My CSS*/
 
 /*In commun*/
+.gras{
+	font-size: 600;
+}
+
 .logo{
 	width: 120px;
 }
@@ -75,6 +79,10 @@ table {
 	margin-top: 8em;
 }
 
+.retour{
+	margin:1em;
+	float:left;
+}
 
 
 /*Navbar*/
@@ -173,8 +181,9 @@ table {
 #footer{
   background-color: #d9d9d9;
   bottom: 0;
-	width: 100;
+	width: 100%;
 	margin-top: 1em;
+	display: fixed;
 }
 
 #footer p{
@@ -371,4 +380,16 @@ table {
 	float:right;
 	margin-top:1em;
 	margin-right:1em;
+}
+
+#titre_sup_admin{
+	margin-left: 10em;
+	color:  #cb1919;
+	margin-bottom: 1em;
+}
+
+@media screen and (max-width: 1200px) {
+	#titre_sup_admin{
+		margin-left: 0;
+	}
 }

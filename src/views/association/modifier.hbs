@@ -1,10 +1,22 @@
 <div class="container p-4 line1">
+  {{#SuperAdmin}}
+  <div class="row">
+    <p class="retour"><a href="../" class="btn btn-secondary" role="button"><span class="glyphicon glyphicon-arrow-left"></span><span> Retour</span></a></p>
+  </div>
+  {{/SuperAdmin}}
+
+  {{#Admin}}
+  <div class="row">
+    <p class="retour"><a href="../{{association.numSIREN_asso}}" class="btn btn-secondary" role="button"><span class="glyphicon glyphicon-arrow-left"></span><span> Retour</span></a></p>
+  </div>
+  {{/Admin}}
+
   <h2 class="titres">Modifiez votre association</h2>
   <div class="row"  id="div_ajout_asso">
     <div class="col-md-4"  id="form_ajout_asso">
       <div class="card">
         <div class="card-body">
-          <form action="/administrateur/modifier/{{association.numSIREN_asso}}" method="post">
+          <form action="../modifier/{{association.numSIREN_asso}}" method="post">
             <div class="form-group">
               <input type="text" value="Numéro SIREN : {{association.numSIREN_asso}}" class="form-control" name="numSIREN_asso" disabled="disabled">
             </div>
@@ -44,6 +56,7 @@
             <div class="form-group">
               <input type="password" class="form-control" name="mdp_asso" placeholder="Mot de passe" required>
             </div>
+
             <div class="form-group">
               <button class="btn btn-success btn-block">Sauvegarder</button>
             </div>

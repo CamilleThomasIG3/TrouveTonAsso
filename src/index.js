@@ -25,7 +25,7 @@ var hbs = require('handlebars');
 //return true if it is an admin
 hbs.registerHelper("Admin", function(options)
 {
-  if(global.variable_globale === 1){
+  if(global.variable_globale === 1 || global.variable_globale === 2){
     return options.fn(this)
   }
   return options.inverse(this)
@@ -88,7 +88,6 @@ app.use((req, res, next) =>{
 //route
 app.use(require('./routes'))
 app.use(require('./routes/authentification'))
-app.use('/association', require('./routes/association'))
 app.use('/administrateur', require('./routes/admin'))
 app.use('/super_administrateur', require('./routes/super_admin'))
 

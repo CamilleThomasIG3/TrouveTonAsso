@@ -1,6 +1,9 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 
+var multer  = require('multer')
+// var upload = multer({ dest: 'src/public/images/profils/' })
+
 const pool = require('../database')
 const helpers = require('../lib/helpers')
 
@@ -48,7 +51,6 @@ passport.use('local.signinAsso', new LocalStrategy ({
   }else{//person doesnt lambda
     const super_administrateur = await pool.query('SELECT * FROM super_admin WHERE email_super_admin = ?', [email_asso])
     const super_admin = super_administrateur[0]
-    console.log(super_admin)
     if(super_admin !== undefined){
       const validPassword = await helpers.matchPassword(mdp_asso, super_admin.mdp_super_admin)
       global.variable_globale = 2
@@ -93,22 +95,37 @@ passport.use('local.signup', new LocalStrategy ({
   passwordField: 'mdp_personne',
   passReqToCallback: true
 }, async (req, email_personne, mdp_personne, done) =>{
-  const { prenom_personne, nom_personne, date_naissance_personne, adresse_personne, CP_personne, ville_personne, photo_personne } = req.body
-  const newPersonne = {
-    email_personne,
-    mdp_personne,
-    prenom_personne,
-    nom_personne,
-    date_naissance_personne,
-    adresse_personne,
-    CP_personne,
-    ville_personne,
-    photo_personne
+  var { prenom_personne, nom_personne, date_naissance_personne, adresse_personne,
+    CP_personne, ville_personne, photo_personne } = req.body
+
+  if (photo_personne === ""){
+    photo_personne = "anonyme.png"
   }
-  newPersonne.mdp_personne = await helpers.encryptPassword(mdp_personne)
-  const result = await pool.query('INSERT INTO personne SET ?', [newPersonne])
-  newPersonne.id_personne = result.insertId
-  return done(null, newPersonne)
+  photo_personne = "/images/profils/"+photo_personne
+  
+  const personne =  await pool.query('SELECT * FROM personne WHERE email_personne = ?', [email_personne])
+
+  if (personne[0] !== undefined){ //email already exists
+    done(null, false, req.flash('message', "Cet email n'est pas disponible"))
+  }
+  else{
+    const newPersonne = {
+      email_personne,
+      mdp_personne,
+      prenom_personne,
+      nom_personne,
+      date_naissance_personne,
+      adresse_personne,
+      CP_personne,
+      ville_personne,
+      photo_personne
+    }
+
+    newPersonne.mdp_personne = await helpers.encryptPassword(mdp_personne)
+    const result = await pool.query('INSERT INTO personne SET ?', [newPersonne])
+    newPersonne.id_personne = result.insertId
+    return done(null, newPersonne)
+  }
 }))
 
 

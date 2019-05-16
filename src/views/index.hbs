@@ -116,7 +116,7 @@
             <h4 class="media-heading">{{nom_asso}}</h4>
             <p class="truncate">{{description_asso}}</p>
             <div class="form-group voir_plus">
-              <a href="association/fiche/{{numSIREN_asso}}" class="btn btn-success btn-block">Voir plus</a>
+              <a href="/fiche/{{numSIREN_asso}}" class="btn btn-success btn-block">Voir plus</a>
             </div>
           </div>
         </div>
@@ -125,7 +125,6 @@
         <div class="col-md-4 mx-auto">
           <div class="card card-body text-center">
             <p>Il n'y a pas d'association</p>
-            <a href="/association/ajout" class="btn btn-success">Créer</a>
           </div>
         </div>
         {{/each}}

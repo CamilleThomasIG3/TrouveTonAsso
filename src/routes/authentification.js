@@ -70,6 +70,16 @@ router.post('/modifier/:id_personne', isLoggedIn, isNotAdmin, async (req, res)=>
   res.redirect('/profil')
 })
 
+//Delete personne
+router.get('/supprimer/:id_personne', isLoggedIn, isNotAdmin, async (req, res) =>{
+  const { id_personne } = req.params
+  await pool.query('DELETE FROM personne WHERE id_personne=?', [id_personne])
+  global.variable_globale = 0;
+  req.logOut()
+  req.flash('success', 'Compte supprimé avec succès')
+  res.redirect('/')
+})
+
 
 //connexion association
 router.get('/connexion_association', isNotLoggedIn, (req, res) => {

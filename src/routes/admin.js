@@ -5,15 +5,10 @@ const pool = require('../database')
 const helpers = require('../lib/helpers')
 const { isLoggedIn, isAdmin} = require('../lib/auth')
 
-//Display view "index_admin"
-router.get('/:numSIREN_asso', isAdmin, async (req, res)=> {
-  const { numSIREN_asso } = req.params
-  const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
-  res.render('admin/index_admin', {association: association[0]})
-})
+
 
 //Display view "fiche" association
-router.get('/fiche/:numSIREN_asso', isAdmin, async (req, res)=> {
+router.get('/:numSIREN_asso', async (req, res)=> {
   const { numSIREN_asso } = req.params
   const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
 
@@ -68,7 +63,7 @@ router.post('/modifier/:numSIREN_asso', isAdmin, async (req, res)=> {
   newAssociation.mdp_asso = await helpers.encryptPassword(mdp_asso)
   await pool.query('UPDATE association set ? WHERE numSIREN_asso = ?', [newAssociation, numSIREN_asso])
   req.flash('success', 'Association modifiée avec succès')
-  res.redirect('../fiche/'+numSIREN_asso)
+  res.redirect('../'+numSIREN_asso)
 })
 
 //Display view "membres" association
@@ -107,9 +102,6 @@ router.post('/modifier_membre/:numSIREN_asso/:id_personne', isAdmin, async (req,
   const { libelle_poste } = req.body
   const poste_membre = await pool.query('SELECT * FROM poste WHERE libelle_poste=?', [libelle_poste])
   const id_poste = poste_membre[0].id_poste
-  console.log(id_personne)
-  console.log(numSIREN_asso)
-  console.log(id_poste)
 
   await pool.query('UPDATE etre_membre set id_poste=? WHERE numSIREN_asso = ? AND id_personne=?', [id_poste, numSIREN_asso, id_personne])
   req.flash('success', 'Membre modifié avec succès')
@@ -128,7 +120,7 @@ router.get('/ajouter_membre/:numSIREN_asso', isAdmin, async (req, res)=> {
 router.post('/ajouter_membre/:numSIREN_asso', isAdmin, async (req, res)=> {
   const { numSIREN_asso } = req.params
   const { email_personne, libelle_poste } = req.body
-  console.log(libelle_poste)
+  
 
   const personne = await pool.query('SELECT * FROM personne WHERE email_personne=?', [email_personne])
   if (personne[0] === undefined){//person doesnt exist
@@ -152,5 +144,12 @@ router.post('/ajouter_membre/:numSIREN_asso', isAdmin, async (req, res)=> {
   }
 })
 
+//Delete membre
+router.get('/supprimer_membre/:numSIREN_asso/:id_personne', isAdmin, async (req, res)=> {
+  const { numSIREN_asso, id_personne } = req.params
+  await pool.query('DELETE FROM etre_membre WHERE numSIREN_asso=? AND id_personne=?', [numSIREN_asso, id_personne])
+  req.flash('success', "Membre supprimé avec succès")
+  res.redirect('/administrateur/membres/'+numSIREN_asso)
+})
 
 module.exports = router

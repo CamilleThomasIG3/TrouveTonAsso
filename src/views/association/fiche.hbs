@@ -1,6 +1,14 @@
 <div class="container text-center line1">
+  {{#NotAdmin}}
   <div class="row">
+    <p class="retour"><a href="../" class="btn btn-secondary" role="button"><span class="glyphicon glyphicon-arrow-left"></span><span> Retour</span></a></p>
+  </div>
+  {{/NotAdmin}}
+
+  <div class="row">
+
     <div class="col-md-6" id="cadre_fiche_asso">
+
       <div class="thumbnail" id="prof">
 
         <div class="card fiche_asso" >
