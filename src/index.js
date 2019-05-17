@@ -104,6 +104,11 @@ app.use('/super_administrateur', require('./routes/super_admin'))
 //public
 app.use(express.static(path.join(__dirname, 'public')))
 
+//Error page
+app.get('*', function(req,res){
+  res.status(404).render('erreur/acces_interdit')
+})
+
 //start server
 app.listen(app.get('port'), () =>{
   console.log('Server on port ', app.get('port'))

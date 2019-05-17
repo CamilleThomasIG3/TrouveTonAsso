@@ -6,8 +6,8 @@
           </div>
 
           <div class="col-md-5">
-            <form action="/recherche/{{mot}}" class="navbar-form" method="get" id="recherche">
-              <input type="text" name="recherche" placeholder="Rechercher..." value="{{mot}}" class="form-control input-sm">
+            <form action="/recherche" class="navbar-form" method="post" id="recherche">
+              <input type="text" name="recherche" placeholder="Rechercher..." class="form-control input-sm">
               <button type="submit" class="btn btn-primary btn-sm">
                 <span class="glyphicon glyphicon-search"></span>
               </button>

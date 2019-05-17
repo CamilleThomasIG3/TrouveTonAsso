@@ -96,35 +96,40 @@ passport.use('local.signup', new LocalStrategy ({
   passReqToCallback: true
 }, async (req, email_personne, mdp_personne, done) =>{
   var { prenom_personne, nom_personne, date_naissance_personne, adresse_personne,
-    CP_personne, ville_personne, photo_personne } = req.body
+    CP_personne, ville_personne, photo_personne, mdp_personne2 } = req.body
 
   if (photo_personne === ""){
     photo_personne = "anonyme.png"
   }
   photo_personne = "/images/profils/"+photo_personne
-  
+
   const personne =  await pool.query('SELECT * FROM personne WHERE email_personne = ?', [email_personne])
 
   if (personne[0] !== undefined){ //email already exists
     done(null, false, req.flash('message', "Cet email n'est pas disponible"))
   }
   else{
-    const newPersonne = {
-      email_personne,
-      mdp_personne,
-      prenom_personne,
-      nom_personne,
-      date_naissance_personne,
-      adresse_personne,
-      CP_personne,
-      ville_personne,
-      photo_personne
+    if(mdp_personne !== mdp_personne2){
+      done(null, false, req.flash('message', "La confirmation de mot de passe ne correspond pas à votre mot de passe"))
     }
+    else {
+      const newPersonne = {
+        email_personne,
+        mdp_personne,
+        prenom_personne,
+        nom_personne,
+        date_naissance_personne,
+        adresse_personne,
+        CP_personne,
+        ville_personne,
+        photo_personne
+      }
 
-    newPersonne.mdp_personne = await helpers.encryptPassword(mdp_personne)
-    const result = await pool.query('INSERT INTO personne SET ?', [newPersonne])
-    newPersonne.id_personne = result.insertId
-    return done(null, newPersonne)
+      newPersonne.mdp_personne = await helpers.encryptPassword(mdp_personne)
+      const result = await pool.query('INSERT INTO personne SET ?', [newPersonne])
+      newPersonne.id_personne = result.insertId
+      return done(null, newPersonne)
+    }
   }
 }))
 

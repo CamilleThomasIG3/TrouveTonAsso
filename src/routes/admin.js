@@ -45,7 +45,7 @@ router.get('/modifier/:numSIREN_asso', isAdmin, async (req, res)=> {
 router.post('/modifier/:numSIREN_asso', isAdmin, async (req, res)=> {
   const { numSIREN_asso } = req.params
   var { nom_asso, description_asso, adresse_asso, arrondissement_asso,
-     CP_asso, ville_asso, email_asso, tel_asso, facebook_asso, site_asso, logo_asso, mdp_asso } = req.body
+     CP_asso, ville_asso, email_asso, tel_asso, facebook_asso, site_asso, logo_asso, mdp_asso, mdp_asso2 } = req.body
 
    if ( arrondissement_asso === ""){
      arrondissement_asso = null
@@ -60,24 +60,29 @@ router.post('/modifier/:numSIREN_asso', isAdmin, async (req, res)=> {
      tel_asso = null
    }
 
-  const newAssociation = {
-    nom_asso,
-    description_asso,
-    adresse_asso,
-    arrondissement_asso,
-    CP_asso,
-    ville_asso,
-    email_asso,
-    tel_asso,
-    facebook_asso,
-    site_asso,
-    logo_asso,
-    mdp_asso
-  }
-  newAssociation.mdp_asso = await helpers.encryptPassword(mdp_asso)
-  await pool.query('UPDATE association set ? WHERE numSIREN_asso = ?', [newAssociation, numSIREN_asso])
-  req.flash('success', 'Association modifiée avec succès')
-  res.redirect('../'+numSIREN_asso)
+   if (mdp_asso !== mdp_asso2){
+     req.flash('message', 'La confirmation de mot de passe ne correspond pas à votre mot de passe')
+     res.redirect('./'+numSIREN_asso)
+   }else {
+     const newAssociation = {
+       nom_asso,
+       description_asso,
+       adresse_asso,
+       arrondissement_asso,
+       CP_asso,
+       ville_asso,
+       email_asso,
+       tel_asso,
+       facebook_asso,
+       site_asso,
+       logo_asso,
+       mdp_asso
+     }
+     newAssociation.mdp_asso = await helpers.encryptPassword(mdp_asso)
+     await pool.query('UPDATE association set ? WHERE numSIREN_asso = ?', [newAssociation, numSIREN_asso])
+     req.flash('success', 'Association modifiée avec succès')
+     res.redirect('../'+numSIREN_asso)
+   }
 })
 
 //Display view "membres" association
@@ -158,6 +163,30 @@ router.post('/ajouter_membre/:numSIREN_asso', isAdmin, async (req, res)=> {
   }
 })
 
+//Display view "ajouter_poste"
+router.get('/ajout_poste/:numSIREN_asso', isAdmin, async (req, res)=> {
+  console.log('la');
+  const { numSIREN_asso } = req.params
+  const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
+
+  res.render('association/ajout_poste', {association: association[0]})
+})
+
+//Recuperation from view "ajouter_poste"
+router.post('/ajout_poste/:numSIREN_asso', isAdmin, async (req, res)=> {
+  const { numSIREN_asso } = req.params
+  const { libelle_poste } = req.body
+
+  const poste = await pool.query('SELECT * FROM poste WHERE libelle_poste=?', [libelle_poste])
+
+  if(poste[0] === undefined){
+    await pool.query('INSERT INTO poste VALUES (0,?)', [libelle_poste])
+  }
+
+  req.flash('success',"Poste ajouté avec succès")
+  res.redirect('../ajouter_membre/'+numSIREN_asso)
+})
+
 //Delete membre
 router.get('/supprimer_membre/:numSIREN_asso/:id_personne', isAdmin, async (req, res)=> {
   const { numSIREN_asso, id_personne } = req.params
@@ -165,5 +194,6 @@ router.get('/supprimer_membre/:numSIREN_asso/:id_personne', isAdmin, async (req,
   req.flash('success', "Membre supprimé avec succès")
   res.redirect('/administrateur/membres/'+numSIREN_asso)
 })
+
 
 module.exports = router

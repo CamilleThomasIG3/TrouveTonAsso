@@ -52,6 +52,21 @@ table {
 /*My CSS*/
 
 /*In commun*/
+html{
+	height: 100%;
+}
+
+body{
+	min-height: 82%;
+  margin: 0;
+  padding: 0;
+	position: relative;
+}
+
+.fin{
+	padding-bottom: 4em;
+}
+
 .gras{
 	font-size: 600;
 }
@@ -183,8 +198,7 @@ table {
   background-color: #d9d9d9;
   bottom: 0;
 	width: 100%;
-	margin-top: 1em;
-	display: fixed;
+	position: absolute;
 }
 
 #footer p{
@@ -428,4 +442,8 @@ table {
 	#titre_sup_admin{
 		margin-left: 0;
 	}
+}
+
+#erreur{
+	margin-bottom: 2em;
 }
