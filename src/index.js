@@ -8,7 +8,6 @@ const passport = require('passport')
 const cookieSession = require('cookie-session')
 
 const { database } = require('./keys')
-
 //global variable
 global.variable_globale = 0 //0 : normal, 1 : admin, 2 : super admin
 
@@ -48,6 +47,16 @@ hbs.registerHelper("SuperAdmin", function(options)
   }
   return options.inverse(this)
 });
+
+//return true if it is a super admin
+hbs.registerHelper("NotSuperAdmin", function(options)
+{
+  if(global.variable_globale !== 2){
+    return options.fn(this)
+  }
+  return options.inverse(this)
+});
+
 
 
 app.engine('.hbs', exphbs({

@@ -6,9 +6,11 @@
   {{/SuperAdmin}}
 
   {{#Admin}}
+  {{#NotSuperAdmin}}
   <div class="row">
     <p class="retour"><a href="../{{association.numSIREN_asso}}" class="btn btn-secondary" role="button"><span class="glyphicon glyphicon-arrow-left"></span><span> Retour</span></a></p>
   </div>
+  {{/NotSuperAdmin}}
   {{/Admin}}
 
   <h2 class="titres">Modifiez votre association</h2>
@@ -58,7 +60,7 @@
             </div>
 
             <div class="form-group">
-              <button class="btn btn-success btn-block">Sauvegarder</button>
+              <button class="btn btn-success btn-block">Modifier</button>
             </div>
           </form>
         </div>

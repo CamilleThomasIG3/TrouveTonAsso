@@ -41,6 +41,6 @@ module.exports = {
     if(global.variable_globale === 0){
       return next()
     }
-    return res.redirect('/connexion')
+    return res.redirect('/super_administrateur/')
   },
 }

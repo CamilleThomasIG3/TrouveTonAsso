@@ -170,6 +170,7 @@ table {
 
 #admin{
 	padding: 0.8em;
+	display: inline-block;
 }
 
 #admin span{
@@ -347,6 +348,19 @@ table {
 	}
 }
 
+#adherer{
+	margin-top: 1em;
+}
+#adherer_p{
+	font-style: italic;
+	font-weight: 600;
+}
+
+#button_add_asso{
+	margin-top:2em;
+	margin-left: 9em;
+	width: 6em;
+}
 
 /* ADMIN */
 

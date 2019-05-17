@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 
 const pool = require('../database')
+const { isLoggedIn, isNotLoggedIn, isNotAdmin} = require('../lib/auth')
 
 router.get('/', async (req, res) =>{
   const association = await pool.query('SELECT * FROM association')
@@ -42,6 +43,11 @@ router.get('/fiche/:numSIREN_asso', async (req, res)=> {
   res.render('association/fiche', {association: association[0], pays: pays_action,type: type_association})
 })
 
+
+router.get('/adherer', isLoggedIn, (req,res)=>{
+  req.flash('success', "Votre demande d'adhésion a été envoyée")
+  res.redirect('/')
+})
 
 
 //Display associations search
@@ -128,7 +134,7 @@ router.post('/criteres_arrondissement', async (req, res) =>{
 //Display associations with action country criteria chosen
 router.post('/criteres_pays', async (req, res) =>{
   const criteres = req.body
-  console.log(criteres)
+
   if(criteres === undefined){
     req.flash('message',"Vous n'avez coché aucun pays d'action")
     res.redirect('/')
@@ -143,21 +149,16 @@ router.post('/criteres_pays', async (req, res) =>{
         chaine=chaine+","
       }
     }
-    console.log(chaine)
 
     const recherche = await pool.query("SELECT DISTINCT numSIREN_asso FROM agir_pays WHERE id_pays in (?)", [chaine])
-    console.log(recherche)
 
-    chaine =""
+    var association_recherche = []
+    var tmp
+
     for(i=0;i<recherche.length;i++){
-      chaine=chaine+parseInt(recherche[i].numSIREN_asso)
-      if(i != array.length-1){
-        chaine=chaine+","
-      }
+      tmp = await pool.query("SELECT * FROM association WHERE numSIREN_asso=?", [recherche[i].numSIREN_asso])
+      association_recherche[i] = tmp[0]
     }
-    console.log(chaine)
-    const association_recherche = await pool.query("SELECT DISTINCT * FROM association WHERE numSIREN_asso in (?)", [chaine])
-    console.log(association_recherche)
 
     const association = await pool.query('SELECT * FROM association')
     const type_association = await pool.query('SELECT * FROM type_association')

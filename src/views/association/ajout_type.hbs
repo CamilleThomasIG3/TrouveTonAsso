@@ -1,0 +1,37 @@
+<div class="container p-4 line1">
+
+  <h2 class="titres">De quel.s type.s est l'association {{association.nom_asso}} ?</h2>
+  <div class="row"  id="div_ajout_asso">
+    <div class="col-md-4"  id="form_ajout_asso">
+      <div class="card">
+        <div class="card-body">
+          <form action="../../super_administrateur/ajout_type/{{association.numSIREN_asso}}" method="post">
+
+            <div class="dropdown">
+              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Types d'association
+              <span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                {{#if type_association}}
+                {{#each type_association}}
+                <li>
+                  <div class="form-check criteres_check">
+                    <input type="checkbox" name="{{id_type_asso}}" class="form-check-input" id="check{{id_type_asso}}">
+                    <label class="form-check-label" for="check{{id_type_asso}}">{{libelle_type_asso}}</label>
+                  </div>
+                </li>
+                {{/each}}
+                {{/if}}
+              </ul>
+            </div>
+
+            <div class="form-group">
+              <button class="btn btn-success btn-block" type="submit" id="button_add_asso">
+                Suivant
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

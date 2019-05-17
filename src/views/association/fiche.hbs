@@ -4,6 +4,11 @@
     <p class="retour"><a href="../" class="btn btn-secondary" role="button"><span class="glyphicon glyphicon-arrow-left"></span><span> Retour</span></a></p>
   </div>
   {{/NotAdmin}}
+  {{#SuperAdmin}}
+  <div class="row">
+    <p class="retour"><a href="../" class="btn btn-secondary" role="button"><span class="glyphicon glyphicon-arrow-left"></span><span> Retour</span></a></p>
+  </div>
+  {{/SuperAdmin}}
 
   <div class="row">
 
@@ -77,6 +82,13 @@
 
               <p><a href="../../administrateur/modifier/{{association.numSIREN_asso}}" class="btn btn-secondary" role="button">Modifier</a></p>
             {{/Admin}}
+
+          {{#notAdmin}}
+            <div id="adherer">
+              <p><a href="/adherer" class="btn btn-success" role="button">Demande d'adhésion</a></p>
+              <p id="adherer_p">Pour faire une demande d'adhésion à {{association.nom_asso}} vous devez être connecté<p>
+            </div>
+          {{/notAdmin}}
           </div>
         </div>
 
