@@ -1,9 +1,6 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
 
-var multer  = require('multer')
-// var upload = multer({ dest: 'src/public/images/profils/' })
-
 const pool = require('../database')
 const helpers = require('../lib/helpers')
 
@@ -95,8 +92,9 @@ passport.use('local.signup', new LocalStrategy ({
   passwordField: 'mdp_personne',
   passReqToCallback: true
 }, async (req, email_personne, mdp_personne, done) =>{
+  console.log(req);
   var { prenom_personne, nom_personne, date_naissance_personne, adresse_personne,
-    CP_personne, ville_personne, photo_personne, mdp_personne2 } = req.body
+    CP_personne, ville_personne, profilImage, mdp_personne2 } = req.body
 
   if (photo_personne === ""){
     photo_personne = "anonyme.png"

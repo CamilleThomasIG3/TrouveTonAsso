@@ -85,7 +85,7 @@
 
           {{#notAdmin}}
             <div id="adherer">
-              <p><a href="/adherer" class="btn btn-success" role="button">Demande d'adhésion</a></p>
+              <p><a href="/adherer/{{association.numSIREN_asso}}/{{personne.email_personne}}" class="btn btn-success" role="button">Demande d'adhésion</a></p>
               <p id="adherer_p">Pour faire une demande d'adhésion à {{association.nom_asso}} vous devez être connecté<p>
             </div>
           {{/notAdmin}}

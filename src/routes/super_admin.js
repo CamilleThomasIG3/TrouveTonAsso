@@ -115,7 +115,7 @@ router.get('/ajout', isSuperAdmin, async (req, res)=> {
 router.post('/ajout', isSuperAdmin, async (req, res)=> {
   const tmp = req.body
   var {numSIREN_asso, nom_asso, description_asso, adresse_asso, arrondissement_asso,
-     CP_asso, ville_asso, email_asso, tel_asso, facebook_asso, site_asso, logo_asso, mdp_asso } = req.body
+     CP_asso, ville_asso, email_asso, tel_asso, facebook_asso, site_asso, logo_asso, mdp_asso, mdp_2 } = req.body
 
   if ( numSIREN_asso.length !== 9){
     req.flash('message', 'Numéro SIREN invalide')
@@ -128,42 +128,47 @@ router.post('/ajout', isSuperAdmin, async (req, res)=> {
       res.redirect('../super_administrateur/ajout')
     }
     else{
-      if ( arrondissement_asso === ""){
-        arrondissement_asso = null
-      }
-      if (facebook_asso === ""){
-        facebook_asso = null
-      }
-      if (site_asso === ""){
-        site_asso = null
-      }
-      if (tel_asso === ""){
-        tel_asso = null
-      }
+      if (mdp_asso !== mdp_asso2) {
+        req.flash('message', 'La confirmation de mot de passe ne correspond pas à votre mot de passe')
+        res.redirect('../super_administrateur/ajout')
+      }else {
+        if ( arrondissement_asso === ""){
+          arrondissement_asso = null
+        }
+        if (facebook_asso === ""){
+          facebook_asso = null
+        }
+        if (site_asso === ""){
+          site_asso = null
+        }
+        if (tel_asso === ""){
+          tel_asso = null
+        }
 
-      logo_asso = "/images/logos/"+logo_asso
+        logo_asso = "/images/logos/"+logo_asso
 
-      const newAssociation = {
-        numSIREN_asso,
-        nom_asso,
-        description_asso,
-        adresse_asso,
-        arrondissement_asso,
-        CP_asso,
-        ville_asso,
-        email_asso,
-        tel_asso,
-        facebook_asso,
-        site_asso,
-        logo_asso,
-        mdp_asso
+        const newAssociation = {
+          numSIREN_asso,
+          nom_asso,
+          description_asso,
+          adresse_asso,
+          arrondissement_asso,
+          CP_asso,
+          ville_asso,
+          email_asso,
+          tel_asso,
+          facebook_asso,
+          site_asso,
+          logo_asso,
+          mdp_asso
+        }
+
+        newAssociation.mdp_asso = await helpers.encryptPassword(mdp_asso)
+        await pool.query('INSERT INTO association set ?', [newAssociation])
+
+        const type_association = await pool.query('SELECT * FROM type_association')
+        res.redirect('ajout_type/'+numSIREN_asso)
       }
-
-      newAssociation.mdp_asso = await helpers.encryptPassword(mdp_asso)
-      await pool.query('INSERT INTO association set ?', [newAssociation])
-
-      const type_association = await pool.query('SELECT * FROM type_association')
-      res.redirect('ajout_type/'+numSIREN_asso)
     }
   }
 })

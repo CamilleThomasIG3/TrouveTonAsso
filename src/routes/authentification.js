@@ -2,15 +2,35 @@ const express = require('express')
 const router = express.Router()
 const pool = require('../database')
 const helpers = require('../lib/helpers')
-
 const passport = require('passport')
+const multer = require('multer')
+// const image = multer({dest: 'src/public/images/profils/'})
+
 const { isLoggedIn, isNotLoggedIn, isNotAdmin} = require('../lib/auth')
 
-router.get('/inscription', isNotLoggedIn, (req,res)=>{
-  res.render('authentification/inscription')
-})
+//
+// const storage = multer.diskStorage({
+//   destination: function(req, file, cb){
+//     console.log(file)
+//     cb(null, 'src/public/images/profils')
+//   },
+//   filename: function(req, file, cb){
+//     cb(null, file.originalName)
+//   }
+// })
+//
+// const fileFilter = (req, file, cb) =>{
+//   if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
+//     cb(null, true)
+//   }else{
+//     cb(null, false)
+//   }
+// }
+//
+// const upload = multer({storage: storage, fileFilter: fileFilter})
 
-router.post('/inscription', isNotLoggedIn, passport.authenticate('local.signup', {
+
+router.post('/inscription', /*image.single('profilImage'),*/ isNotLoggedIn, passport.authenticate('local.signup', {
   successRedirect: '/profil',
   failureRedirect: '/inscription',
   failureFlash: true
