@@ -225,8 +225,6 @@ router.post('/ajout_pays/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
 //Delete association
 router.get('/supprimer/:numSIREN_asso', isSuperAdmin, async (req, res) =>{
   const { numSIREN_asso } = req.params
-  await pool.query('DELETE FROM agir_pays WHERE numSIREN_asso=?', [numSIREN_asso])
-  await pool.query('DELETE FROM asso_de_type WHERE numSIREN_asso=?', [numSIREN_asso])
   await pool.query('DELETE FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
 
   req.flash('success', 'Association supprimée avec succès')
