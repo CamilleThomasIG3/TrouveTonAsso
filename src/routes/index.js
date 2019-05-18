@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 var mailer = require('nodemailer')
+const dateFormat = require('dateformat')
 
 var smtpTransport = mailer.createTransport("SMTP", {
   service: "Gmail",
@@ -18,7 +19,21 @@ router.get('/', isNotAdmin, async (req, res) =>{
   const type_association = await pool.query('SELECT * FROM type_association')
   const arrondissement = await pool.query('SELECT DISTINCT arrondissement_asso FROM association WHERE arrondissement_asso is not null')
   const pays = await pool.query('SELECT * FROM pays')
-  res.render('index', {association, type_association, arrondissement, pays})
+  var projets = await pool.query('SELECT * FROM projet')
+
+  var projetFirst 
+  var projet = []
+  for (var i = 0; i<4; i++) {
+    projets[i].date_fin_projet = dateFormat(projets[i].date_fin_projet, 'dd/mm/yyyy')
+    projets[i].date_debut_projet = dateFormat(projets[i].date_debut_projet, 'dd/mm/yyyy')
+    if(i === 0){
+      projetFirst = projets[i]
+    }else{
+      projet[i-1] = projets[i]
+    }
+  }
+
+  res.render('index', {association, type_association, arrondissement, pays, projet, projetFirst})
 })
 
 router.get('/a_propos', isNotAdmin, (req,res)=>{

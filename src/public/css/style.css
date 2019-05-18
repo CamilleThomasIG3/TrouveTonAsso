@@ -221,6 +221,10 @@ body{
 	margin-top: 6em;
 }
 
+#titre_carousel{
+	background-color: black;
+	padding: 0.8em;
+}
 
 /*Form add asso*/
 #div_ajout_asso{
@@ -445,5 +449,11 @@ body{
 }
 
 #erreur{
+	margin-bottom: 2em;
+}
+
+#erreur_img{
+	width: 10em;
+	margin-left: 45%;
 	margin-bottom: 2em;
 }

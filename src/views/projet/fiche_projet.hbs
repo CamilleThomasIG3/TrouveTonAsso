@@ -1,7 +1,13 @@
 <div class="container text-center line1">
+  {{#Admin}}
   <div class="row">
     <p class="retour"><a href="../../{{numSIREN_asso}}" class="btn btn-secondary" role="button"><span class="glyphicon glyphicon-arrow-left"></span><span> Retour</span></a></p>
   </div>
+  {{else}}
+  <div class="row">
+    <p class="retour"><a href="../../../liste_projet" class="btn btn-secondary" role="button"><span class="glyphicon glyphicon-arrow-left"></span><span> Retour</span></a></p>
+  </div>
+  {{/Admin}}
 
   <div class="row">
 
@@ -32,11 +38,14 @@
           {{#if projet.adresse_projet}}
             <li class="list-group-item"><span id="entete">Adresse : </span>{{projet.adresse_projet}}</li>
           {{/if}}
+          {{#if projet.arrondissement_projet}}
+            <li class="list-group-item"><span id="entete">Arrondissement : </span>{{projet.arrondissement_projet}}</li>
+          {{/if}}
           {{#if projet.CP_projet}}
-            <li class="list-group-item">{{projet.CP_projet}}</li>
+            <li class="list-group-item"><span id="entete">Code Postal : </span>{{projet.CP_projet}}</li>
           {{/if}}
           {{#if projet.ville_projet}}
-            <li class="list-group-item">{{projet.ville_projet}}</li>
+            <li class="list-group-item"><span id="entete">Ville : </span>{{projet.ville_projet}}</li>
           {{/if}}
 
           </ul>

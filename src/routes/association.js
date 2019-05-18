@@ -1,5 +1,7 @@
 const express = require('express')
 const router = express.Router()
+const methodOverride = require('method-override')
+router.use(methodOverride('_method'))
 
 const pool = require('../database')
 const helpers = require('../lib/helpers')
@@ -100,7 +102,7 @@ router.get('/membres/:numSIREN_asso', isAdmin, isGoodAsso, async (req, res)=> {
     personne[i].libelle_poste = poste[0].libelle_poste
     personne[i].numSIREN_asso = association[0].numSIREN_asso
   }
-  res.render('association/membres', {association: association[0], personne: personne})
+  res.render('association/membres', {association: association[0], person: personne})
 })
 
 //Display view "modifier_membre"
@@ -188,7 +190,7 @@ router.post('/ajout_poste/:numSIREN_asso', isAdmin, isGoodAsso, async (req, res)
 
 
 //Delete membre
-router.get('/supprimer_membre/:numSIREN_asso/:id_personne', isAdmin, isGoodAsso, async (req, res)=> {
+router.delete('/supprimer_membre/:numSIREN_asso/:id_personne', isAdmin, isGoodAsso, async (req, res)=> {
   const { numSIREN_asso, id_personne } = req.params
   await pool.query('DELETE FROM etre_membre WHERE numSIREN_asso=? AND id_personne=?', [numSIREN_asso, id_personne])
   req.flash('success', "Membre supprimé avec succès")

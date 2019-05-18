@@ -10,36 +10,25 @@
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
     <div class="item active">
-      <img  class="img-responsive"  src="/images/projets/livre.jpg" alt="Livres">
-      <div class="carousel-caption">
-        <h3>Education</h3>
-        <p>Rejoignez-nous !</p>
-      </div>
+      <a href="/projet/fiche_projet/{{projetFirst.numSIREN_asso}}/{{projetFirst.id_projet}}">
+      <img  class="img-responsive"  src="{{projetFirst.photo_projet}}" alt="Projet : {{projetFirst.titre_projet}}">
+        <div class="carousel-caption" id="titre_carousel">
+          <h3>{{projetFirst.titre_projet}}</h3>
+          <p>{{projetFirst.date_debut_projet}} - {{projetFirst.date_fin_projet}}</p>
+        </div>
+      </a>
     </div>
-
+    {{#each projet}}
     <div class="item">
-      <img  class="img-responsive"  src="/images/projets/pomme.jpg" alt="Pomme">
-      <div class="carousel-caption">
-        <h3>Environnement</h3>
-        <p>Nous avons besoin de vous!</p>
-      </div>
+      <a href="/projet/fiche_projet/{{numSIREN_asso}}/{{id_projet}}">
+        <img  class="img-responsive"  src="{{photo_projet}}" alt="Projet : {{titre_projet}}">
+        <div class="carousel-caption" id="titre_carousel">
+          <h3>{{titre_projet}}</h3>
+          <p>{{date_debut_projet}} - {{date_fin_projet}}</p>
+        </div>
+      </a>
     </div>
-
-    <div class="item">
-      <img class="img-responsive" src="/images/projets/genres.jpg" alt="Genres">
-      <div class="carousel-caption">
-        <h3>Education</h3>
-        <p>Aidez-nous !</p>
-      </div>
-    </div>
-
-    <div class="item">
-      <img  class="img-responsive"  src="/images/projets/poterie.jpg" alt="Poterie">
-      <div class="carousel-caption">
-        <h3>Art et Culure</h3>
-        <p>Venez découvrir...</p>
-      </div>
-    </div>
+    {{/each}}
   </div>
 
   <!-- Left and right controls -->

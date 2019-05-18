@@ -6,17 +6,20 @@
     <div id="cadre_membres">
 
 
-      {{#each personne}}
+      {{#each person}}
       <div class="media asso">
         <div class="media-left media-middle">
-          <img class="media-object logo" src="{{this.photo_personne}}" alt="Photo de profil de {{personne.prenom_personne}}" id="logo_assos">
+          <img class="media-object logo" src="{{this.photo_personne}}" alt="Photo de profil de {{this.prenom_personne}}" id="logo_assos">
         </div>
         <div class="media-body">
           <h4 class="media-heading">{{this.prenom_personne}} {{this.nom_personne}}</h4>
           <p class="truncate">{{this.libelle_poste}}</p>
           <p class="truncate">{{this.email_personne}}</p>
           <span><a href="../modifier_membre/{{this.numSIREN_asso}}/{{this.id_personne}}" class="btn btn-secondary" role="button">Modifier</a></span>
-          <span><a href="../supprimer_membre/{{this.numSIREN_asso}}/{{this.id_personne}}" class="btn btn-danger" role="button">Supprimer</a></span>
+          <form action="../supprimer_membre/{{this.numSIREN_asso}}/{{this.id_personne}}?_method=DELETE" method="post">
+            <input type="hidden" name="_method" value="DELETE">
+            <span><a class="btn btn-danger" role="button">Supprimer</a></span>
+          </form>
         </div>
       </div>
 

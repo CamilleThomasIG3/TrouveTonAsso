@@ -76,7 +76,11 @@ app.use(cookieSession({
   maxAge: 1*60*60*1000, //h m s ms
   resave: false,
   saveUninitialized: false,
-  store: new MySQLStore(database)
+  store: new MySQLStore(database),
+  cookie: {
+    secure: true,
+    httpOnly: true
+  }
 }))
 app.use(morgan('dev'))
 app.use(express.urlencoded({extended: false}))
