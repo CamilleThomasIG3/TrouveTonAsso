@@ -18,10 +18,7 @@
             {{#Admin}}
             <span><a href="/projet/fiche_projet/{{numSIREN_asso}}/{{id_projet}}" class="btn btn-success" role="button">Voir plus</a></span>
             <span><a href="/projet/modifier_projet/{{numSIREN_asso}}/{{id_projet}}" class="btn btn-secondary" role="button">Modifier</a></span>
-            <form action="/projet/supprimer_projet/{{numSIREN_asso}}/{{id_projet}}?_method=DELETE" method="post">
-              <input type="hidden" name="_method" value="DELETE">
-              <button class="btn btn-danger" type="submit" role="button">Supprimer</button>
-            </form>
+            <span><a href="/projet/supprimer_projet/{{numSIREN_asso}}/{{id_projet}}" class="btn btn-danger" role="button">Supprimer</a></span>
             {{else}}
             <span><a href="/projet/fiche_projet/{{numSIREN_asso}}/{{id_projet}}" class="btn btn-success" role="button">Voir plus</a></span>
             {{/Admin}}

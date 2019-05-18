@@ -17,12 +17,7 @@
           <p class="truncate">{{this.email_personne}}</p>
           <div>
             <span><a href="../modifier_membre/{{this.numSIREN_asso}}/{{this.id_personne}}" class="btn btn-secondary" role="button">Modifier</a></span>
-            <span>
-              <form action="../supprimer_membre/{{this.numSIREN_asso}}/{{this.id_personne}}?_method=DELETE" method="post">
-                <input type="hidden" name="_method" value="DELETE">
-                <button class="btn btn-danger" type="submit" role="button">Supprimer</button>
-              </form>
-            </span>
+            <span><a href="../supprimer_membre/{{this.numSIREN_asso}}/{{this.id_personne}}" class="btn btn-danger" role="button">Supprimer</a></span>
           </div>
 
         </div>

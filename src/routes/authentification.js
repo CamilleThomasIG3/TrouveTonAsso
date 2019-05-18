@@ -117,7 +117,7 @@ router.post('/modifier/:id_personne', isLoggedIn, isNotAdmin, async (req, res)=>
 })
 
 //Delete personne
-router.delete('/supprimer/:id_personne', isLoggedIn, isNotAdmin, async (req, res) =>{
+router.get('/supprimer/:id_personne', isLoggedIn, isNotAdmin, async (req, res) =>{
   const { id_personne } = req.params
   await pool.query('DELETE FROM personne WHERE id_personne=?', [id_personne])
   global.variable_globale = 0;
