@@ -1,0 +1,67 @@
+<div class="container p-4 line1">
+  <div class="row">
+    <p class="retour"><a href="../" class="btn btn-secondary" role="button"><span class="glyphicon glyphicon-arrow-left"></span><span> Retour</span></a></p>
+  </div>
+
+  <h2 class="titres">Modifiez votre projet</h2>
+  <div class="row"  id="div_ajout_asso">
+    <div class="col-md-4"  id="form_ajout_asso">
+      <div class="card">
+        <div class="card-body">
+          <form action="/projet/modifier_projet/{{projet.numSIREN_asso}}/{{projet.id_projet}}" method="post">
+
+            <div class="form-group">
+              <input type="text" class="form-control" name="titre_projet" value="{{projet.titre_projet}}" placeholder="Titre du projet" required>
+            </div>
+            <div class="form-group">
+              <textarea name="description_projet" rows="2" cols="80" class="form-control" placeholder="Description" required>{{projet.description_projet}}</textarea>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="date_debut_projet" value="{{projet.date_debut_projet}}" placeholder="Date de début">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="date_fin_projet" value="{{projet.date_fin_projet}}" placeholder="Date de fin">
+            </div>
+            <div class="form-group">
+              <input type="number" class="form-control" name="nbre_participant_necessaire_projet" value="{{projet.nbre_participant_necessaire_projet}}" placeholder="Nombre de personnes nécessaire pour le projet" required>
+            </div>
+            <div class="form-group">
+              <input type="number" class="form-control" name="nbre_participant_actuel_projet" value="{{projet.nbre_participant_actuel_projet}}" placeholder="Nombre de personnes actuel sur le projet" required>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="adresse_projet" value="{{projet.adresse_projet}}" placeholder="Adresse (pas obligatoire)">
+            </div>
+            <div class="form-group">
+              <input type="number" class="form-control" name="arrondissement_projet" value="{{projet.arrondissement_projet}}" placeholder="Arrondissement (pas obligatoire)">
+            </div>
+            <div class="form-group">
+              <input type="number" class="form-control" name="CP_projet" value="{{projet.CP_projet}}" placeholder="Code Postal (pas obligatoire)">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="ville_projet" value="{{projet.ville_projet}}" placeholder="Ville" required>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="photo_projet" value="{{projet.photo_projet}}" placeholder="Photo projet" required>
+            </div>
+
+            {{#if autrePays}}
+            <select name="id_pays" id="menu_deroulant">
+              <option value="{{pays.id_pays}}">{{pays.nom_pays}}</option>
+              {{#each autrePays}}
+                <option value="{{this.id_pays}}">{{this.nom_pays}}</option>
+              {{/each}}
+            </select>
+            {{/if}}
+
+            <a href="/super_administrateur/ajout_pays/{{projet.numSIREN_asso}}" class="btn btn-success">Ajouter un pays</a>
+
+
+            <div class="form-group">
+              <button class="btn btn-success btn-block">Modifier</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

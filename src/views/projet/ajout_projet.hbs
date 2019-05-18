@@ -1,6 +1,6 @@
 <div class="container p-4 line1">
   <div class="row">
-    <p class="retour"><a href="../super_administrateur/" class="btn btn-secondary" role="button"><span class="glyphicon glyphicon-arrow-left"></span><span> Retour</span></a></p>
+    <p class="retour"><a href="../" class="btn btn-secondary" role="button"><span class="glyphicon glyphicon-arrow-left"></span><span> Retour</span></a></p>
   </div>
 
   <h2 class="titres">Ajoutez votre projet</h2>
@@ -37,7 +37,7 @@
               <input type="number" class="form-control" name="CP_projet" placeholder="Code Postal (pas obligatoire)">
             </div>
             <div class="form-group">
-              <input type="text" class="form-control" name="ville_projet" placeholder="Ville">
+              <input type="text" class="form-control" name="ville_projet" placeholder="Ville" required>
             </div>
             <div class="form-group">
               <input type="text" class="form-control" name="photo_projet" placeholder="Photo projet" required>
@@ -51,7 +51,7 @@
             </select>
             {{/if}}
 
-            <a href="association/ajout_pays" class="btn btn-success">Ajouter un pays</a>
+            <a href="/super_administrateur/ajout_pays/{{numSIREN_asso}}" class="btn btn-success">Ajouter un pays</a>
 
             <div class="form-group">
               <button class="btn btn-success btn-block" type="submit">

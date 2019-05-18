@@ -1,0 +1,59 @@
+<div class="container text-center line1">
+  <div class="row">
+    <p class="retour"><a href="../../{{numSIREN_asso}}" class="btn btn-secondary" role="button"><span class="glyphicon glyphicon-arrow-left"></span><span> Retour</span></a></p>
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-6" id="cadre_fiche_asso">
+
+      <div class="thumbnail" id="prof">
+
+        <div class="card fiche_asso" >
+          <img class="card-img-top logo" src="{{projet.photo_projet}}" alt="Photo du projet{{projet.titre_projet}}">
+
+          <div class="card-body fiche_asso">
+            <h2 class="card-title" id="titre_card_asso">{{projet.titre_projet}}</h2>
+            <h4 class="card-text">{{projet.description_projet}}<h4>
+          </div>
+
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><span id="entete">Pays d'action : </span>{{pays}}</li>
+
+            <li class="list-group-item"><span id="entete">Nombre de participants nécessaires : </span>{{projet.nbre_participant_necessaire_projet}}</li>
+            <li class="list-group-item"><span id="entete">Places restantes : </span>{{nb}}</li>
+
+            <li class="list-group-item"><span id="entete">Date de début : </span>{{projet.date_debut_projet }}</li>
+            <li class="list-group-item"><span id="entete">Date de fin : </span>{{projet.date_fin_projet }}</li>
+          </ul>
+
+          <ul class="list-group list-group-flush">
+
+          {{#if projet.adresse_projet}}
+            <li class="list-group-item"><span id="entete">Adresse : </span>{{projet.adresse_projet}}</li>
+          {{/if}}
+          {{#if projet.CP_projet}}
+            <li class="list-group-item">{{projet.CP_projet}}</li>
+          {{/if}}
+          {{#if projet.ville_projet}}
+            <li class="list-group-item">{{projet.ville_projet}}</li>
+          {{/if}}
+
+          </ul>
+
+          {{#Admin}}
+          <p><a href="/projet/modifier_projet/{{projet.numSIREN_asso}}/{{projet.id_projet}}" class="btn btn-secondary" role="button">Modifier</a></p>
+          {{else}}
+            <div id="adherer">
+              <p><a href="/participer/{{projet.numSIREN_asso}}/{{projet.titre_projet}}/{{personne.email_personne}}" class="btn btn-success" role="button">Demande de participation</a></p>
+              <p id="adherer_p">Pour faire une demande de participation vous devez être connecté<p>
+            </div>
+          {{/Admin}}
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+</div>

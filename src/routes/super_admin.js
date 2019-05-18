@@ -4,7 +4,7 @@ const pool = require('../database')
 const helpers = require('../lib/helpers')
 
 const passport = require('passport')
-const { isLoggedIn, isNotLoggedIn, isSuperAdmin } = require('../lib/auth')
+const { isLoggedIn, isNotLoggedIn, isSuperAdmin, isAdmin } = require('../lib/auth')
 
 //connexion association
 router.get('/', isSuperAdmin, async (req, res) => {
@@ -262,13 +262,13 @@ router.post('/ajout_type/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
 
 
 //Display view "ajouter_pays"
-router.get('/ajout_pays/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
+router.get('/ajout_pays/:numSIREN_asso', isAdmin, async (req, res)=> {
   const {numSIREN_asso} = req.params
   res.render('association/ajout_pays', {numSIREN_asso: numSIREN_asso})
 })
 
 //Recuperation from view "ajouter_type"
-router.post('/ajout_pays/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
+router.post('/ajout_pays/:numSIREN_asso', isAdmin, async (req, res)=> {
   const {numSIREN_asso} = req.params
   var { nom_pays } = req.body
   console.log(nom_pays);
@@ -279,7 +279,10 @@ router.post('/ajout_pays/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
   }
 
   req.flash('success',"Pays ajouté avec succès")
-  res.redirect('../ajout_pays_association/'+numSIREN_asso)
+  if(global.variable_globale === 2){
+    res.redirect('../ajout_pays_association/'+numSIREN_asso)
+  }
+  res.redirect('/projet/ajout_projet/'+numSIREN_asso)
 })
 
 

@@ -1,0 +1,41 @@
+<main class="index">
+      <div class="container line1" id="liste_asso">
+        <div class="row">
+          <div>
+            <h2 class="titres">Liste des projets</h2>
+          </div>
+        </div>
+
+        {{#each projets}}
+        <div class="media asso">
+          <div class="media-left media-middle">
+              <img class="media-object logo" src="{{photo_projet}}" alt="Photo du projet {{titre_projet}}" id="logo_assos">
+          </div>
+          <div class="media-body">
+            <h4 class="media-heading">{{titre_projet}}</h4>
+            <p class="truncate">{{description_projet}}</p>
+
+            {{#Admin}}
+            <span><a href="/projet/fiche_projet/{{numSIREN_asso}}/{{id_projet}}" class="btn btn-success" role="button">Voir plus</a></span>
+            <span><a href="/projet/modifier_projet/{{numSIREN_asso}}/{{id_projet}}" class="btn btn-secondary" role="button">Modifier</a></span>
+            <span><a href="/projet/supprimer_projet/{{numSIREN_asso}}/{{id_projet}}" class="btn btn-danger" role="button">Supprimer</a></span>
+            {{else}}
+            <span><a href="/projet/fiche_projet/{{numSIREN_asso}}/{{id_projet}}" class="btn btn-success" role="button">Voir plus</a></span>
+            {{/Admin}}
+
+          </div>
+        </div>
+
+        {{else}}
+        <div class="col-md-4 mx-auto">
+          <div class="card card-body text-center">
+            <p>Vous n'avez créé encore aucun projet</p>
+          </div>
+        </div>
+        {{/each}}
+
+        {{#Admin}}
+          <a href="/projet/ajout_projet/{{numSIREN_asso}}" class="btn btn-success">Créer un projet</a>
+        {{/Admin}}
+      </div>
+</main>

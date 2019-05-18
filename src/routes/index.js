@@ -223,4 +223,40 @@ router.post('/criteres_pays', isNotAdmin, async (req, res) =>{
   }
 })
 
+
+//Display view "liste_projet"
+router.get('/liste_projet', async (req, res)=> {
+  const projets = await pool.query('SELECT * FROM projet')
+
+  res.render('projet/liste_projet', {projets: projets})
+})
+
+//send mail for joining
+router.get('/participer/:numSIREN_asso/:titre_projet/:email_personne', isLoggedIn, isNotAdmin, async (req,res)=>{
+  const { numSIREN_asso, email_personne, titre_projet } = req.params
+
+  const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
+  const personne = await pool.query('SELECT * FROM personne WHERE email_personne=?', [email_personne])
+
+  var mail = {
+    from: "trouve.ton.asso.projet.2019@gmail.com",
+    to: ""+association[0].email_asso,
+    subject: "[Trouve Ton Asso] Demande d'adhésion",
+    html: "Bonjour "+association[0].nom_asso+",\n"+personne[0].prenom_personne+" "+personne[0].nom_personne
+    +" souhaite participer à votre projet "+ titre_projet+". \nVoici son email afin que vous puissiez échanger : "+personne[0].email_personne
+  }
+
+  smtpTransport.sendMail(mail, function(error, response){
+    if(error){
+      console.log(error);
+    }else {
+      console.log("Email envoyé")
+    }
+    smtpTransport.close()
+  })
+
+  req.flash('success', "Votre demande de participation a été envoyée, l'association vous contactera par email")
+  res.redirect('/liste_projet')
+})
+
 module.exports = router

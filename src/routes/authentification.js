@@ -3,6 +3,8 @@ const router = express.Router()
 const pool = require('../database')
 const helpers = require('../lib/helpers')
 const passport = require('passport')
+const dateFormat = require('dateformat')
+
 const multer = require('multer')
 // const image = multer({dest: 'src/public/images/profils/'})
 
@@ -29,6 +31,10 @@ const { isLoggedIn, isNotLoggedIn, isNotAdmin} = require('../lib/auth')
 //
 // const upload = multer({storage: storage, fileFilter: fileFilter})
 
+// Connexion user
+router.get('/inscription', isNotLoggedIn, isNotAdmin, (req, res) => {
+  res.render('authentification/inscription')
+})
 
 router.post('/inscription', /*image.single('profilImage'),*/ isNotLoggedIn, isNotAdmin, passport.authenticate('local.signup', {
   successRedirect: '/profil',
@@ -51,7 +57,11 @@ router.post('/connexion', isNotLoggedIn, isNotAdmin, async (req, res, next)=>{
 })
 
 router.get('/profil', isLoggedIn, isNotAdmin, (req, res) =>{
-  res.render('authentification/profil')
+  const { date_naissance_personne } = req.user
+
+  date = dateFormat(date_naissance_personne, 'dd/mm/yyyy')
+
+  res.render('authentification/profil', {date})
 })
 
 router.get('/deconnexion', (req, res) =>{
@@ -64,15 +74,31 @@ router.get('/deconnexion', (req, res) =>{
 //Edit personne
 router.get('/modifier/:id_personne', isLoggedIn, isNotAdmin, async (req, res) =>{
   const { id_personne } = req.params
-  const personne = await pool.query('SELECT * FROM personne WHERE id_personne=?', [id_personne])
+
+  var personne = await pool.query('SELECT * FROM personne WHERE id_personne=?', [id_personne])
+  personne[0].date_naissance_personne = dateFormat(personne[0].date_naissance_personne, 'dd/mm/yyyy')
+  personne[0].photo_personne = personne[0].photo_personne.substring(16,)
+
   res.render('authentification/modifier', {personne: personne[0]})
 })
 
 //Recuperation datas from form "modifier personne"
 router.post('/modifier/:id_personne', isLoggedIn, isNotAdmin, async (req, res)=> {
   const { id_personne } = req.params
-  const { prenom_personne, nom_personne, date_naissance_personne, adresse_personne,
+  var { prenom_personne, nom_personne, date_naissance_personne, adresse_personne,
      CP_personne, ville_personne, email_personne, mdp_personne, photo_personne } = req.body
+
+  console.log(date_naissance_personne);
+
+   var d = new Date()
+   d.setDate(parseInt(date_naissance_personne.substring(0,2)))
+   d.setMonth(parseInt(date_naissance_personne.substring(3,5))-1)
+   d.setFullYear(parseInt(date_naissance_personne.substring(6,)))
+
+   date_naissance_personne = d
+
+   photo_personne = "/images/profils/"+photo_personne
+
   const newPersonne = {
     prenom_personne,
     nom_personne,
