@@ -46,17 +46,8 @@ passport.use('local.signinAsso', new LocalStrategy ({
       done(null, false, req.flash('message', 'Mot de passe incorrecte'))
     }
   }else{//person doesnt lambda
-    const super_administrateur = await pool.query('SELECT * FROM super_admin WHERE email_super_admin = ?', [email_asso])
-    const super_admin = super_administrateur[0]
-    if(super_admin !== undefined){
-      const validPassword = await helpers.matchPassword(mdp_asso, super_admin.mdp_super_admin)
-      global.variable_globale = 2
-      done(null, super_admin, req.flash('success'))
-    }
-    else{//person doesnt exist
-      global.variable_globale = 0
-      return done(null, false, req.flash('message', "Cet email d'association n'existe pas"))
-    }
+    global.variable_globale = 0
+    return done(null, false, req.flash('message', "Cet email d'association n'existe pas"))
   }
 }))
 

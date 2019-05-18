@@ -30,7 +30,7 @@ const { isLoggedIn, isNotLoggedIn, isNotAdmin} = require('../lib/auth')
 // const upload = multer({storage: storage, fileFilter: fileFilter})
 
 
-router.post('/inscription', /*image.single('profilImage'),*/ isNotLoggedIn, passport.authenticate('local.signup', {
+router.post('/inscription', /*image.single('profilImage'),*/ isNotLoggedIn, isNotAdmin, passport.authenticate('local.signup', {
   successRedirect: '/profil',
   failureRedirect: '/inscription',
   failureFlash: true
@@ -38,11 +38,11 @@ router.post('/inscription', /*image.single('profilImage'),*/ isNotLoggedIn, pass
 
 
 // Connexion user
-router.get('/connexion', isNotLoggedIn, (req, res) => {
+router.get('/connexion', isNotLoggedIn, isNotAdmin, (req, res) => {
   res.render('authentification/connexion')
 })
 
-router.post('/connexion', isNotLoggedIn, async (req, res, next)=>{
+router.post('/connexion', isNotLoggedIn, isNotAdmin, async (req, res, next)=>{
   passport.authenticate('local.signin', {
       successRedirect: '/profil',
       failureRedirect: '/connexion',
@@ -114,7 +114,7 @@ router.post('/connexion_association', isNotLoggedIn, async (req, res, next)=>{
     numSIREN_asso = association[0].numSIREN_asso
   }
   passport.authenticate('local.signinAsso', {
-      successRedirect: '/administrateur/' + numSIREN_asso,
+      successRedirect: '/association/' + numSIREN_asso,
       failureRedirect: '/connexion_association',
       failureFlash: true
     })(req, res, next)

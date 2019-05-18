@@ -97,8 +97,9 @@ app.use((req, res, next) =>{
 //route
 app.use(require('./routes'))
 app.use(require('./routes/authentification'))
-app.use('/administrateur', require('./routes/admin'))
+app.use('/association', require('./routes/association'))
 app.use('/super_administrateur', require('./routes/super_admin'))
+app.use('/projet', require('./routes/projet'))
 
 
 //public

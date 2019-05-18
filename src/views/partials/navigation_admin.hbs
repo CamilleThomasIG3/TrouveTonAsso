@@ -10,7 +10,7 @@
       </button>
 
       <!-- Logo -->
-      <a href="/administrateur/{{association.numSIREN_asso}}">
+      <a href="/association/{{personne.numSIREN_asso}}">
         <img class="img-responsive" src="/images/logos/logo_trouve_ton_asso.png" alt="logo Trouve Ton Asso" id="logo_nav">
       </a>
     </div>
@@ -20,13 +20,13 @@
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="navbar-nav" id="pages">
         <li class="nav-item">
-          <a href="/administrateur/{{association.numSIREN_asso}}" class="btn btn-info" id="pagesAutre">
-            <span>{{association.nom_asso}}</span>
+          <a href="/association/{{personne.numSIREN_asso}}" class="btn btn-info" id="pagesAutre">
+            <span>{{personne.nom_asso}}</span>
           </a>
         </li>
 
         <li class="nav-item">
-          <a href="/administrateur/membres/{{association.numSIREN_asso}}" class="btn btn-info" id="pagesAutre">
+          <a href="/association/membres/{{personne.numSIREN_asso}}" class="btn btn-info" id="pagesAutre">
             <span>Membres</span>
           </a>
         </li>

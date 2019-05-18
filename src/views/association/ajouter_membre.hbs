@@ -11,7 +11,7 @@
           <h3 class="titres">Ajoutez un membre</h3>
         </div>
         <div class="card-body">
-          <form action="/administrateur/ajouter_membre/{{association.numSIREN_asso}}" method="post">
+          <form action="/association/ajouter_membre/{{association.numSIREN_asso}}" method="post">
             <div class="form-group">
               <input type="email" name="email_personne" placeholder="Email du membre" class="form-control">
             </div>
@@ -24,7 +24,7 @@
               {{/each}}
             </select>
 
-            <a href="../../administrateur/ajout_poste/{{association.numSIREN_asso}}" class="btn btn-success">Ajouter un poste</a>
+            <a href="../../association/ajout_poste/{{association.numSIREN_asso}}" class="btn btn-success">Ajouter un poste</a>
 
             <div class="form-group">
               <button class="btn btn-success btn-block">Sauvegarder</button>

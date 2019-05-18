@@ -13,7 +13,7 @@ module.exports = {
     if(!req.isAuthenticated()){
       return next()
     }
-    return res.redirect('/profil')
+    return res.render('erreur/acces_interdit')
   },
 
   isAdmin(req, res, next) {
@@ -27,20 +27,28 @@ module.exports = {
     if(global.variable_globale === 0){
       return next()
     }
-    return res.redirect('/connexion')
+    return res.render('erreur/acces_interdit')
   },
 
   isSuperAdmin(req, res, next) {
     if(global.variable_globale === 2){
       return next()
     }
-    return res.redirect('/administrateur/connexion')
+    return res.redirect('/association/connexion')
   },
 
   isNotSuperAdmin(req, res, next) {
     if(global.variable_globale === 0){
       return next()
     }
-    return res.redirect('/super_administrateur/')
+    return res.render('erreur/acces_interdit')
   },
+
+  isGoodAsso(req, res, next) {
+    const { numSIREN_asso } = req.params
+    if(global.variable_globale === 1 && req.user.numSIREN_asso == numSIREN_asso){
+      return next()
+    }
+    return res.render('erreur/acces_interdit')
+  }
 }

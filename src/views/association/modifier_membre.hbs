@@ -7,7 +7,7 @@
           <h3 class="titres">Modifiez ce membre</h3>
         </div>
         <div class="card-body">
-          <form action="/administrateur/modifier_membre/{{association.numSIREN_asso}}/{{personne.id_personne}}" method="post">
+          <form action="/association/modifier_membre/{{association.numSIREN_asso}}/{{personne.id_personne}}" method="post">
             <div class="form-group">
               <input type="text" value="{{personne.prenom_personne}}" name="prenom_personne" placeholder="Prénom" class="form-control" disabled="disabled">
             </div>

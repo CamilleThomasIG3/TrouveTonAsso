@@ -13,7 +13,7 @@ var smtpTransport = mailer.createTransport("SMTP", {
 const pool = require('../database')
 const { isLoggedIn, isNotLoggedIn, isNotAdmin} = require('../lib/auth')
 
-router.get('/', async (req, res) =>{
+router.get('/', isNotAdmin, async (req, res) =>{
   const association = await pool.query('SELECT * FROM association')
   const type_association = await pool.query('SELECT * FROM type_association')
   const arrondissement = await pool.query('SELECT DISTINCT arrondissement_asso FROM association WHERE arrondissement_asso is not null')
@@ -21,12 +21,12 @@ router.get('/', async (req, res) =>{
   res.render('index', {association, type_association, arrondissement, pays})
 })
 
-router.get('/a_propos', (req,res)=>{
+router.get('/a_propos', isNotAdmin, (req,res)=>{
   res.render('a_propos')
 })
 
 //Display view "fiche association"
-router.get('/fiche/:numSIREN_asso', async (req, res)=> {
+router.get('/fiche/:numSIREN_asso', isNotAdmin, async (req, res)=> {
   const { numSIREN_asso } = req.params
   const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
 
@@ -53,7 +53,7 @@ router.get('/fiche/:numSIREN_asso', async (req, res)=> {
 })
 
 
-router.get('/adherer/:numSIREN_asso/:email_personne', isLoggedIn, async (req,res)=>{
+router.get('/adherer/:numSIREN_asso/:email_personne', isLoggedIn, isNotAdmin, async (req,res)=>{
   const { numSIREN_asso, email_personne } = req.params
 
   const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
@@ -81,7 +81,7 @@ router.get('/adherer/:numSIREN_asso/:email_personne', isLoggedIn, async (req,res
 })
 
 //send an email
-router.post('/envoie_email', isLoggedIn, async (req,res)=>{
+router.post('/envoie_email', isNotAdmin, async (req,res)=>{
   const { objet, message, email_personne } = req.body
 
   var mail = {
@@ -119,7 +119,7 @@ router.post('/recherche', async (req, res) =>{
 
 
 //Display associations with association type criteria chosen
-router.post('/criteres_type_association', async (req, res) =>{
+router.post('/criteres_type_association', isNotAdmin, async (req, res) =>{
   const criteres = req.body
   if(criteres === undefined){
     req.flash('message',"Vous n'avez coché aucun type d'association")
@@ -157,7 +157,7 @@ router.post('/criteres_type_association', async (req, res) =>{
 })
 
 //Display associations with arrondissement criteria chosen
-router.post('/criteres_arrondissement', async (req, res) =>{
+router.post('/criteres_arrondissement', isNotAdmin, async (req, res) =>{
   const criteres = req.body
 
   if(criteres === undefined){
@@ -187,7 +187,7 @@ router.post('/criteres_arrondissement', async (req, res) =>{
 
 
 //Display associations with action country criteria chosen
-router.post('/criteres_pays', async (req, res) =>{
+router.post('/criteres_pays', isNotAdmin, async (req, res) =>{
   const criteres = req.body
 
   if(criteres === undefined){
