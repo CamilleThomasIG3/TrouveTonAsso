@@ -62,7 +62,9 @@ router.get('/fiche/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
 //Display view "modifier" association
 router.get('/modifier/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
   const { numSIREN_asso } = req.params
-  const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
+  var association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
+  association[0].logo_asso = association[0].logo_asso.substring(14, )
+
   res.render('association/modifier', {association: association[0]})
 })
 
@@ -70,7 +72,7 @@ router.get('/modifier/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
 router.post('/modifier/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
   const { numSIREN_asso } = req.params
   var { nom_asso, description_asso, adresse_asso, arrondissement_asso,
-     CP_asso, ville_asso, email_asso, tel_asso, facebook_asso, site_asso, logo_asso, mdp_asso } = req.body
+     CP_asso, ville_asso, email_asso, tel_asso, facebook_asso, site_asso, logo_asso } = req.body
 
    if ( arrondissement_asso === ""){
      arrondissement_asso = null
@@ -85,6 +87,8 @@ router.post('/modifier/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
      tel_asso = null
    }
 
+   logo_asso = "/images/logos/"+logo_asso
+
   const newAssociation = {
     nom_asso,
     description_asso,
@@ -96,94 +100,101 @@ router.post('/modifier/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
     tel_asso,
     facebook_asso,
     site_asso,
-    logo_asso,
-    mdp_asso
+    logo_asso
   }
-  newAssociation.mdp_asso = await helpers.encryptPassword(mdp_asso)
+
   await pool.query('UPDATE association set ? WHERE numSIREN_asso = ?', [newAssociation, numSIREN_asso])
+
   req.flash('success', 'Association modifiée avec succès')
   res.redirect('../fiche/'+numSIREN_asso)
 })
 
 
 //Display view "ajout association"
-router.get('/ajout', isSuperAdmin, async (req, res)=> {
-  res.render('association/ajout')
+router.get('/ajout_association', isSuperAdmin, async (req, res)=> {
+  res.render('association/ajout_association')
 })
 
 //Recuperation datas from form "ajout association"
-router.post('/ajout', isSuperAdmin, async (req, res)=> {
+router.post('/ajout_association', isSuperAdmin, async (req, res)=> {
   const tmp = req.body
   var {numSIREN_asso, nom_asso, description_asso, adresse_asso, arrondissement_asso,
-     CP_asso, ville_asso, email_asso, tel_asso, facebook_asso, site_asso, logo_asso, mdp_asso, mdp_2 } = req.body
+     CP_asso, ville_asso, email_asso, tel_asso, facebook_asso, site_asso, logo_asso, mdp_asso, mdp_asso2 } = req.body
 
   if ( numSIREN_asso.length !== 9){
     req.flash('message', 'Numéro SIREN invalide')
-    res.redirect('../super_administrateur/ajout')
+    res.redirect('../super_administrateur/ajout_association')
   }
   else {
     const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
     if ( association[0] !== undefined){
       req.flash('message', 'Numéro SIREN non disponible')
-      res.redirect('../super_administrateur/ajout')
+      res.redirect('../super_administrateur/ajout_association')
     }
     else{
       if (mdp_asso !== mdp_asso2) {
         req.flash('message', 'La confirmation de mot de passe ne correspond pas à votre mot de passe')
-        res.redirect('../super_administrateur/ajout')
+        res.redirect('../super_administrateur/ajout_association')
       }else {
-        if ( arrondissement_asso === ""){
-          arrondissement_asso = null
+        if (tel_asso.length !== 10 && tel_asso !== "") {
+          req.flash('message', 'Le numéro de téléphone est non conforme')
+          res.redirect('../super_administrateur/ajout_association')
         }
-        if (facebook_asso === ""){
-          facebook_asso = null
-        }
-        if (site_asso === ""){
-          site_asso = null
-        }
-        if (tel_asso === ""){
-          tel_asso = null
+        else{
+          if ( arrondissement_asso === ""){
+            arrondissement_asso = null
+          }
+          if (facebook_asso === ""){
+            facebook_asso = null
+          }
+          if (site_asso === ""){
+            site_asso = null
+          }
+          if (tel_asso === ""){
+            tel_asso = null
+          }
+
+          logo_asso = "/images/logos/"+logo_asso
+
+          const newAssociation = {
+            numSIREN_asso,
+            nom_asso,
+            description_asso,
+            adresse_asso,
+            arrondissement_asso,
+            CP_asso,
+            ville_asso,
+            email_asso,
+            tel_asso,
+            facebook_asso,
+            site_asso,
+            logo_asso,
+            mdp_asso
+          }
+
+          newAssociation.mdp_asso = await helpers.encryptPassword(mdp_asso)
+          await pool.query('INSERT INTO association set ?', [newAssociation])
+
+          const type_association = await pool.query('SELECT * FROM type_association')
+          res.redirect('ajout_type_association/'+numSIREN_asso)
         }
 
-        logo_asso = "/images/logos/"+logo_asso
-
-        const newAssociation = {
-          numSIREN_asso,
-          nom_asso,
-          description_asso,
-          adresse_asso,
-          arrondissement_asso,
-          CP_asso,
-          ville_asso,
-          email_asso,
-          tel_asso,
-          facebook_asso,
-          site_asso,
-          logo_asso,
-          mdp_asso
-        }
-
-        newAssociation.mdp_asso = await helpers.encryptPassword(mdp_asso)
-        await pool.query('INSERT INTO association set ?', [newAssociation])
-
-        const type_association = await pool.query('SELECT * FROM type_association')
-        res.redirect('ajout_type/'+numSIREN_asso)
       }
     }
   }
 })
 
 //Display view "ajout association"
-router.get('/ajout_type/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
+router.get('/ajout_type_association/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
   const numSIREN_asso = req.params.numSIREN_asso
   const type_association = await pool.query('SELECT * FROM type_association')
   const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
 
-  res.render('association/ajout_type', {association: association[0], type_association: type_association})
+  res.render('association/ajout_type_association', {association: association[0], type_association: type_association})
 })
 
 //Recuperation datas from view "ajout type association"
-router.post('/ajout_type/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
+router.post('/ajout_type_association/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
   const numSIREN_asso = req.params.numSIREN_asso
   var tmp = req.body
 
@@ -195,22 +206,22 @@ router.post('/ajout_type/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
   }
 
   const pays_action = await pool.query('SELECT * FROM pays')
-  res.redirect('../ajout_pays/'+numSIREN_asso)
+  res.redirect('../ajout_pays_association/'+numSIREN_asso)
 })
 
 
 //Display view "ajout association"
-router.get('/ajout_pays/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
+router.get('/ajout_pays_association/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
   const numSIREN_asso = req.params.numSIREN_asso
   const pays_action = await pool.query('SELECT * FROM pays')
   const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
 
-  res.render('association/ajout_pays', {association: association[0], pays_action: pays_action})
+  res.render('association/ajout_pays_association', {association: association[0], pays_action: pays_action})
 })
 
 
 //Recuperation from view "ajout pays action"
-router.post('/ajout_pays/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
+router.post('/ajout_pays_association/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
   const numSIREN_asso = req.params.numSIREN_asso
   var tmp = req.body
   //Fill "agir_pays" table
@@ -223,6 +234,52 @@ router.post('/ajout_pays/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
 
   req.flash('success', "L'association a été créée avec succès")
   res.redirect('../')
+})
+
+
+
+//Display view "ajouter_type"
+router.get('/ajout_type/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
+  const {numSIREN_asso} = req.params
+  res.render('association/ajout_type', {numSIREN_asso: numSIREN_asso})
+})
+
+//Recuperation from view "ajouter_type"
+router.post('/ajout_type/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
+  const {numSIREN_asso} = req.params
+  var { libelle_type_asso, icone_type_asso } = req.body
+
+  const type = await pool.query('SELECT * FROM type_association WHERE upper(libelle_type_asso)=upper(?)', [libelle_type_asso])
+
+  if(type[0] === undefined){
+    icone_type_asso = '/images/icones/'+icone_type_asso
+    await pool.query('INSERT INTO type_association VALUES (0,?,?)', [libelle_type_asso, icone_type_asso])
+  }
+
+  req.flash('success',"Type d'association ajouté avec succès")
+  res.redirect('../ajout_type_association/'+numSIREN_asso)
+})
+
+
+//Display view "ajouter_pays"
+router.get('/ajout_pays/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
+  const {numSIREN_asso} = req.params
+  res.render('association/ajout_pays', {numSIREN_asso: numSIREN_asso})
+})
+
+//Recuperation from view "ajouter_type"
+router.post('/ajout_pays/:numSIREN_asso', isSuperAdmin, async (req, res)=> {
+  const {numSIREN_asso} = req.params
+  var { nom_pays } = req.body
+  console.log(nom_pays);
+  const pays = await pool.query('SELECT * FROM pays WHERE upper(nom_pays)=upper(?)', [nom_pays])
+
+  if(pays[0] === undefined){
+    await pool.query('INSERT INTO pays VALUES (0,?)', [nom_pays])
+  }
+
+  req.flash('success',"Pays ajouté avec succès")
+  res.redirect('../ajout_pays_association/'+numSIREN_asso)
 })
 
 

@@ -80,7 +80,11 @@
                 </li>
               </ul>
 
+              {{#SuperAdmin}}
+              <p><a href="../../super_administrateur/modifier/{{association.numSIREN_asso}}" class="btn btn-secondary" role="button">Modifier</a></p>
+              {{else}}
               <p><a href="../../association/modifier/{{association.numSIREN_asso}}" class="btn btn-secondary" role="button">Modifier</a></p>
+              {{/SuperAdmin}}
             {{/Admin}}
 
           {{#notAdmin}}

@@ -1,35 +1,29 @@
 <div class="container p-4 line1">
+  <div class="row">
+    <p class="retour"><a href="../ajout_pays_association/{{numSIREN_asso}}" class="btn btn-secondary" role="button"><span class="glyphicon glyphicon-arrow-left"></span><span> Retour</span></a></p>
+  </div>
 
-  <h2 class="titres">Dans quel.s pays agit l'association {{association.nom_asso}} ?</h2>
-  <div class="row"  id="div_ajout_asso">
-    <div class="col-md-4"  id="form_ajout_asso">
-      <div class="card">
-        <div class="card-body">
-          <form action="../ajout_pays/{{association.numSIREN_asso}}" method="post">
+  <div class="row">
+  <div class="container p-4 line1">
 
-            <div class="dropdown">
-              <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Pays d'action
-              <span class="caret"></span></button>
-              <ul class="dropdown-menu">
-                {{#if pays_action}}
-                {{#each pays_action}}
-                <li>
-                  <div class="form-check criteres_check">
-                    <input type="checkbox" name="{{id_pays}}" class="form-check-input" id="check{{id_pays}}">
-                    <label class="form-check-label" for="check{{id_pays}}">{{nom_pays}}</label>
-                  </div>
-                </li>
-                {{/each}}
-                {{/if}}
-              </ul>
-            </div>
+    <h2 class="titres">Ajoutez un pays</h2>
+    <div class="row"  id="div_ajout_asso">
+      <div class="col-md-4"  id="form_ajout_asso">
+        <div class="card">
+          <div class="card-body">
+            <form action="./{{numSIREN_asso}}" method="post">
 
-            <div class="form-group" id="button_add_asso">
-              <button class="btn btn-success btn-block" type="submit">
-                Créer
-              </button>
-            </div>
-          </form>
+              <div class="form-group">
+                <input type="text" name="nom_pays" placeholder="Nom du pays">
+              </div>
+
+              <div class="form-group">
+                <button class="btn btn-success btn-block" type="submit" id="button_add_asso">
+                  Ajouter
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
       </div>
     </div>

@@ -1,0 +1,66 @@
+<div class="container p-4 line1">
+  <div class="row">
+    <p class="retour"><a href="../super_administrateur/" class="btn btn-secondary" role="button"><span class="glyphicon glyphicon-arrow-left"></span><span> Retour</span></a></p>
+  </div>
+
+  <h2 class="titres">Ajoutez votre projet</h2>
+  <div class="row"  id="div_ajout_asso">
+    <div class="col-md-4"  id="form_ajout_asso">
+      <div class="card">
+        <div class="card-body">
+          <form action="/projet/ajout_projet/{{numSIREN_asso}}" method="post">
+            <div class="form-group">
+              <input type="text" class="form-control" name="titre_projet" placeholder="Titre du projet" required>
+            </div>
+            <div class="form-group">
+              <textarea name="description_projet" rows="2" cols="80" class="form-control"  placeholder="Description" required></textarea>
+            </div>
+            <div class="form-group">
+              <input type="date" class="form-control" name="date_debut_projet" placeholder="Date de début">
+            </div>
+            <div class="form-group">
+              <input type="date" class="form-control" name="date_fin_projet" placeholder="Date de fin">
+            </div>
+            <div class="form-group">
+              <input type="number" class="form-control" name="nbre_participant_necessaire_projet" placeholder="Nombre de personnes nécessaire pour le projet" required>
+            </div>
+            <div class="form-group">
+              <input type="number" class="form-control" name="nbre_participant_actuel_projet" placeholder="Nombre de personnes actuel sur le projet" required>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="adresse_projet" placeholder="Adresse (pas obligatoire)">
+            </div>
+            <div class="form-group">
+              <input type="number" class="form-control" name="arrondissement_projet" placeholder="Arrondissement (pas obligatoire)">
+            </div>
+            <div class="form-group">
+              <input type="number" class="form-control" name="CP_projet" placeholder="Code Postal (pas obligatoire)">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="ville_projet" placeholder="Ville">
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="photo_projet" placeholder="Photo projet" required>
+            </div>
+
+            {{#if pays}}
+            <select name="id_pays" id="menu_deroulant">
+              {{#each pays}}
+                <option value="{{this.id_pays}}">{{this.nom_pays}}</option>
+              {{/each}}
+            </select>
+            {{/if}}
+
+            <a href="association/ajout_pays" class="btn btn-success">Ajouter un pays</a>
+
+            <div class="form-group">
+              <button class="btn btn-success btn-block" type="submit">
+                Ajouter
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

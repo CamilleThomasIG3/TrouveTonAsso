@@ -165,7 +165,6 @@ router.post('/ajouter_membre/:numSIREN_asso', isAdmin, isGoodAsso, async (req, r
 
 //Display view "ajouter_poste"
 router.get('/ajout_poste/:numSIREN_asso', isAdmin, isGoodAsso, async (req, res)=> {
-  console.log('la');
   const { numSIREN_asso } = req.params
   const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
 
@@ -177,7 +176,7 @@ router.post('/ajout_poste/:numSIREN_asso', isAdmin, isGoodAsso, async (req, res)
   const { numSIREN_asso } = req.params
   const { libelle_poste } = req.body
 
-  const poste = await pool.query('SELECT * FROM poste WHERE libelle_poste=?', [libelle_poste])
+  const poste = await pool.query('SELECT * FROM poste WHERE  upper(libelle_poste)=upper(?)', [libelle_poste])
 
   if(poste[0] === undefined){
     await pool.query('INSERT INTO poste VALUES (0,?)', [libelle_poste])
@@ -186,6 +185,7 @@ router.post('/ajout_poste/:numSIREN_asso', isAdmin, isGoodAsso, async (req, res)
   req.flash('success',"Poste ajouté avec succès")
   res.redirect('../ajouter_membre/'+numSIREN_asso)
 })
+
 
 //Delete membre
 router.get('/supprimer_membre/:numSIREN_asso/:id_personne', isAdmin, isGoodAsso, async (req, res)=> {
