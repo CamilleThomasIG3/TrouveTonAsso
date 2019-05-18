@@ -154,7 +154,7 @@ router.post('/modifier_projet/:numSIREN_asso/:id_projet', isAdmin, isGoodAsso, a
 
 
 //Delete project
-router.get('/supprimer_projet/:numSIREN_asso/:id_projet', isAdmin, isGoodAsso, async (req, res)=> {
+router.delete('/supprimer_projet/:numSIREN_asso/:id_projet', isAdmin, isGoodAsso, async (req, res)=> {
   const { numSIREN_asso, id_projet } = req.params
   await pool.query('DELETE FROM projet WHERE numSIREN_asso=? AND id_projet=?', [numSIREN_asso, id_projet])
   req.flash('success', "Projet supprimé avec succès")

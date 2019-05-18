@@ -18,10 +18,10 @@
           <div>
             <span><a href="../modifier_membre/{{this.numSIREN_asso}}/{{this.id_personne}}" class="btn btn-secondary" role="button">Modifier</a></span>
             <span>
-              <!-- <form style="width:7em;position:relative;margin-right:0em;" action="../supprimer_membre/{{this.numSIREN_asso}}/{{this.id_personne}}?_method=DELETE" method="post"> -->
-                <!-- <input type="hidden" name="_method" value="DELETE"> -->
-                <a class="btn btn-danger" role="button">Supprimer</a>
-              <!-- </form> -->
+              <form action="../supprimer_membre/{{this.numSIREN_asso}}/{{this.id_personne}}?_method=DELETE" method="post">
+                <input type="hidden" name="_method" value="DELETE">
+                <button class="btn btn-danger" type="submit" role="button">Supprimer</button>
+              </form>
             </span>
           </div>
 

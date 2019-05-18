@@ -26,7 +26,10 @@
             <p class="truncate">{{description_asso}}</p>
             <span><a href="fiche/{{this.numSIREN_asso}}" class="btn btn-success" role="button">Voir plus</a></span>
             <span><a href="modifier/{{this.numSIREN_asso}}" class="btn btn-secondary" role="button">Modifier</a></span>
-            <span><a href="supprimer/{{this.numSIREN_asso}}" class="btn btn-danger" role="button">Supprimer</a></span>
+            <form action="supprimer/{{this.numSIREN_asso}}?_method=DELETE" method="post">
+              <input type="hidden" name="_method" value="DELETE">
+              <button class="btn btn-danger" type="submit" role="button">Supprimer</button>
+            </form>
           </div>
         </div>
 

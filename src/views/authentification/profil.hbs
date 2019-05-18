@@ -31,7 +31,10 @@
         	  	</table>
 
           <span><a href="/modifier/{{personne.id_personne}}" class="btn btn-secondary" role="button">Modifier</a></span>
-          <span><a href="/supprimer/{{personne.id_personne}}" class="btn btn-danger" role="button">Supprimer</a></span>
+          <form action="/supprimer/{{personne.id_personne}}?_method=DELETE" method="post">
+            <input type="hidden" name="_method" value="DELETE">
+            <button class="btn btn-danger" type="submit" role="button">Supprimer</button>
+          </form>
 
         </div>
       </div>
