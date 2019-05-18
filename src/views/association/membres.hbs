@@ -15,11 +15,16 @@
           <h4 class="media-heading">{{this.prenom_personne}} {{this.nom_personne}}</h4>
           <p class="truncate">{{this.libelle_poste}}</p>
           <p class="truncate">{{this.email_personne}}</p>
-          <span><a href="../modifier_membre/{{this.numSIREN_asso}}/{{this.id_personne}}" class="btn btn-secondary" role="button">Modifier</a></span>
-          <form action="../supprimer_membre/{{this.numSIREN_asso}}/{{this.id_personne}}?_method=DELETE" method="post">
-            <input type="hidden" name="_method" value="DELETE">
-            <span><a class="btn btn-danger" role="button">Supprimer</a></span>
-          </form>
+          <div>
+            <span><a href="../modifier_membre/{{this.numSIREN_asso}}/{{this.id_personne}}" class="btn btn-secondary" role="button">Modifier</a></span>
+            <span>
+              <!-- <form style="width:7em;position:relative;margin-right:0em;" action="../supprimer_membre/{{this.numSIREN_asso}}/{{this.id_personne}}?_method=DELETE" method="post"> -->
+                <!-- <input type="hidden" name="_method" value="DELETE"> -->
+                <a class="btn btn-danger" role="button">Supprimer</a>
+              <!-- </form> -->
+            </span>
+          </div>
+
         </div>
       </div>
 

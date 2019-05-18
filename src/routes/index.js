@@ -21,7 +21,7 @@ router.get('/', isNotAdmin, async (req, res) =>{
   const pays = await pool.query('SELECT * FROM pays')
   var projets = await pool.query('SELECT * FROM projet')
 
-  var projetFirst 
+  var projetFirst
   var projet = []
   for (var i = 0; i<4; i++) {
     projets[i].date_fin_projet = dateFormat(projets[i].date_fin_projet, 'dd/mm/yyyy')
@@ -129,7 +129,24 @@ router.post('/recherche', async (req, res) =>{
   const type_association = await pool.query('SELECT * FROM type_association')
   const arrondissement = await pool.query('SELECT DISTINCT arrondissement_asso FROM association WHERE arrondissement_asso is not null')
   const pays = await pool.query('SELECT * FROM pays')
-  res.render('association/recherche', {association_recherche, association, recherche, type_association, arrondissement, pays})
+
+  //for carousel
+  var projets = await pool.query('SELECT * FROM projet')
+
+  var projetFirst
+  var projet = []
+  for (var i = 0; i<4; i++) {
+    projets[i].date_fin_projet = dateFormat(projets[i].date_fin_projet, 'dd/mm/yyyy')
+    projets[i].date_debut_projet = dateFormat(projets[i].date_debut_projet, 'dd/mm/yyyy')
+    if(i === 0){
+      projetFirst = projets[i]
+    }else{
+      projet[i-1] = projets[i]
+    }
+  }
+
+  res.render('association/recherche', {association_recherche, association, recherche,
+    type_association, arrondissement, pays, projet, projetFirst})
 })
 
 
@@ -142,32 +159,42 @@ router.post('/criteres_type_association', isNotAdmin, async (req, res) =>{
   }
   else{
     var array = Object.keys(criteres)
-    var i
-    var chaine =""
-    for(i=0;i<array.length;i++){
-      chaine=chaine+parseInt(array[i])
-      if(i != array.length-1){
-        chaine=chaine+","
+
+    var tmp
+    var association_recherche = []
+    var recherche = []
+    var cmp = 0
+    for (var i = 0; i < array.length; i++) {
+      recherche = await pool.query("SELECT * FROM asso_de_type WHERE id_type_asso=?", [parseInt(array[i])])
+      for (var j = 0; j < recherche.length; j++) {
+        tmp = await pool.query("SELECT * FROM association WHERE numSIREN_asso=?", [recherche[j].numSIREN_asso])
+        association_recherche[cmp] = tmp[0]
+        cmp+=1
       }
     }
-
-    const recherche = await pool.query("SELECT * FROM asso_de_type WHERE id_type_asso in (?)", [chaine])
-
-    chaine =""
-    for(i=0;i<recherche.length;i++){
-      chaine=chaine+parseInt(recherche[i].numSIREN_asso)
-      if(i != array.length-1){
-        chaine=chaine+","
-      }
-    }
-
-    const association_recherche = await pool.query("SELECT * FROM association WHERE numSIREN_asso in (?)", [chaine])
 
     const association = await pool.query('SELECT * FROM association')
     const type_association = await pool.query('SELECT * FROM type_association')
     const arrondissement = await pool.query('SELECT DISTINCT arrondissement_asso FROM association WHERE arrondissement_asso is not null')
     const pays = await pool.query('SELECT * FROM pays')
-    res.render('association/criteres_type_association', {association_recherche, association, type_association, arrondissement, pays})
+
+    //for carousel
+    var projets = await pool.query('SELECT * FROM projet')
+
+    var projetFirst
+    var projet = []
+    for (var i = 0; i<4; i++) {
+      projets[i].date_fin_projet = dateFormat(projets[i].date_fin_projet, 'dd/mm/yyyy')
+      projets[i].date_debut_projet = dateFormat(projets[i].date_debut_projet, 'dd/mm/yyyy')
+      if(i === 0){
+        projetFirst = projets[i]
+      }else{
+        projet[i-1] = projets[i]
+      }
+    }
+
+    res.render('association/criteres_type_association', {association_recherche, association, type_association,
+       arrondissement, pays, projet, projetFirst})
   }
 })
 
@@ -181,22 +208,42 @@ router.post('/criteres_arrondissement', isNotAdmin, async (req, res) =>{
   }
   else{
     var array = Object.keys(criteres)
-    var i
-    var chaine =""
-    for(i=0;i<array.length;i++){
-      chaine=chaine+parseInt(array[i])
-      if(i != array.length-1){
-        chaine=chaine+","
+
+    var tmp
+    var association_recherche = []
+    var recherche = []
+    var cmp = 0
+    for (var i = 0; i < array.length; i++) {
+      recherche = await pool.query("SELECT * FROM association WHERE arrondissement_asso=?", [parseInt(array[i])])
+      for (var j = 0; j < recherche.length; j++) {
+        tmp = await pool.query("SELECT * FROM association WHERE numSIREN_asso=?", [recherche[j].numSIREN_asso])
+        association_recherche[cmp] = tmp[0]
+        cmp+=1
       }
     }
-
-    const association_recherche = await pool.query("SELECT * FROM association WHERE arrondissement_asso in (?)", [chaine])
 
     const association = await pool.query('SELECT * FROM association')
     const type_association = await pool.query('SELECT * FROM type_association')
     const arrondissement = await pool.query('SELECT DISTINCT arrondissement_asso FROM association WHERE arrondissement_asso is not null')
     const pays = await pool.query('SELECT * FROM pays')
-    res.render('association/criteres_arrondissement', {association_recherche, association, type_association, arrondissement, pays})
+
+    //for carousel
+    var projets = await pool.query('SELECT * FROM projet')
+
+    var projetFirst
+    var projet = []
+    for (var i = 0; i<4; i++) {
+      projets[i].date_fin_projet = dateFormat(projets[i].date_fin_projet, 'dd/mm/yyyy')
+      projets[i].date_debut_projet = dateFormat(projets[i].date_debut_projet, 'dd/mm/yyyy')
+      if(i === 0){
+        projetFirst = projets[i]
+      }else{
+        projet[i-1] = projets[i]
+      }
+    }
+
+    res.render('association/criteres_arrondissement', {association_recherche, association,
+      type_association, arrondissement, pays, projet, projetFirst})
   }
 })
 
@@ -211,30 +258,42 @@ router.post('/criteres_pays', isNotAdmin, async (req, res) =>{
   }
   else{
     var array = Object.keys(criteres)
-    var i
-    var chaine =""
-    for(i=0;i<array.length;i++){
-      chaine=chaine+parseInt(array[i])
-      if(i != array.length-1){
-        chaine=chaine+","
-      }
-    }
 
-    const recherche = await pool.query("SELECT DISTINCT numSIREN_asso FROM agir_pays WHERE id_pays in (?)", [chaine])
-
-    var association_recherche = []
     var tmp
-
-    for(i=0;i<recherche.length;i++){
-      tmp = await pool.query("SELECT * FROM association WHERE numSIREN_asso=?", [recherche[i].numSIREN_asso])
-      association_recherche[i] = tmp[0]
+    var association_recherche = []
+    var recherche = []
+    var cmp = 0
+    for (var i = 0; i < array.length; i++) {
+      recherche = await pool.query("SELECT * FROM agir_pays WHERE id_pays=?", [parseInt(array[i])])
+      for (var j = 0; j < recherche.length; j++) {
+        tmp = await pool.query("SELECT * FROM association WHERE numSIREN_asso=?", [recherche[j].numSIREN_asso])
+        association_recherche[cmp] = tmp[0]
+        cmp+=1
+      }
     }
 
     const association = await pool.query('SELECT * FROM association')
     const type_association = await pool.query('SELECT * FROM type_association')
     const arrondissement = await pool.query('SELECT DISTINCT arrondissement_asso FROM association WHERE arrondissement_asso is not null')
     const pays = await pool.query('SELECT * FROM pays')
-    res.render('association/criteres_pays', {association_recherche, association, type_association, arrondissement, pays})
+
+    //for carousel
+    var projets = await pool.query('SELECT * FROM projet')
+
+    var projetFirst
+    var projet = []
+    for (var i = 0; i<4; i++) {
+      projets[i].date_fin_projet = dateFormat(projets[i].date_fin_projet, 'dd/mm/yyyy')
+      projets[i].date_debut_projet = dateFormat(projets[i].date_debut_projet, 'dd/mm/yyyy')
+      if(i === 0){
+        projetFirst = projets[i]
+      }else{
+        projet[i-1] = projets[i]
+      }
+    }
+
+    res.render('association/criteres_pays', {association_recherche, association,
+       type_association, arrondissement, pays, projet, projetFirst})
   }
 })
 

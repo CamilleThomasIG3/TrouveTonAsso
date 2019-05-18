@@ -114,7 +114,7 @@ router.get('/modifier_membre/:numSIREN_asso/:id_personne', isAdmin, isGoodAsso, 
   const poste_membre = await pool.query('SELECT * FROM poste WHERE id_poste=?', [membre[0].id_poste])
   personne[0].poste = poste_membre[0].libelle_poste
   const poste = await pool.query('SELECT * FROM poste WHERE id_poste != ?', [membre[0].id_poste])
-  res.render('association/modifier_membre', {association: association[0], personne: personne[0], poste: poste})
+  res.render('association/modifier_membre', {association: association[0], person: personne[0], poste: poste})
 })
 
 //Recuperation "modifier_membre"
