@@ -6,6 +6,8 @@ const flash = require('connect-flash')
 const MySQLStore = require('express-mysql-session')
 const passport = require('passport')
 const cookieSession = require('cookie-session')
+const xssFilter = require('x-xss-protection')
+const helmet = require('helmet')
 
 const { database } = require('./keys')
 //global variable
@@ -71,6 +73,10 @@ app.set('view engine', '.hbs')
 
 //middleware
 app.use(flash())
+app.use(helmet());
+app.use(xssFilter({ setOnOldIE: true }));
+app.use(helmet.noCache())
+
 app.use(cookieSession({
   secret: 'trouvetonassomysqlnodesession',
   maxAge: 1*60*60*1000, //h m s ms

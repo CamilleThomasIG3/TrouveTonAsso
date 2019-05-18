@@ -33,6 +33,7 @@
     "handlebars-helper": "0.0.12",
     "handlebars-helper-equal": "^1.0.0",
     "hbs": "^4.0.4",
+    "helmet": "^3.18.0",
     "lodash": "^4.17.11",
     "method-override": "^3.0.0",
     "morgan": "^1.9.1",
@@ -42,7 +43,8 @@
     "nunjucks": "^3.2.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
-    "timeago.js": "^4.0.0-beta.2"
+    "timeago.js": "^4.0.0-beta.2",
+    "x-xss-protection": "^1.1.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.0"
