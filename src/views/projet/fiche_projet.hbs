@@ -59,7 +59,9 @@
           <p><a href="/projet/modifier_projet/{{projet.numSIREN_asso}}/{{projet.id_projet}}" class="btn btn-secondary" role="button">Modifier</a></p>
           {{else}}
             <div id="adherer">
+              {{#if personne.email_personne}}
               <p><a href="/participer/{{projet.numSIREN_asso}}/{{projet.titre_projet}}/{{personne.email_personne}}" class="btn btn-success" role="button">Demande de participation</a></p>
+              {{/if}}
               <p id="adherer_p">Pour faire une demande de participation vous devez être connecté<p>
             </div>
           {{/Admin}}

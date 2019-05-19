@@ -1,10 +1,12 @@
 <div class="container-fluid p-4">
   <div class="container line1" id="liste_asso liste_membre">
 
-    <h1 class="titres">Liste des membres</h1>
+    <div class="row" id="membres">
+      <h1 class="titres">Liste des membres</h1>
+      <a href="/association/ajouter_membre/{{association.numSIREN_asso}}" class="btn btn-success" id="button_membres">Ajouter un membre</a>
+    </div>
 
     <div id="cadre_membres">
-
 
       {{#each person}}
       <div class="media asso">
@@ -31,8 +33,6 @@
         </div>
       </div>
       {{/each}}
-
-      <a href="/association/ajouter_membre/{{association.numSIREN_asso}}" class="btn btn-success" id="button_membres">Ajouter un membre</a>
 
     </div>
   </div>

@@ -59,12 +59,15 @@
         </div>
 
 
-        <div class="container col-md-10" id="liste_asso">
+        <div class="container col-md-10" >
         {{else}}
-        <div class="container" id="liste_asso">
+        <div class="container">
         {{/notAdmin}}
 
           <h2 class="titres">Liste des projets</h2>
+            {{#Admin}}
+            <a href="/projet/ajout_projet/{{numSIREN_asso}}" class="btn btn-success">Créer un projet</a>
+            {{/Admin}}
 
           {{#each projets}}
           <div class="media asso">
@@ -96,9 +99,6 @@
           </div>
           {{/each}}
 
-          {{#Admin}}
-            <a href="/projet/ajout_projet/{{numSIREN_asso}}" class="btn btn-success">Créer un projet</a>
-          {{/Admin}}
         </div>
       </div>
 </main>

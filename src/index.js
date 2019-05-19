@@ -74,8 +74,7 @@ app.set('view engine', '.hbs')
 //middleware
 app.use(flash())
 app.use(helmet());
-app.use(xssFilter({ setOnOldIE: true }));
-app.use(helmet.noCache())
+app.use(xssFilter({ setOnOldIE: true }))
 
 app.use(cookieSession({
   secret: 'trouvetonassomysqlnodesession',
