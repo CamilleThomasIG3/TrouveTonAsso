@@ -1,0 +1,99 @@
+<main class="index">
+  <div class="container-fluid p-4 line1">
+
+    <div class="row">
+      <form action="/projet/recherche" class="navbar-form" method="post" id="recherche">
+        <input type="text" name="recherche" placeholder="Rechercher..." class="form-control input-sm">
+        <button type="submit" class="btn btn-primary btn-sm">
+          <span class="glyphicon glyphicon-search"></span>
+        </button>
+      </form>
+
+      <div class="dropdown" id="affichage_criteres_dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Critères
+        <span class="caret"></span></button>
+        <ul class="dropdown-menu">
+            {{#if associations}}
+            <li class="dropdown-header"><p class="sous-titre">Association :</p></li>
+            <form action="/projet/criteres" class="navbar-form" method="post">
+              {{#each associations}}
+              <li>
+                <div class="form-check criteres_check">
+                  <input type="checkbox" name="{{numSIREN_asso}}" class="form-check-input" id="check{{numSIREN_asso}}">
+                  <label class="form-check-label" for="check{{numSIREN_asso}}">{{nom_asso}}</label>
+                </div>
+              </li>
+              {{/each}}
+              <button type="submit" class="btn btn-primary" id="check3">
+                <span class="glyphicon glyphicon-search"> Rechercher</span>
+              </button>
+            </form>
+            {{/if}}
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-md-2" id="affichage_criteres_div">
+      <h4 class="titre_criteres">Recherche par critères</h4>
+
+      <div class="criteres">
+        {{#if associations}}
+          <p class="sous-titre">Association :</p>
+          <form action="/projet/criteres" class="navbar-form" method="post">
+            {{#each associations}}
+              <div class="form-check">
+                <input type="checkbox" name="{{numSIREN_asso}}" class="form-check-input" id="check{{numSIREN_asso}}">
+                <label class="form-check-label" for="check{{numSIREN_asso}}">{{nom_asso}}</label>
+              </div>
+            {{/each}}
+            <button type="submit" class="btn btn-primary" id="check3">
+              <span class="glyphicon glyphicon-search"> Rechercher</span>
+            </button>
+          </form>
+          {{/if}}
+        </div>
+    </div>
+
+
+    <div class="container col-md-10" id="liste_asso">
+
+      {{#if recherche}}
+      <h1 class="titres">Résultat de la recherche : {{recherche}}</h1>
+      {{else}}
+      <h1 class="titres">Résultat de la recherche par critères {{recherche}}</h1>
+      {{/if}}
+
+      {{#each projet_recherche}}
+      <div class="media asso">
+        <div class="media-left media-middle">
+            <img class="media-object logo" src="{{photo_projet}}" alt="Photo du projet {{titre_projet}}" id="logo_assos">
+        </div>
+        <div class="media-body">
+          <h4 class="media-heading">{{titre_projet}}</h4>
+          <p class="truncate">{{description_projet}}</p>
+
+          {{#Admin}}
+          <form action="/projet/supprimer_projet/{{numSIREN_asso}}/{{id_projet}}?_method=DELETE" method="post">
+            <input type="hidden" name="_method" value="delete"/>
+            <a href="/projet/fiche_projet/{{numSIREN_asso}}/{{id_projet}}" class="btn btn-success" role="button">Voir plus</a>
+            <a href="/projet/modifier_projet/{{numSIREN_asso}}/{{id_projet}}" class="btn btn-secondary" role="button">Modifier</a>
+            <button class="btn btn-danger" type="submit" role="button">Supprimer</button>
+          </form>
+          {{else}}
+          <span><a href="/projet/fiche_projet/{{numSIREN_asso}}/{{id_projet}}" class="btn btn-success" role="button">Voir plus</a></span>
+          {{/Admin}}
+
+        </div>
+      </div>
+
+      {{else}}
+      <div class="col-md-4 mx-auto">
+        <div class="card card-body text-center">
+          <p>Aucun projet ne correspond à votre recherche</p>
+        </div>
+      </div>
+      {{/each}}
+
+    </div>
+  </div>
+</main>

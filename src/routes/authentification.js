@@ -4,6 +4,8 @@ const pool = require('../database')
 const helpers = require('../lib/helpers')
 const passport = require('passport')
 const dateFormat = require('dateformat')
+const methodOverride = require('method-override')
+router.use(methodOverride('_method'))
 
 const multer = require('multer')
 // const image = multer({dest: 'src/public/images/profils/'})
@@ -88,8 +90,6 @@ router.post('/modifier/:id_personne', isLoggedIn, isNotAdmin, async (req, res)=>
   var { prenom_personne, nom_personne, date_naissance_personne, adresse_personne,
      CP_personne, ville_personne, email_personne, mdp_personne, photo_personne } = req.body
 
-  console.log(date_naissance_personne);
-
    var d = new Date()
    d.setDate(parseInt(date_naissance_personne.substring(0,2)))
    d.setMonth(parseInt(date_naissance_personne.substring(3,5))-1)
@@ -117,7 +117,7 @@ router.post('/modifier/:id_personne', isLoggedIn, isNotAdmin, async (req, res)=>
 })
 
 //Delete personne
-router.get('/supprimer/:id_personne', isLoggedIn, isNotAdmin, async (req, res) =>{
+router.delete('/supprimer/:id_personne', isLoggedIn, isNotAdmin, async (req, res) =>{
   const { id_personne } = req.params
   await pool.query('DELETE FROM personne WHERE id_personne=?', [id_personne])
   global.variable_globale = 0;

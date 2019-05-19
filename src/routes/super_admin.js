@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const pool = require('../database')
 const helpers = require('../lib/helpers')
+const methodOverride = require('method-override')
+router.use(methodOverride('_method'))
 
 const passport = require('passport')
 const { isLoggedIn, isNotLoggedIn, isSuperAdmin, isAdmin } = require('../lib/auth')
@@ -129,6 +131,11 @@ router.post('/ajout_association', isSuperAdmin, async (req, res)=> {
     const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
     if ( association[0] !== undefined){
       req.flash('message', 'Numéro SIREN non disponible')
+      res.redirect('../super_administrateur/ajout_association')
+    }
+    const email = await pool.query('SELECT * FROM association WHERE email_asso=?', [email_asso])
+    if ( email[0] !== undefined){
+      req.flash('message', 'Email non disponible')
       res.redirect('../super_administrateur/ajout_association')
     }
     else{
@@ -271,7 +278,7 @@ router.get('/ajout_pays/:numSIREN_asso', isAdmin, async (req, res)=> {
 router.post('/ajout_pays/:numSIREN_asso', isAdmin, async (req, res)=> {
   const {numSIREN_asso} = req.params
   var { nom_pays } = req.body
-  console.log(nom_pays);
+
   const pays = await pool.query('SELECT * FROM pays WHERE upper(nom_pays)=upper(?)', [nom_pays])
 
   if(pays[0] === undefined){
@@ -288,7 +295,7 @@ router.post('/ajout_pays/:numSIREN_asso', isAdmin, async (req, res)=> {
 
 
 //Delete association
-router.get('/supprimer/:numSIREN_asso', isSuperAdmin, async (req, res) =>{
+router.delete('/supprimer/:numSIREN_asso', isSuperAdmin, async (req, res) =>{
   const { numSIREN_asso } = req.params
   await pool.query('DELETE FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
 

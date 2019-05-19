@@ -302,7 +302,16 @@ router.post('/criteres_pays', isNotAdmin, async (req, res) =>{
 router.get('/liste_projet', async (req, res)=> {
   const projets = await pool.query('SELECT * FROM projet')
 
-  res.render('projet/liste_projet', {projets: projets})
+  //for project search criteria - only associations which did projects
+  const projet_asso = await pool.query('SELECT DISTINCT numSIREN_asso FROM projet')
+  var associations = []
+  var tmp
+  for (var i = 0; i < projet_asso.length; i++) {
+    tmp = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [parseInt(projet_asso[i].numSIREN_asso)])
+    associations[i]=tmp[0]
+  }
+
+  res.render('projet/liste_projet', {projets: projets, associations})
 })
 
 //send mail for joining

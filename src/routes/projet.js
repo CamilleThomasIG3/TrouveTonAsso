@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const dateFormat = require('dateformat')
+const methodOverride = require('method-override')
+router.use(methodOverride('_method'))
 
 const pool = require('../database')
 const helpers = require('../lib/helpers')
@@ -12,7 +14,10 @@ router.get('/:numSIREN_asso', isAdmin, isGoodAsso, async (req, res)=> {
 
   const projets = await pool.query('SELECT * FROM projet WHERE numSIREN_asso=?', [numSIREN_asso])
 
-  res.render('projet/liste_projet', { numSIREN_asso: numSIREN_asso, projets: projets})
+  //for project search criteria
+  const associations = await pool.query('SELECT * FROM association')
+
+  res.render('projet/liste_projet', { numSIREN_asso: numSIREN_asso, projets: projets, associations})
 })
 
 //Display view "fiche_projet"
@@ -21,13 +26,14 @@ router.get('/fiche_projet/:numSIREN_asso/:id_projet', async (req, res)=> {
 
   var projet = await pool.query('SELECT * FROM projet WHERE id_projet=?', [id_projet])
   const pays = await pool.query('SELECT * FROM pays WHERE id_pays=?', [projet[0].id_pays])
+  const association = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [numSIREN_asso])
 
   const nb = projet[0].nbre_participant_necessaire_projet - projet[0].nbre_participant_actuel_projet
 
   projet[0].date_fin_projet = dateFormat(projet[0].date_fin_projet, 'dd/mm/yyyy')
   projet[0].date_debut_projet = dateFormat(projet[0].date_debut_projet, 'dd/mm/yyyy')
 
-  res.render('projet/fiche_projet', { numSIREN_asso, projet: projet[0], pays: pays[0].nom_pays, nb})
+  res.render('projet/fiche_projet', { numSIREN_asso, projet: projet[0], pays: pays[0].nom_pays, nb, association: association[0] })
 })
 
 //Display view "ajout_projet"
@@ -152,9 +158,63 @@ router.post('/modifier_projet/:numSIREN_asso/:id_projet', isAdmin, isGoodAsso, a
   res.redirect('/projet/'+numSIREN_asso)
 })
 
+//Display project search
+router.post('/recherche', async (req, res) =>{
+  var {recherche} = req.body
+  const projet_recherche = await pool.query("SELECT * FROM projet WHERE lower(titre_projet) LIKE lower('%"+recherche+"%')")
+
+  //for project search criteria - only associations which did projects
+  const projet_asso = await pool.query('SELECT DISTINCT numSIREN_asso FROM projet')
+  var associations = []
+  var tmp
+  for (var i = 0; i < projet_asso.length; i++) {
+    tmp = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [parseInt(projet_asso[i].numSIREN_asso)])
+    associations[i]=tmp[0]
+  }
+
+  res.render('projet/recherche', {projet_recherche, recherche, associations})
+})
+
+//Display project search
+router.post('/criteres', async (req, res) =>{
+  const criteres = req.body
+
+  if(criteres === undefined){
+    req.flash('message',"Vous n'avez coché aucune association")
+    res.redirect('/liste_projet')
+  }
+  else{
+    var array = Object.keys(criteres)
+
+    var projet_recherche = []
+    var recherche = []
+    var tmp
+    var cmp = 0
+    for (var i = 0; i < array.length; i++) {
+      recherche = await pool.query('SELECT * FROM projet WHERE numSIREN_asso=?', [parseInt(array[i])])
+      for (var j = 0; j < recherche.length; j++) {
+        tmp = await pool.query('SELECT * FROM projet WHERE id_projet=?', [parseInt(recherche[j].id_projet)])
+        projet_recherche[cmp]=tmp[0]
+        cmp+=1
+      }
+    }
+
+    //for project search criteria - only associations which did projects
+    const projet_asso = await pool.query('SELECT DISTINCT numSIREN_asso FROM projet')
+    var associations = []
+    var tmp
+    for (var i = 0; i < projet_asso.length; i++) {
+      tmp = await pool.query('SELECT * FROM association WHERE numSIREN_asso=?', [parseInt(projet_asso[i].numSIREN_asso)])
+      associations[i]=tmp[0]
+    }
+
+    res.render('projet/recherche', { associations, projet_recherche})
+  }
+})
+
 
 //Delete project
-router.get('/supprimer_projet/:numSIREN_asso/:id_projet', isAdmin, isGoodAsso, async (req, res)=> {
+router.delete('/supprimer_projet/:numSIREN_asso/:id_projet', isAdmin, isGoodAsso, async (req, res)=> {
   const { numSIREN_asso, id_projet } = req.params
   await pool.query('DELETE FROM projet WHERE numSIREN_asso=? AND id_projet=?', [numSIREN_asso, id_projet])
   req.flash('success', "Projet supprimé avec succès")

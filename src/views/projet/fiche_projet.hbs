@@ -24,6 +24,11 @@
           </div>
 
           <ul class="list-group list-group-flush">
+            {{#notAdmin}}
+            <li class="list-group-item"><span id="entete">
+              <span>Association : <a href="/fiche/{{association.numSIREN_asso}}">{{association.nom_asso}}</a></span>
+            </li>
+            {{/notAdmin}}
             <li class="list-group-item"><span id="entete">Pays d'action : </span>{{pays}}</li>
 
             <li class="list-group-item"><span id="entete">Nombre de participants nécessaires : </span>{{projet.nbre_participant_necessaire_projet}}</li>

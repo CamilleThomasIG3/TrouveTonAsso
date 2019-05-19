@@ -99,6 +99,11 @@ body{
 	float:left;
 }
 
+.titre_criteres{
+	margin-bottom: 1em;
+	font-weight: 500;
+}
+
 
 /*Navbar*/
 #header{
@@ -455,5 +460,10 @@ body{
 #erreur_img{
 	width: 10em;
 	margin-left: 45%;
+	margin-bottom: 2em;
+}
+
+#but_asso{
+	margin-left: 2em;
 	margin-bottom: 2em;
 }

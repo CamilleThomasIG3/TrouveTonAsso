@@ -85,25 +85,22 @@ passport.use('local.signup', new LocalStrategy ({
 }, async (req, email_personne, mdp_personne, done) =>{
   var { prenom_personne, nom_personne, date_naissance_personne, adresse_personne,
     CP_personne, ville_personne, photo_personne, mdp_personne2 } = req.body
-console.log('la');
+
   if (photo_personne === ""){
     photo_personne = "anonyme.png"
   }
   photo_personne = "/images/profils/"+photo_personne
-console.log('ici');
+
   const personne =  await pool.query('SELECT * FROM personne WHERE email_personne = ?', [email_personne])
 
   if (personne[0] !== undefined){ //email already exists
-    console.log('here');
     done(null, false, req.flash('message', "Cet email n'est pas disponible"))
   }
   else{
     if(mdp_personne !== mdp_personne2){
-      console.log('tre');
       done(null, false, req.flash('message', "La confirmation de mot de passe ne correspond pas à votre mot de passe"))
     }
     else {
-      console.log('tut');
       const newPersonne = {
         email_personne,
         mdp_personne,
@@ -115,7 +112,6 @@ console.log('ici');
         ville_personne,
         photo_personne
       }
-      console.log('rere');
       newPersonne.mdp_personne = await helpers.encryptPassword(mdp_personne)
       const result = await pool.query('INSERT INTO personne SET ?', [newPersonne])
       newPersonne.id_personne = result.insertId

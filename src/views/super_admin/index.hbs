@@ -16,6 +16,10 @@
 
         </div>
 
+        <div class="row">
+          <a href="/super_administrateur/ajout_association" class="btn btn-success" id="but_asso">Créer une association</a>
+        </div>
+
         {{#each association}}
         <div class="media asso">
           <div class="media-left media-middle">
@@ -24,9 +28,12 @@
           <div class="media-body">
             <h4 class="media-heading">{{nom_asso}}</h4>
             <p class="truncate">{{description_asso}}</p>
-            <span><a href="fiche/{{this.numSIREN_asso}}" class="btn btn-success" role="button">Voir plus</a></span>
-            <span><a href="modifier/{{this.numSIREN_asso}}" class="btn btn-secondary" role="button">Modifier</a></span>
-            <span><a href="supprimer/{{this.numSIREN_asso}}" class="btn btn-danger" role="button">Supprimer</a></span>
+            <form action="supprimer/{{this.numSIREN_asso}}?_method=DELETE" method="post">
+              <span><a href="fiche/{{this.numSIREN_asso}}" class="btn btn-success" role="button">Voir plus</a></span>
+              <span><a href="modifier/{{this.numSIREN_asso}}" class="btn btn-secondary" role="button">Modifier</a></span>
+              <input type="hidden" name="_method" value="delete"/>
+              <button class="btn btn-danger" type="submit" role="button">Supprimer</button>
+            </form>
           </div>
         </div>
 
@@ -37,7 +44,5 @@
           </div>
         </div>
         {{/each}}
-
-          <a href="/super_administrateur/ajout_association" class="btn btn-success">Créer une association</a>
       </div>
 </main>
