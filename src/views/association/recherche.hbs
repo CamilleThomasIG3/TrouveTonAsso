@@ -1,8 +1,10 @@
 <main class="index">
 
+  {{#notAdmin}}
   {{> caroussel}}
+  {{/notAdmin}}
 
-  <div class="container-fluid p-4">
+  <div class="container-fluid line1 p-4">
 
     <div class="row">
       <form action="/recherche" class="navbar-form" method="post" id="recherche">
@@ -12,6 +14,7 @@
         </button>
       </form>
 
+      {{#notAdmin}}
       <div class="dropdown" id="affichage_criteres_dropdown">
         <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Critères
           <span class="caret"></span></button>
@@ -67,8 +70,10 @@
                   {{/if}}
             </ul>
         </div>
+        {{/notAdmin}}
       </div>
 
+      {{#notAdmin}}
       <div class="col-md-2" id="affichage_criteres_div">
         <h4 class="titre_criteres">Recherche par critères</h4>
 
@@ -125,8 +130,17 @@
       </div>
 
       <div class="container col-md-10" id="liste_asso">
+        {{else}}
+        <div class="container">
+        {{/notAdmin}}
 
-        <div class="">
+        {{#SuperAdmin}}
+        <div class="row">
+          <p class="retour"><a href="/super_administrateur/" class="btn btn-secondary" role="button"><span class="glyphicon glyphicon-arrow-left"></span><span> Retour</span></a></p>
+        </div>
+        {{/SuperAdmin}}
+
+        <div>
           <h1 class="titres">Résultat de la recherche : {{recherche}}</h1>
         </div>
 
@@ -139,7 +153,11 @@
             <h4 class="media-heading">{{nom_asso}}</h4>
             <p class="truncate">{{description_asso}}</p>
             <div class="form-group voir_plus">
-              <a href="/fiche/{{association.numSIREN_asso}}" class="btn btn-success btn-block">Voir plus</a>
+              {{#notAdmin}}
+              <a href="/fiche/{{numSIREN_asso}}" class="btn btn-success btn-block">Voir plus</a>
+              {{else}}
+              <a href="/super_administrateur/fiche/{{numSIREN_asso}}" class="btn btn-success btn-block">Voir plus</a>
+              {{/notAdmin}}
             </div>
           </div>
         </div>

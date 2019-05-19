@@ -7,38 +7,14 @@ const dateFormat = require('dateformat')
 const methodOverride = require('method-override')
 router.use(methodOverride('_method'))
 
-const multer = require('multer')
-// const image = multer({dest: 'src/public/images/profils/'})
-
 const { isLoggedIn, isNotLoggedIn, isNotAdmin} = require('../lib/auth')
-
-//
-// const storage = multer.diskStorage({
-//   destination: function(req, file, cb){
-//     console.log(file)
-//     cb(null, 'src/public/images/profils')
-//   },
-//   filename: function(req, file, cb){
-//     cb(null, file.originalName)
-//   }
-// })
-//
-// const fileFilter = (req, file, cb) =>{
-//   if(file.mimetype === 'image/jpeg' || file.mimetype === 'image/png'){
-//     cb(null, true)
-//   }else{
-//     cb(null, false)
-//   }
-// }
-//
-// const upload = multer({storage: storage, fileFilter: fileFilter})
 
 // Connexion user
 router.get('/inscription', isNotLoggedIn, isNotAdmin, (req, res) => {
   res.render('authentification/inscription')
 })
 
-router.post('/inscription', /*image.single('profilImage'),*/ isNotLoggedIn, isNotAdmin, passport.authenticate('local.signup', {
+router.post('/inscription', isNotLoggedIn, isNotAdmin, passport.authenticate('local.signup', {
   successRedirect: '/profil',
   failureRedirect: '/inscription',
   failureFlash: true
