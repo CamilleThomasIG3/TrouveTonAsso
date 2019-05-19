@@ -84,12 +84,9 @@ passport.use('local.signup', new LocalStrategy ({
   passReqToCallback: true
 }, async (req, email_personne, mdp_personne, done) =>{
   var { prenom_personne, nom_personne, date_naissance_personne, adresse_personne,
-    CP_personne, ville_personne, photo_personne, mdp_personne2 } = req.body
+    CP_personne, ville_personne, mdp_personne2 } = req.body
 
-  if (photo_personne === ""){
-    photo_personne = "anonyme.png"
-  }
-  photo_personne = "/images/profils/"+photo_personne
+  const photo_personne = "/images/profils/anonyme.png"
 
   const personne =  await pool.query('SELECT * FROM personne WHERE email_personne = ?', [email_personne])
 

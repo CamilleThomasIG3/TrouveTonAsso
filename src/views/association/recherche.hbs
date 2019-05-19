@@ -144,7 +144,8 @@
           <h1 class="titres">Résultat de la recherche : {{recherche}}</h1>
         </div>
 
-        {{#each association_recherche}}
+
+        {{#each association}}
         <div class="media asso">
           <div class="media-left media-middle">
               <img class="media-object logo" src="{{logo_asso}}" alt="Logo {{nom_asso}}" id="logo_assos">
@@ -152,15 +153,37 @@
           <div class="media-body">
             <h4 class="media-heading">{{nom_asso}}</h4>
             <p class="truncate">{{description_asso}}</p>
-            <div class="form-group voir_plus">
-              {{#notAdmin}}
-              <a href="/fiche/{{numSIREN_asso}}" class="btn btn-success btn-block">Voir plus</a>
-              {{else}}
-              <a href="/super_administrateur/fiche/{{numSIREN_asso}}" class="btn btn-success btn-block">Voir plus</a>
-              {{/notAdmin}}
+            <span><a href="fiche/{{this.numSIREN_asso}}" class="btn btn-success" role="button">Voir plus</a></span>
+            {{#Admin}}
+            <span><a href="modifier/{{this.numSIREN_asso}}" class="btn btn-secondary" role="button">Modifier</a></span>
+
+            <!-- Open modal -->
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal{{numSIREN_asso}}">Supprimer</button>
+
+            <!-- Modal -->
+            <div id="myModal{{numSIREN_asso}}" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title titres">Suppression d'une association</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>Etes-vous sûr de vouloir supprimer cette association ?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <form action="super_administrateur/supprimer/{{this.numSIREN_asso}}?_method=DELETE" method="post">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Abandonner</button>
+                      <input type="hidden" name="_method" value="delete"/>
+                      <button class="btn btn-danger" type="submit">Supprimer</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        {{/Admin}}
 
         {{else}}
         <div class="col-md-4 mx-auto">

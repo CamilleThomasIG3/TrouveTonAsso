@@ -17,11 +17,32 @@
           <h4 class="media-heading">{{this.prenom_personne}} {{this.nom_personne}}</h4>
           <p class="truncate">{{this.libelle_poste}}</p>
           <p class="truncate">{{this.email_personne}}</p>
-          <form action="../supprimer_membre/{{this.numSIREN_asso}}/{{this.id_personne}}?_method=DELETE" method="post">
-            <input type="hidden" name="_method" value="delete"/>
-            <span><a href="../modifier_membre/{{this.numSIREN_asso}}/{{this.id_personne}}" class="btn btn-secondary" role="button">Modifier</a></span>
-            <button class="btn btn-danger" type="submit" role="button">Supprimer</button>
-          </form>
+
+          <!-- Open modal -->
+          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal{{id_personne}}">Supprimer</button>
+
+          <!-- Modal -->
+          <div id="myModal{{id_personne}}" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title titres">Suppression d'un membre</h4>
+                </div>
+                <div class="modal-body">
+                  <p>Etes-vous sûr de vouloir supprimer ce membre ?</p>
+                </div>
+                <div class="modal-footer">
+                  <form action="../supprimer_membre/{{this.numSIREN_asso}}/{{this.id_personne}}?_method=DELETE" method="post">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Abandonner</button>
+                    <input type="hidden" name="_method" value="delete"/>
+                    <button class="btn btn-danger" type="submit">Supprimer</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
 

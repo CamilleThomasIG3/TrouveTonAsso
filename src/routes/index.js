@@ -324,7 +324,7 @@ router.get('/participer/:numSIREN_asso/:titre_projet/:email_personne', isLoggedI
   var mail = {
     from: "trouve.ton.asso.projet.2019@gmail.com",
     to: ""+association[0].email_asso,
-    subject: "[Trouve Ton Asso] Demande d'adhésion",
+    subject: "[Trouve Ton Asso] Demande de participation "+titre_projet,
     html: "Bonjour "+association[0].nom_asso+",\n"+personne[0].prenom_personne+" "+personne[0].nom_personne
     +" souhaite participer à votre projet "+ titre_projet+". \nVoici son email afin que vous puissiez échanger : "+personne[0].email_personne
   }

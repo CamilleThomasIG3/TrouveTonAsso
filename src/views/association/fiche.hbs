@@ -90,7 +90,27 @@
           {{#notAdmin}}
             <div id="adherer">
               {{#if personne.email_personne}}
-              <p><a href="/adherer/{{association.numSIREN_asso}}/{{personne.email_personne}}" class="btn btn-success" role="button">Demande d'adhésion</a></p>
+              <!-- Open modal -->
+              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Demande d'adhésion</button>
+
+              <!-- Modal -->
+              <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title titres">Demande d'adhésion</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p>Etes-vous sûr de vouloir adhérer à {{association.nom_asso}} ?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Abandonner</button>
+                      <a href="/adherer/{{association.numSIREN_asso}}/{{personne.email_personne}}" class="btn btn-success" role="button">Adhérer</a>                    </div>
+                  </div>
+                </div>
+              </div>
+
               {{/if}}
               <p id="adherer_p">Pour faire une demande d'adhésion à {{association.nom_asso}} vous devez être connecté<p>
             </div>

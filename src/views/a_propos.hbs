@@ -31,8 +31,27 @@
                 <div class="form-group">
                   <textarea name="message"  class="form-control" placeholder="Message..." rows="8" cols="80"></textarea>
                 </div>
-                <div class="form-group">
-                  <button class="btn btn-success btn-block">Envoyer</button>
+
+                <!-- Open modal -->
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Envoyer</button>
+
+                <!-- Modal -->
+                <div id="myModal" class="modal fade" role="dialog">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title titres">Envoie d'un email</h4>
+                      </div>
+                      <div class="modal-body">
+                        <p>Etes-vous sûr de vouloir envoyer cet email ?</p>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Abandonner</button>
+                        <button class="btn btn-success" type="submit">Envoyer</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </form>
 

@@ -192,6 +192,7 @@ router.post('/ajout_poste/:numSIREN_asso', isAdmin, isGoodAsso, async (req, res)
 //Delete membre
 router.delete('/supprimer_membre/:numSIREN_asso/:id_personne', isAdmin, isGoodAsso, async (req, res)=> {
   const { numSIREN_asso, id_personne } = req.params
+  console.log(id_personne);
   await pool.query('DELETE FROM etre_membre WHERE numSIREN_asso=? AND id_personne=?', [numSIREN_asso, id_personne])
   req.flash('success', "Membre supprimé avec succès")
   res.redirect('/association/membres/'+numSIREN_asso)

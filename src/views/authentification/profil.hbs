@@ -30,11 +30,35 @@
         	  		</tr>
         	  	</table>
 
-          <form action="/supprimer/{{personne.id_personne}}?_method=DELETE" method="post">
-            <input type="hidden" name="_method" value="delete"/>
             <a href="/modifier/{{personne.id_personne}}" class="btn btn-secondary" role="button">Modifier</a>
-            <button class="btn btn-danger" type="submit" role="button">Supprimer</button>
-          </form>
+            <!-- Open modal -->
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Supprimer</button>
+
+            <!-- Modal -->
+            <div id="myModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title titres">Suppression de votre compte</h4>
+                  </div>
+                  <div class="modal-body">
+                    <p>Etes-vous sûr de vouloir supprimer votre compte ?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <form action="/supprimer/{{personne.id_personne}}?_method=DELETE" method="post">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Abandonner</button>
+                      <input type="hidden" name="_method" value="delete"/>
+                      <button type="submit" class="btn btn-danger">Supprimer</button>
+                    </form>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+
+
         </div>
       </div>
     </div>

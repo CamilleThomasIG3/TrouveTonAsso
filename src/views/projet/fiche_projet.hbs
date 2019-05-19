@@ -60,7 +60,29 @@
           {{else}}
             <div id="adherer">
               {{#if personne.email_personne}}
-              <p><a href="/participer/{{projet.numSIREN_asso}}/{{projet.titre_projet}}/{{personne.email_personne}}" class="btn btn-success" role="button">Demande de participation</a></p>
+
+              <!-- Open modal -->
+              <button type="button" class="btn btn-success" data-toggle="modal" data-target="#myModal">Demande de participation</button>
+
+              <!-- Modal -->
+              <div id="myModal" class="modal fade" role="dialog">
+                <div class="modal-dialog">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal">&times;</button>
+                      <h4 class="modal-title titres">Demande de participation</h4>
+                    </div>
+                    <div class="modal-body">
+                      <p>Etes-vous sûr de vouloir participer ?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-default" data-dismiss="modal">Abandonner</button>
+                      <a href="/participer/{{projet.numSIREN_asso}}/{{projet.titre_projet}}/{{personne.email_personne}}" class="btn btn-success" role="button">Participer</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
               {{/if}}
               <p id="adherer_p">Pour faire une demande de participation vous devez être connecté<p>
             </div>
