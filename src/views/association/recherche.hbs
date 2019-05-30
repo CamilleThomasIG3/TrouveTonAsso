@@ -42,7 +42,7 @@
                   <form action="/criteres_arrondissement" class="navbar-form" method="post">
                     {{#each arrondissement}}
                     <div class="form-check criteres_check">
-                      <input type="checkbox" name="arrondissement{{arrondissement_asso}}" class="form-check-input" id="check{{arrondissement_asso}}">
+                      <input type="checkbox" name="{{arrondissement_asso}}" class="form-check-input" id="check{{arrondissement_asso}}">
                       <label class="form-check-label" for="check{{arrondissement_asso}}">{{arrondissement_asso}}</label>
                     </div>
                     {{/each}}
@@ -59,7 +59,7 @@
                     <form action="/criteres_pays" class="navbar-form" method="post">
                     {{#each pays}}
                     <div class="form-check criteres_check">
-                      <input type="checkbox" name="pays{{id_pays}}" class="form-check-input" id="check{{id_pays}}">
+                      <input type="checkbox" name="{{id_pays}}" class="form-check-input" id="check{{id_pays}}">
                       <label class="form-check-label" for="check{{id_pays}}">{{nom_pays}}</label>
                     </div>
                     {{/each}}
@@ -100,7 +100,7 @@
               <form action="/criteres_arrondissement" class="navbar-form" method="post">
                 {{#each arrondissement}}
                 <div class="form-check">
-                  <input type="checkbox" name="arrondissement{{arrondissement_asso}}" class="form-check-input" id="check{{arrondissement_asso}}">
+                  <input type="checkbox" name="{{arrondissement_asso}}" class="form-check-input" id="check{{arrondissement_asso}}">
                   <label class="form-check-label" for="check{{arrondissement_asso}}">{{arrondissement_asso}}</label>
                 </div>
                 {{/each}}
@@ -117,7 +117,7 @@
               <form action="/criteres_pays" class="navbar-form" method="post">
               {{#each pays}}
               <div class="form-check">
-                <input type="checkbox" name="pays{{id_pays}}" class="form-check-input" id="check{{id_pays}}">
+                <input type="checkbox" name="{{id_pays}}" class="form-check-input" id="check{{id_pays}}">
                 <label class="form-check-label" for="check{{id_pays}}">{{nom_pays}}</label>
               </div>
               {{/each}}
@@ -181,9 +181,9 @@
                 </div>
               </div>
             </div>
+            {{/Admin}}
           </div>
         </div>
-        {{/Admin}}
 
         {{else}}
         <div class="col-md-4 mx-auto">
