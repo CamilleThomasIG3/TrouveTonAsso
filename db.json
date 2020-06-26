@@ -1,7 +1,0 @@
-{
-    "users": [
-      { "id": 1, "email": "camille@camille.fr" },
-      { "id": 2, "email": "thomas@thomas.fr" },
-      { "id": 3, "email": "user@user.fr" }
-    ]
-}
